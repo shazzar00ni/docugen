@@ -1,0 +1,142 @@
+# AGENTS.md
+
+This document provides guidelines for AI agents working in the DocuGen codebase.
+
+## Project Overview
+
+DocuGen is a modern landing page for a developer tool that converts documentation into static websites. Built with React + Vite + TypeScript + Tailwind CSS.
+
+## Build Commands
+
+```bash
+npm run dev          # Start development server on port 3000
+npm run build        # Production build (runs TypeScript check + Vite build)
+npm run preview      # Preview production build locally
+npm run lint         # Run ESLint with strict rules
+```
+
+## Code Style Guidelines
+
+### Imports
+
+- Use absolute imports from `src/` (configured in `tsconfig.json`)
+- Organize imports in this order: React → external dependencies → internal components/utils
+- No default exports for components (use named exports only)
+
+### TypeScript
+
+- Enable strict mode: `strict: true` in `tsconfig.json`
+- No `any` types - use explicit types or `unknown` with type guards
+- Use interface for object types, type for unions/primitives
+- Generics: use descriptive letter names (`T`, `K`, `V`) or descriptive names (`Item`, `Key`)
+
+### Naming Conventions
+
+- **Components**: PascalCase (e.g., `HeroSection`, `PricingCard`)
+- **Files**: PascalCase for components, camelCase for utilities (e.g., `utils.ts`)
+- **Variables/functions**: camelCase (e.g., `handleSubmit`, `isLoading`)
+- **Constants**: SCREAMING_SNAKE_CASE (e.g., `SITE_CONFIG`)
+- **CSS Classes**: Use meaningful names, avoid abbreviations
+
+### Component Structure
+
+```typescript
+// 1. Imports (React, then external, then internal)
+// 2. Types/interfaces
+// 3. Constants
+// 4. Helper functions
+// 5. Main component
+// 6. Named exports
+```
+
+### Tailwind CSS
+
+- Use design system colors from `tailwind.config.js` (e.g., `text-dark-100`, `bg-teal-600`)
+- Dark mode first: default dark colors, use `dark:` prefix for light mode if needed
+- Avoid arbitrary values (`[...]`) - extend theme instead
+- Use semantic color names: `text-dark-300` for secondary text, `text-teal-400` for accents
+- Consistent spacing: use `4`, `6`, `8`, `12`, `16` scale
+- Responsive: `sm:`, `md:`, `lg:` prefixes
+
+### Framer Motion Animations
+
+- Use for entrance animations only (fade-in, slide-up)
+- Keep duration: `0.5s` for most, `0.6s` for complex
+- Stagger children: `delay: index * 0.1`
+- Viewport options: `viewport={{ once: true }}` for landing pages
+- No complex gesture animations on landing page
+
+### Error Handling
+
+- Use TypeScript for runtime errors (avoid `try/catch` with empty catch)
+- Form validation: inline or with simple state, no external libraries
+- Network errors: display user-friendly messages
+
+### File Organization
+
+```
+src/
+├── components/
+│   ├── ui/              # Reusable base components (Button, Input, Container)
+│   ├── sections/        # Page sections (Hero, Features, Pricing)
+│   └── *.tsx            # Standalone components
+├── data/
+│   └── content.ts       # All text copy, site config, constants
+├── lib/
+│   └── utils.ts         # Helper functions
+├── App.tsx              # Root component
+└── main.tsx             # Entry point
+```
+
+### Copy & Content
+
+- All text in `src/data/content.ts` - never hardcode in components
+- Developer-focused tone: confident, technical, no marketing fluff
+- No lorem ipsum - use realistic placeholder text
+- Use "you/your" for direct address
+
+### Responsive Design
+
+- Mobile-first approach
+- Breakpoints: `sm: 640px`, `md: 768px`, `lg: 1024px`
+- Test on: iPhone SE, iPad, laptop, desktop
+
+### Performance
+
+- Use `React.memo()` for expensive components (none currently)
+- Lazy load sections if needed (not needed for landing page)
+- Optimize images with WebP/AVIF formats
+
+## Testing
+
+This is a landing page with no authentication or backend. Test:
+
+1. All navigation links anchor correctly
+2. Forms show success state (mocked)
+3. Animations trigger on scroll (viewport)
+4. Responsive breakpoints work
+
+## Deployment
+
+- Deploy to Vercel: zero-config with `vite.config.ts`
+- Static output: `npm run build` generates `dist/` folder
+- Custom domain: configure in Vercel dashboard
+
+## Editor Setup
+
+Recommended VS Code settings in `.vscode/settings.json`:
+
+```json
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "typescript.preferences.importModuleSpecifier": "non-relative"
+}
+```
+
+## Additional Notes
+
+- Design system: Teal (#14b8a6) accent color
+- Default font: Inter (sans-serif), JetBrains Mono for code
+- Dark mode default: `class="dark"` on `<html>` element
+- Animations: Subtle and professional, no bouncing or spring effects
