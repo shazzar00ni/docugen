@@ -2,18 +2,18 @@
 
 This document provides guidelines for AI agents working in the DocuGen codebase.
 
-## Project Overview
-
-DocuGen is a modern landing page for a developer tool that converts documentation into static websites. Built with React + Vite + TypeScript + Tailwind CSS.
-
 ## Build Commands
 
 ```bash
 npm run dev          # Start development server on port 3000
-npm run build        # Production build (runs TypeScript check + Vite build)
+npm run build        # TypeScript check + Vite build (run before committing)
 npm run preview      # Preview production build locally
-npm run lint         # Run ESLint with strict rules
+npm run lint         # Run ESLint with strict rules (fails on warnings)
 ```
+
+## Project Overview
+
+DocuGen is a modern landing page for a developer tool that converts documentation into static websites. Built with React + Vite + TypeScript + Tailwind CSS.
 
 ## Code Style Guidelines
 
@@ -109,12 +109,13 @@ src/
 
 ## Testing
 
-This is a landing page with no authentication or backend. Test:
+This is a landing page with no authentication or backend. No test framework is configured. Verify manually:
 
 1. All navigation links anchor correctly
 2. Forms show success state (mocked)
 3. Animations trigger on scroll (viewport)
 4. Responsive breakpoints work
+5. Run `npm run build` to verify TypeScript compiles without errors
 
 ## Deployment
 
@@ -140,3 +141,4 @@ Recommended VS Code settings in `.vscode/settings.json`:
 - Default font: Inter (sans-serif), JetBrains Mono for code
 - Dark mode default: `class="dark"` on `<html>` element
 - Animations: Subtle and professional, no bouncing or spring effects
+- Commit hook: `npm run lint` and `npm run build` run pre-commit
