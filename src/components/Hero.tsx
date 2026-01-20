@@ -2,6 +2,7 @@ import { Container } from './ui/Container'
 import { Button } from './ui/Button'
 import { HERO_COPY } from '../data/content'
 import { motion } from 'framer-motion'
+import { UploadDemo } from './UploadDemo'
 
 export function Hero() {
   return (
@@ -42,7 +43,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
           >
             <Button size="lg">
               {HERO_COPY.primaryCTA}
@@ -58,6 +59,8 @@ export function Hero() {
               {HERO_COPY.secondaryCTA}
             </Button>
           </motion.div>
+
+          <UploadDemo />
         </div>
       </Container>
 
