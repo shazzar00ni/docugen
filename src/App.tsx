@@ -3,6 +3,7 @@ import { Navbar } from './components/Navbar'
 import { Hero } from './components/Hero'
 import { HowItWorks } from './components/HowItWorks'
 import { Footer } from './components/Footer'
+import { ScrollToTop } from './components/ScrollToTop'
 
 const Features = lazy(() => import('./components/Features').then(module => ({ default: module.Features })))
 const Testimonials = lazy(() => import('./components/Testimonials').then(module => ({ default: module.Testimonials })))
@@ -42,6 +43,7 @@ function App() {
         </Suspense>
       </main>
       <Footer />
+      <ScrollToTop />
     </div>
   )
 }
