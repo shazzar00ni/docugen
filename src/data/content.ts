@@ -98,6 +98,27 @@ export const NEWSLETTER_COPY = {
   button: 'Subscribe',
 }
 
+export const TESTIMONIALS = [
+  {
+    quote: "DocuGen saved me hours of work setting up documentation for my open source project. The AI structuring is incredible.",
+    author: 'Sarah Chen',
+    role: 'Maintainer',
+    company: 'Vercel',
+  },
+  {
+    quote: "Finally, a docs tool that doesn't feel like fighting with configuration. Just drop your files and you're done.",
+    author: 'Marcus Johnson',
+    role: 'Senior Developer',
+    company: 'Stripe',
+  },
+  {
+    quote: "The output quality is professional enough that our enterprise customers are impressed. Best decision we made this year.",
+    author: 'Elena Rodriguez',
+    role: 'CTO',
+    company: 'Linear',
+  },
+]
+
 export const FOOTER_COPY = {
   tagline: 'Documentation made beautiful, fast, and simple.',
   copyright: `© ${new Date().getFullYear()} DocuGen. All rights reserved.`,
