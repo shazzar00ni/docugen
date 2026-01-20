@@ -1,5 +1,6 @@
 import { Container } from './ui/Container'
 import { Button } from './ui/Button'
+import { MobileMenu } from './MobileMenu'
 import { NAV_LINKS, SITE } from '../data/content'
 
 export function Navbar() {
@@ -37,6 +38,7 @@ export function Navbar() {
             <Button variant="primary" size="sm">
               Get Early Access
             </Button>
+            <MobileMenu />
           </div>
         </div>
       </Container>

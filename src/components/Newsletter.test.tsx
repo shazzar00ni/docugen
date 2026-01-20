@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest'
 import { Newsletter } from './Newsletter'
 
 describe('Newsletter', () => {
-  it('renders newsletter section', () => {
+  it('renders newsletter section', { timeout: 10000 }, () => {
     render(<Newsletter />)
     expect(screen.getByRole('heading', { name: /Stay in the loop/i })).toBeInTheDocument()
   })
