@@ -1,12 +1,22 @@
+import { Suspense, lazy } from 'react'
 import { Navbar } from './components/Navbar'
 import { Hero } from './components/Hero'
 import { HowItWorks } from './components/HowItWorks'
-import { Features } from './components/Features'
-import { Testimonials } from './components/Testimonials'
-import { Preview } from './components/Preview'
-import { Pricing } from './components/Pricing'
-import { Newsletter } from './components/Newsletter'
 import { Footer } from './components/Footer'
+
+const Features = lazy(() => import('./components/Features').then(module => ({ default: module.Features })))
+const Testimonials = lazy(() => import('./components/Testimonials').then(module => ({ default: module.Testimonials })))
+const Preview = lazy(() => import('./components/Preview').then(module => ({ default: module.Preview })))
+const Pricing = lazy(() => import('./components/Pricing').then(module => ({ default: module.Pricing })))
+const Newsletter = lazy(() => import('./components/Newsletter').then(module => ({ default: module.Newsletter })))
+
+function Loading() {
+  return (
+    <div className="py-20 text-center">
+      <div className="inline-block w-8 h-8 border-2 border-teal-500 border-t-transparent rounded-full animate-spin" />
+    </div>
+  )
+}
 
 function App() {
   return (
@@ -15,11 +25,21 @@ function App() {
       <main>
         <Hero />
         <HowItWorks />
-        <Features />
-        <Testimonials />
-        <Preview />
-        <Pricing />
-        <Newsletter />
+        <Suspense fallback={<Loading />}>
+          <Features />
+        </Suspense>
+        <Suspense fallback={<Loading />}>
+          <Testimonials />
+        </Suspense>
+        <Suspense fallback={<Loading />}>
+          <Preview />
+        </Suspense>
+        <Suspense fallback={<Loading />}>
+          <Pricing />
+        </Suspense>
+        <Suspense fallback={<Loading />}>
+          <Newsletter />
+        </Suspense>
       </main>
       <Footer />
     </div>
