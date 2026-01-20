@@ -9,6 +9,8 @@ npm run dev          # Start development server on port 3000
 npm run build        # TypeScript check + Vite build (run before committing)
 npm run preview      # Preview production build locally
 npm run lint         # Run ESLint with strict rules (fails on warnings)
+npm run test         # Run Vitest in watch mode
+npm run test:run     # Run Vitest once (CI mode)
 ```
 
 ## Project Overview
@@ -109,13 +111,25 @@ src/
 
 ## Testing
 
-This is a landing page with no authentication or backend. No test framework is configured. Verify manually:
+Vitest + React Testing Library configured. Tests live alongside components with `.test.tsx` extension.
 
+```bash
+npm run test         # Watch mode
+npm run test:run     # Run once (CI mode)
+```
+
+Writing tests:
+- Place test files next to components: `src/components/ui/Button.test.tsx`
+- Use `render()` and `screen` from `@testing-library/react`
+- Mock `IntersectionObserver` for framer-motion viewport animations
+- Run `npm run test:run` before committing
+
+Verify manually:
 1. All navigation links anchor correctly
 2. Forms show success state (mocked)
 3. Animations trigger on scroll (viewport)
 4. Responsive breakpoints work
-5. Run `npm run build` to verify TypeScript compiles without errors
+5. Run `npm run test:run` to verify all tests pass
 
 ## Deployment
 
