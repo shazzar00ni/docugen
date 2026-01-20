@@ -5,16 +5,40 @@ import { NEWSLETTER_COPY } from '../data/content'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 
+const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+  return emailRegex.test(email)
+}
+
 export function Newsletter() {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState('')
+  const [touched, setTouched] = useState(false)
+
+  const handleBlur = () => {
+    setTouched(true)
+    if (email && !isValidEmail(email)) {
+      setError('Please enter a valid email address')
+    } else {
+      setError('')
+    }
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (email) {
+    setTouched(true)
+    if (email && isValidEmail(email)) {
       setSubmitted(true)
+      setError('')
+    } else if (!email) {
+      setError('Email is required')
+    } else {
+      setError('Please enter a valid email address')
     }
   }
+
+  const showError = touched && error
 
   return (
     <section className="py-20 bg-dark-900/30">
@@ -35,13 +59,31 @@ export function Newsletter() {
 
           {!submitted ? (
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <Input
-                type="email"
-                placeholder={NEWSLETTER_COPY.placeholder}
-                value={email}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-                className="flex-1"
-              />
+              <div className="flex-1 text-left">
+                <Input
+                  type="email"
+                  placeholder={NEWSLETTER_COPY.placeholder}
+                  value={email}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setEmail(e.target.value)
+                    if (touched && e.target.value && !isValidEmail(e.target.value)) {
+                      setError('Please enter a valid email address')
+                    } else if (touched && !e.target.value) {
+                      setError('Email is required')
+                    } else {
+                      setError('')
+                    }
+                  }}
+                  onBlur={handleBlur}
+                  className={`${showError ? '!border-red-500 focus:!ring-red-500' : ''}`}
+                  {...(showError ? { 'aria-invalid': true, 'aria-describedby': 'email-error' } : {})}
+                />
+                {showError && (
+                  <p id="email-error" className="text-red-500 text-sm mt-1" role="alert">
+                    {error}
+                  </p>
+                )}
+              </div>
               <Button type="submit">
                 {NEWSLETTER_COPY.button}
               </Button>

@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import { describe, it, expect, testTimeout } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { MobileMenu } from './MobileMenu'
 
 describe('MobileMenu', () => {

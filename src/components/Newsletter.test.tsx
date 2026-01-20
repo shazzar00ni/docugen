@@ -48,4 +48,37 @@ describe('Newsletter', () => {
 
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument()
   })
+
+  it('shows error for invalid email format', () => {
+    render(<Newsletter />)
+    const input = screen.getByRole('textbox')
+    const button = screen.getByRole('button')
+
+    fireEvent.change(input, { target: { value: 'invalid-email' } })
+    fireEvent.blur(input)
+    fireEvent.click(button)
+
+    expect(screen.getByText(/Please enter a valid email address/i)).toBeInTheDocument()
+  })
+
+  it('shows error when submitting empty email', () => {
+    render(<Newsletter />)
+    const button = screen.getByRole('button')
+
+    fireEvent.click(button)
+
+    expect(screen.getByText(/Email is required/i)).toBeInTheDocument()
+  })
+
+  it('does not show error for valid email', () => {
+    render(<Newsletter />)
+    const input = screen.getByRole('textbox')
+    const button = screen.getByRole('button')
+
+    fireEvent.change(input, { target: { value: 'test@example.com' } })
+    fireEvent.blur(input)
+    fireEvent.click(button)
+
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  })
 })
