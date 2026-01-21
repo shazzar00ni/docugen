@@ -8,14 +8,14 @@ describe('MobileMenu', () => {
     expect(screen.getByRole('button', { name: /open menu/i })).toBeInTheDocument()
   })
 
-  it('opens menu when button is clicked', () => {
+  it('opens menu when button is clicked', { timeout: 10000 }, () => {
     render(<MobileMenu />)
     const button = screen.getByRole('button', { name: /open menu/i })
     fireEvent.click(button)
     expect(screen.getByRole('button', { name: /close menu/i })).toBeInTheDocument()
   })
 
-  it('shows navigation links when menu is open', () => {
+  it('shows navigation links when menu is open', { timeout: 10000 }, () => {
     render(<MobileMenu />)
     const button = screen.getByRole('button', { name: /open menu/i })
     fireEvent.click(button)

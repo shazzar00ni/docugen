@@ -160,7 +160,7 @@ An FAQ section would help answer common questions potential users might have abo
 - `src/data/content.ts`
 - `src/App.tsx`
 
-**Status:** ⏳ PENDING
+**Status:** ✅ COMPLETED
 
 ---
 
