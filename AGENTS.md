@@ -119,12 +119,14 @@ npm run test:run     # Run once (CI mode)
 ```
 
 Writing tests:
+
 - Place test files next to components: `src/components/ui/Button.test.tsx`
 - Use `render()` and `screen` from `@testing-library/react`
 - Mock `IntersectionObserver` for framer-motion viewport animations
 - Run `npm run test:run` before committing
 
 Verify manually:
+
 1. All navigation links anchor correctly
 2. Forms show success state (mocked)
 3. Animations trigger on scroll (viewport)

@@ -16,6 +16,7 @@ This document contains detailed issue proposals for the DocuGen project. These c
 Currently, DocuGen defaults to dark mode. While the dark theme is visually appealing, some users prefer light mode, especially during daytime use or for accessibility reasons.
 
 **Acceptance Criteria:**
+
 - [ ] Add a theme toggle button (sun/moon icon) to the Navbar component
 - [ ] Implement theme state management using React context or local state
 - [ ] Persist theme preference in localStorage
@@ -24,11 +25,13 @@ Currently, DocuGen defaults to dark mode. While the dark theme is visually appea
 - [ ] Add smooth transition animation when switching themes
 
 **Technical Notes:**
+
 - Tailwind CSS supports dark mode via the `dark:` prefix
 - Consider using `prefers-color-scheme` media query for system preference detection
 - Store preference in localStorage with key like `docugen-theme`
 
 **Files to Modify:**
+
 - `src/components/Navbar.tsx`
 - `tailwind.config.js`
 - `src/App.tsx`
@@ -46,6 +49,7 @@ Currently, DocuGen defaults to dark mode. While the dark theme is visually appea
 The current navigation bar doesn't have a mobile-friendly hamburger menu. On smaller screens, the navigation links may overflow or become difficult to access.
 
 **Acceptance Criteria:**
+
 - [x] Create a hamburger menu icon that appears on mobile breakpoints (< 768px)
 - [x] Implement a slide-out or dropdown menu for mobile navigation
 - [x] Add smooth open/close animations using Framer Motion
@@ -53,11 +57,13 @@ The current navigation bar doesn't have a mobile-friendly hamburger menu. On sma
 - [x] Maintain keyboard accessibility (escape to close, focus trap)
 
 **Technical Notes:**
+
 - Use Framer Motion's `AnimatePresence` for enter/exit animations
 - Consider a full-screen overlay on mobile for better UX
 - Hide desktop nav links and show hamburger icon using Tailwind responsive prefixes
 
 **Files to Modify:**
+
 - `src/components/Navbar.tsx`
 - `src/components/MobileMenu.tsx` ✅ CREATED
 
@@ -75,6 +81,7 @@ The current navigation bar doesn't have a mobile-friendly hamburger menu. On sma
 When users scroll down the landing page, it would be helpful to have a floating button that smoothly scrolls them back to the top.
 
 **Acceptance Criteria:**
+
 - [x] Create a floating button that appears after scrolling 300px down
 - [x] Button should fade in/out smoothly
 - [x] Implement smooth scroll to top on click
@@ -82,14 +89,17 @@ When users scroll down the landing page, it would be helpful to have a floating 
 - [x] Match existing design system (teal accent color, dark background)
 
 **Technical Notes:**
+
 - Use `window.scrollY` in a scroll event listener or Intersection Observer
 - Use `window.scrollTo({ top: 0, behavior: 'smooth' })` for scrolling
 - Add entrance/exit animations with Framer Motion
 
 **Files to Create:**
+
 - `src/components/ScrollToTop.tsx` ✅ CREATED
 
 **Files to Modify:**
+
 - `src/App.tsx` ✅ MODIFIED
 
 **Status:** ✅ COMPLETED
@@ -106,6 +116,7 @@ When users scroll down the landing page, it would be helpful to have a floating 
 Adding a testimonials section would increase trust and social proof for potential users. This section should display quotes from developers who have used DocuGen.
 
 **Acceptance Criteria:**
+
 - [x] Create a new `Testimonials.tsx` component
 - [x] Design cards that display quote, author name, role, and company/avatar
 - [x] Add responsive grid layout (1 column mobile, 2-3 columns desktop)
@@ -113,14 +124,17 @@ Adding a testimonials section would increase trust and social proof for potentia
 - [x] Add testimonial content to `src/data/content.ts`
 
 **Design Considerations:**
+
 - Consider a carousel/slider for mobile to save vertical space
 - Use subtle quote icons or decorative elements
 - Maintain dark theme consistency
 
 **Files to Create:**
+
 - `src/components/Testimonials.tsx` ✅ CREATED
 
 **Files to Modify:**
+
 - `src/data/content.ts` ✅ MODIFIED
 - `src/App.tsx` ✅ MODIFIED
 
@@ -138,6 +152,7 @@ Adding a testimonials section would increase trust and social proof for potentia
 An FAQ section would help answer common questions potential users might have about DocuGen, reducing support inquiries and improving conversion.
 
 **Acceptance Criteria:**
+
 - [ ] Create expandable/collapsible FAQ items with accordion behavior
 - [ ] Only one item should be expanded at a time (optional: allow multiple)
 - [ ] Add smooth expand/collapse animations
@@ -145,6 +160,7 @@ An FAQ section would help answer common questions potential users might have abo
 - [ ] Ensure keyboard accessibility (Enter/Space to toggle)
 
 **Suggested FAQ Topics:**
+
 1. What file formats does DocuGen support?
 2. Is there a free tier?
 3. Can I use my own domain?
@@ -154,9 +170,11 @@ An FAQ section would help answer common questions potential users might have abo
 7. How is my data stored and protected?
 
 **Files to Create:**
+
 - `src/components/FAQ.tsx`
 
 **Files to Modify:**
+
 - `src/data/content.ts`
 - `src/App.tsx`
 
@@ -174,6 +192,7 @@ An FAQ section would help answer common questions potential users might have abo
 To showcase DocuGen's core functionality, add an interactive demo area where users can drag and drop Markdown files to see a preview of the documentation generation process.
 
 **Acceptance Criteria:**
+
 - [x] Create a drop zone UI component with dashed border and upload icon
 - [x] Implement drag-and-drop file handling (HTML5 Drag and Drop API)
 - [x] Accept `.md`, `.mdx` file types only
@@ -182,14 +201,17 @@ To showcase DocuGen's core functionality, add an interactive demo area where use
 - [x] Add "or click to browse" fallback for clicking
 
 **Technical Notes:**
+
 - Use `onDragOver`, `onDragEnter`, `onDragLeave`, `onDrop` events
 - Consider using `react-dropzone` library for robust implementation
 - This is a demo only—no backend processing required
 
 **Files to Create:**
+
 - `src/components/UploadDemo.tsx` ✅ CREATED
 
 **Files to Modify:**
+
 - `src/components/Hero.tsx` ✅ MODIFIED
 
 **Status:** ✅ COMPLETED
@@ -206,11 +228,13 @@ To showcase DocuGen's core functionality, add an interactive demo area where use
 Add skeleton loading states for components to improve perceived performance, especially if real data fetching is added in the future.
 
 **Acceptance Criteria:**
+
 - [x] Create reusable `Skeleton` component with pulse animation
 - [x] Implement skeleton variants: text line, card, image
 - [x] Match dark theme colors (dark-800/dark-700 gradient animation)
 
 **Files to Create:**
+
 - `src/components/ui/Skeleton.tsx` ✅ CREATED
 
 **Status:** ✅ COMPLETED
@@ -227,6 +251,7 @@ Add skeleton loading states for components to improve perceived performance, esp
 For legal compliance (GDPR, CCPA), the landing page should include a cookie consent banner that allows users to accept or manage cookie preferences.
 
 **Acceptance Criteria:**
+
 - [ ] Create a cookie consent banner that appears on first visit
 - [ ] Include options to accept all cookies or manage preferences
 - [ ] Store consent preference in localStorage
@@ -234,9 +259,11 @@ For legal compliance (GDPR, CCPA), the landing page should include a cookie cons
 - [ ] Include link to Privacy Policy
 
 **Files to Create:**
+
 - `src/components/CookieConsent.tsx`
 
 **Files to Modify:**
+
 - `src/App.tsx`
 
 ---
@@ -253,15 +280,18 @@ For legal compliance (GDPR, CCPA), the landing page should include a cookie cons
 When clicking navigation links (Features, How it Works, Pricing), the page scrolls but the section header might be hidden behind the fixed navbar.
 
 **Acceptance Criteria:**
+
 - [x] Add appropriate scroll-padding-top to account for navbar height
 - [x] Or implement JavaScript smooth scroll with offset calculation
 - [x] Test on all anchor links in navigation
 
 **Solution Options:**
+
 1. CSS: Add `scroll-padding-top` to the `<html>` element
 2. JS: Use `scrollIntoView` with offset calculation
 
 **Files to Modify:**
+
 - `index.html` ✅ MODIFIED (added style="scroll-padding-top: 80px")
 
 **Status:** ✅ COMPLETED
@@ -278,6 +308,7 @@ When clicking navigation links (Features, How it Works, Pricing), the page scrol
 The current newsletter form only checks if the email field is not empty. It should validate that the input is a properly formatted email address.
 
 **Acceptance Criteria:**
+
 - [x] Add regex-based email validation
 - [x] Show inline error message for invalid emails
 - [x] Prevent form submission if email is invalid
@@ -285,9 +316,11 @@ The current newsletter form only checks if the email field is not empty. It shou
 - [ ] Consider adding rate limiting or debounce for validation
 
 **Technical Notes:**
+
 - Consider using the HTML5 `email` input type's built-in validation as a first layer
 - For more robust validation, consider using a library like `validator.js` or `email-validator`
 - Basic regex example (note: no regex can perfectly validate emails per RFC 5322):
+
 ```typescript
 // Simple validation - catches most common issues
 const isValidEmail = (email: string): boolean => {
@@ -295,9 +328,11 @@ const isValidEmail = (email: string): boolean => {
   return emailRegex.test(email);
 };
 ```
+
 - For production, recommend using `email.includes('@') && email.split('@')[1]?.includes('.')` combined with HTML5 validation
 
 **Files to Modify:**
+
 - `src/components/Newsletter.tsx` ✅ MODIFIED
 - `src/components/ui/Input.tsx` ✅ MODIFIED (added onBlur and aria props)
 
@@ -315,6 +350,7 @@ const isValidEmail = (email: string): boolean => {
 Ensure the landing page is fully accessible to users with screen readers and keyboard navigation.
 
 **Acceptance Criteria:**
+
 - [x] Add `aria-label` attributes to icon-only buttons
 - [x] Ensure all interactive elements are keyboard accessible
 - [ ] Add proper heading hierarchy (h1, h2, h3 in order)
@@ -324,6 +360,7 @@ Ensure the landing page is fully accessible to users with screen readers and key
 - [ ] Add skip-to-content link
 
 **Files to Modify:**
+
 - `src/components/Navbar.tsx` ✅ MODIFIED
 - `src/components/Hero.tsx` ✅ MODIFIED
 - `src/components/Features.tsx` ✅ MODIFIED
@@ -344,6 +381,7 @@ Ensure the landing page is fully accessible to users with screen readers and key
 Review the current bundle size and implement optimizations to improve initial load time and Lighthouse performance score.
 
 **Acceptance Criteria:**
+
 - [x] Run `npm run build` and analyze bundle size
 - [x] Implement code splitting for non-critical components
 - [x] Lazy load below-the-fold sections
@@ -352,6 +390,7 @@ Review the current bundle size and implement optimizations to improve initial lo
 - [ ] Consider preloading critical assets
 
 **Technical Notes:**
+
 ```typescript
 // Lazy loading example (in src/App.tsx)
 import { lazy, Suspense } from 'react';
@@ -367,6 +406,7 @@ const Pricing = lazy(() => import('./components/Pricing'));
 ```
 
 **Files to Modify:**
+
 - `src/App.tsx` ✅ MODIFIED (implemented code splitting)
 - `src/main.tsx`
 - `index.html`
@@ -385,6 +425,7 @@ const Pricing = lazy(() => import('./components/Pricing'));
 Add proper meta tags for search engine optimization and social media sharing.
 
 **Acceptance Criteria:**
+
 - [x] Add meta description tag
 - [x] Add Open Graph tags (og:title, og:description, og:image, og:url)
 - [x] Add Twitter Card meta tags
@@ -394,6 +435,7 @@ Add proper meta tags for search engine optimization and social media sharing.
 - [ ] Add favicon in multiple sizes
 
 **Files to Modify:**
+
 - `index.html` ✅ MODIFIED (added og: and twitter: meta tags)
 
 **Status:** ✅ COMPLETED
@@ -410,15 +452,18 @@ Add proper meta tags for search engine optimization and social media sharing.
 Add an Error Boundary component to catch JavaScript errors anywhere in the component tree and display a fallback UI instead of crashing the entire app.
 
 **Acceptance Criteria:**
+
 - [ ] Create ErrorBoundary class component
 - [ ] Design a friendly fallback UI with retry option
 - [ ] Log errors for debugging (console in dev, could integrate with service in prod)
 - [ ] Wrap main App content with ErrorBoundary
 
 **Files to Create:**
+
 - `src/components/ErrorBoundary.tsx`
 
 **Files to Modify:**
+
 - `src/App.tsx`
 
 ---
@@ -435,6 +480,7 @@ Add an Error Boundary component to catch JavaScript errors anywhere in the compo
 Create a contributing guide to help new contributors understand how to contribute to the project.
 
 **Acceptance Criteria:**
+
 - [ ] Create `CONTRIBUTING.md` file
 - [ ] Include sections on:
   - How to set up the development environment
@@ -444,6 +490,7 @@ Create a contributing guide to help new contributors understand how to contribut
   - Code of conduct reference
 
 **Files to Create:**
+
 - `CONTRIBUTING.md`
 
 ---
@@ -458,11 +505,13 @@ Create a contributing guide to help new contributors understand how to contribut
 Add a code of conduct to establish community standards and expectations for contributor behavior.
 
 **Acceptance Criteria:**
+
 - [ ] Create `CODE_OF_CONDUCT.md`
 - [ ] Consider adopting Contributor Covenant
 - [ ] Include enforcement guidelines and contact information
 
 **Files to Create:**
+
 - `CODE_OF_CONDUCT.md`
 
 ---
@@ -477,12 +526,14 @@ Add a code of conduct to establish community standards and expectations for cont
 Set up Storybook to document and showcase UI components in isolation, making it easier for developers to understand and use the design system.
 
 **Acceptance Criteria:**
+
 - [ ] Install and configure Storybook for React/Vite
 - [ ] Create stories for all UI components (Button, Input, Container)
 - [ ] Document component props and variants
 - [ ] Add usage examples
 
 **Dependencies to Add:**
+
 - `@storybook/react`
 - `@storybook/builder-vite`
 
@@ -500,6 +551,7 @@ Set up Storybook to document and showcase UI components in isolation, making it 
 Currently, the project has no testing framework configured. Set up Vitest (which integrates well with Vite) for unit and component testing.
 
 **Acceptance Criteria:**
+
 - [x] Install Vitest and testing libraries
 - [x] Configure Vitest in `vite.config.ts`
 - [x] Add test scripts to `package.json`
@@ -508,17 +560,20 @@ Currently, the project has no testing framework configured. Set up Vitest (which
 - [x] Add a sample component test
 
 **Dependencies to Add:**
+
 - [x] `vitest`
 - [x] `@testing-library/react`
 - [x] `@testing-library/jest-dom`
 - [x] `jsdom`
 
 **Files to Create:**
+
 - `src/lib/utils.test.ts`
 - `src/components/ui/Button.test.tsx` ✅ CREATED
 - `src/test/setup.ts` ✅ CREATED
 
 **Files to Modify:**
+
 - `package.json` ✅ MODIFIED
 - `vite.config.ts` ✅ MODIFIED
 
@@ -536,6 +591,7 @@ Currently, the project has no testing framework configured. Set up Vitest (which
 Add end-to-end tests using Playwright to ensure the landing page works correctly across different browsers.
 
 **Acceptance Criteria:**
+
 - [ ] Install and configure Playwright
 - [ ] Create tests for:
   - Page loads correctly
@@ -546,9 +602,11 @@ Add end-to-end tests using Playwright to ensure the landing page works correctly
 - [ ] Configure CI to run E2E tests
 
 **Dependencies to Add:**
+
 - `@playwright/test`
 
 **Files to Create:**
+
 - `playwright.config.ts`
 - `e2e/landing.spec.ts`
 
@@ -568,6 +626,7 @@ Add end-to-end tests using Playwright to ensure the landing page works correctly
 Implement a GitHub Actions workflow to automatically lint, build, and test the project on every pull request.
 
 **Acceptance Criteria:**
+
 - [x] Create `.github/workflows/ci.yml`
 - [x] Run linting on PRs
 - [x] Run TypeScript type checking
@@ -576,6 +635,7 @@ Implement a GitHub Actions workflow to automatically lint, build, and test the p
 - [x] Cache node_modules for faster CI runs
 
 **Files to Create:**
+
 - `.github/workflows/ci.yml` ✅ CREATED
 
 **Status:** ✅ COMPLETED
@@ -592,6 +652,7 @@ Implement a GitHub Actions workflow to automatically lint, build, and test the p
 Add Prettier to enforce consistent code formatting across the project.
 
 **Acceptance Criteria:**
+
 - [ ] Install Prettier
 - [ ] Create `.prettierrc` configuration file
 - [ ] Create `.prettierignore` file
@@ -600,14 +661,17 @@ Add Prettier to enforce consistent code formatting across the project.
 - [ ] Format existing codebase
 
 **Dependencies to Add:**
+
 - `prettier`
 - `eslint-config-prettier`
 
 **Files to Create:**
+
 - `.prettierrc`
 - `.prettierignore`
 
 **Files to Modify:**
+
 - `package.json`
 - `.eslintrc.cjs`
 
@@ -623,6 +687,7 @@ Add Prettier to enforce consistent code formatting across the project.
 Implement pre-commit hooks to automatically lint and format code before commits, ensuring code quality.
 
 **Acceptance Criteria:**
+
 - [ ] Install Husky and lint-staged
 - [ ] Configure pre-commit hook to run lint-staged
 - [ ] Run ESLint on staged `.ts` and `.tsx` files
@@ -630,14 +695,17 @@ Implement pre-commit hooks to automatically lint and format code before commits,
 - [ ] Document setup in README
 
 **Dependencies to Add:**
+
 - `husky`
 - `lint-staged`
 
 **Files to Create:**
+
 - `.husky/pre-commit`
 - `.lintstagedrc`
 
 **Files to Modify:**
+
 - `package.json`
 
 ---
@@ -652,12 +720,14 @@ Implement pre-commit hooks to automatically lint and format code before commits,
 Set up Dependabot to automatically create PRs for dependency updates, keeping the project secure and up-to-date.
 
 **Acceptance Criteria:**
+
 - [ ] Create `.github/dependabot.yml`
 - [ ] Configure weekly npm dependency updates
 - [ ] Set appropriate reviewers and labels
 - [ ] Consider grouping minor/patch updates
 
 **Files to Create:**
+
 - `.github/dependabot.yml`
 
 ---
@@ -674,17 +744,20 @@ Set up Dependabot to automatically create PRs for dependency updates, keeping th
 Add a subtle animated gradient background to the hero section to create more visual interest and depth.
 
 **Acceptance Criteria:**
+
 - [ ] Create animated gradient using CSS or Framer Motion
 - [ ] Ensure animation is subtle and not distracting
 - [ ] Optimize for performance (use GPU-accelerated properties)
 - [ ] Consider reduced-motion preference for accessibility
 
 **Technical Notes:**
+
 - Use CSS `@keyframes` with `background-position` animation
 - Or use Framer Motion for more complex animations
 - Respect `prefers-reduced-motion` media query
 
 **Files to Modify:**
+
 - `src/components/Hero.tsx`
 - `src/index.css`
 
@@ -700,15 +773,18 @@ Add a subtle animated gradient background to the hero section to create more vis
 Add social media sharing buttons to allow users to easily share DocuGen with their networks.
 
 **Acceptance Criteria:**
+
 - [ ] Create ShareButtons component with Twitter, LinkedIn, and copy link options
 - [ ] Position in footer or as floating sidebar
 - [ ] Include appropriate sharing URLs and pre-filled text
 - [ ] Add hover effects consistent with design system
 
 **Files to Create:**
+
 - `src/components/ShareButtons.tsx`
 
 **Files to Modify:**
+
 - `src/components/Footer.tsx` or `src/App.tsx`
 
 ---
@@ -725,6 +801,7 @@ Add social media sharing buttons to allow users to easily share DocuGen with the
 Document the recommended security headers for production deployment and provide configuration examples.
 
 **Acceptance Criteria:**
+
 - [ ] Document recommended headers in README or deployment docs:
   - Content-Security-Policy
   - X-Frame-Options
@@ -735,6 +812,7 @@ Document the recommended security headers for production deployment and provide 
 - [ ] Provide Netlify configuration example (`_headers`)
 
 **Files to Create:**
+
 - `vercel.json` (or document in README)
 
 ---
@@ -749,12 +827,14 @@ Document the recommended security headers for production deployment and provide 
 Add a security policy document to provide guidelines for reporting security vulnerabilities.
 
 **Acceptance Criteria:**
+
 - [ ] Create `SECURITY.md`
 - [ ] Include supported versions
 - [ ] Provide clear instructions for reporting vulnerabilities
 - [ ] Define expected response time and disclosure policy
 
 **Files to Create:**
+
 - `SECURITY.md`
 
 ---
@@ -771,6 +851,7 @@ Add a security policy document to provide guidelines for reporting security vuln
 Add support for privacy-respecting analytics to track page views and user interactions without compromising user privacy.
 
 **Acceptance Criteria:**
+
 - [ ] Create optional analytics wrapper component
 - [ ] Support for popular privacy-focused options:
   - Plausible Analytics
@@ -780,9 +861,11 @@ Add support for privacy-respecting analytics to track page views and user intera
 - [ ] Ensure analytics are not loaded if not configured
 
 **Files to Create:**
+
 - `src/components/Analytics.tsx`
 
 **Files to Modify:**
+
 - `src/App.tsx`
 - `README.md`
 
@@ -790,17 +873,17 @@ Add support for privacy-respecting analytics to track page views and user intera
 
 ## Summary
 
-| Category | Issue Count | Completed |
-|----------|-------------|-----------|
-| Feature Requests | 8 | 5 |
-| Bug Fixes/Improvements | 6 | 4 |
-| Documentation | 3 | 0 |
-| Testing | 2 | 1 |
-| DevOps & Tooling | 4 | 1 |
-| Design & UX | 2 | 0 |
-| Security | 2 | 0 |
-| Analytics | 1 | 0 |
-| **Total** | **28** | **11** |
+| Category               | Issue Count | Completed |
+| ---------------------- | ----------- | --------- |
+| Feature Requests       | 8           | 5         |
+| Bug Fixes/Improvements | 6           | 4         |
+| Documentation          | 3           | 0         |
+| Testing                | 2           | 1         |
+| DevOps & Tooling       | 4           | 1         |
+| Design & UX            | 2           | 0         |
+| Security               | 2           | 0         |
+| Analytics              | 1           | 0         |
+| **Total**              | **28**      | **11**    |
 
 ### Completed Issues ✅
 
@@ -820,6 +903,7 @@ Add support for privacy-respecting analytics to track page views and user intera
 ### Priority Matrix
 
 **High Priority:**
+
 - Issue #2: Mobile Navigation Menu ✅
 - Issue #11: Accessibility Improvements ⚠️ (partial)
 - Issue #13: SEO Optimization ✅
@@ -827,6 +911,7 @@ Add support for privacy-respecting analytics to track page views and user intera
 - Issue #20: CI/CD Pipeline ✅
 
 **Medium Priority:**
+
 - Issue #4: Testimonials Section ✅
 - Issue #6: File Upload Demo ✅
 - Issue #10: Email Validation ✅
@@ -835,6 +920,7 @@ Add support for privacy-respecting analytics to track page views and user intera
 - Issue #26: Security Headers ⏳
 
 **Good First Issues (for new contributors):**
+
 - Issue #1: Dark/Light Mode Toggle ⏳
 - Issue #3: Scroll-to-Top Button ✅
 - Issue #5: FAQ Section ⏳

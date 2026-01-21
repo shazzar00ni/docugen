@@ -40,20 +40,14 @@ export class ErrorBoundary extends Component<Props, State> {
       return (
         <Container className="py-16">
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-dark-100 mb-4">
-              Something went wrong
-            </h2>
+            <h2 className="text-2xl font-bold text-dark-100 mb-4">Something went wrong</h2>
             <p className="text-dark-300 mb-6">
               We encountered an unexpected error. Please try again.
             </p>
             {this.state.error && (
-              <p className="text-sm text-dark-500 mb-6 font-mono">
-                {this.state.error.message}
-              </p>
+              <p className="text-sm text-dark-500 mb-6 font-mono">{this.state.error.message}</p>
             )}
-            <Button onClick={this.handleRetry}>
-              Try Again
-            </Button>
+            <Button onClick={this.handleRetry}>Try Again</Button>
           </div>
         </Container>
       );

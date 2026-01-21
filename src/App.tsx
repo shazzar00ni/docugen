@@ -1,23 +1,33 @@
-import { Suspense, lazy } from 'react'
-import { Navbar } from './components/Navbar'
-import { Hero } from './components/Hero'
-import { HowItWorks } from './components/HowItWorks'
-import { Footer } from './components/Footer'
-import { ScrollToTop } from './components/ScrollToTop'
-import { FAQ } from './components/FAQ'
+import { Suspense, lazy } from 'react';
+import { Navbar } from './components/Navbar';
+import { Hero } from './components/Hero';
+import { HowItWorks } from './components/HowItWorks';
+import { Footer } from './components/Footer';
+import { ScrollToTop } from './components/ScrollToTop';
+import { FAQ } from './components/FAQ';
 
-const Features = lazy(() => import('./components/Features').then(module => ({ default: module.Features })))
-const Testimonials = lazy(() => import('./components/Testimonials').then(module => ({ default: module.Testimonials })))
-const Preview = lazy(() => import('./components/Preview').then(module => ({ default: module.Preview })))
-const Pricing = lazy(() => import('./components/Pricing').then(module => ({ default: module.Pricing })))
-const Newsletter = lazy(() => import('./components/Newsletter').then(module => ({ default: module.Newsletter })))
+const Features = lazy(() =>
+  import('./components/Features').then(module => ({ default: module.Features }))
+);
+const Testimonials = lazy(() =>
+  import('./components/Testimonials').then(module => ({ default: module.Testimonials }))
+);
+const Preview = lazy(() =>
+  import('./components/Preview').then(module => ({ default: module.Preview }))
+);
+const Pricing = lazy(() =>
+  import('./components/Pricing').then(module => ({ default: module.Pricing }))
+);
+const Newsletter = lazy(() =>
+  import('./components/Newsletter').then(module => ({ default: module.Newsletter }))
+);
 
 function Loading() {
   return (
     <div className="py-20 text-center">
       <div className="inline-block w-8 h-8 border-2 border-teal-500 border-t-transparent rounded-full animate-spin" />
     </div>
-  )
+  );
 }
 
 function App() {
@@ -47,7 +57,7 @@ function App() {
       <Footer />
       <ScrollToTop />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,13 +1,13 @@
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Container } from './ui/Container'
-import { FAQ_COPY, FAQS } from '../data/content'
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Container } from './ui/Container';
+import { FAQ_COPY, FAQS } from '../data/content';
 
 interface FAQItemProps {
-  question: string
-  answer: string
-  isOpen: boolean
-  onClick: () => void
+  question: string;
+  answer: string;
+  isOpen: boolean;
+  onClick: () => void;
 }
 
 function FAQItem({ question, answer, isOpen, onClick }: FAQItemProps) {
@@ -18,9 +18,7 @@ function FAQItem({ question, answer, isOpen, onClick }: FAQItemProps) {
         className="w-full py-5 flex items-center justify-between text-left focus:outline-none"
         aria-expanded={isOpen}
       >
-        <span className="text-lg font-medium text-dark-100 pr-4">
-          {question}
-        </span>
+        <span className="text-lg font-medium text-dark-100 pr-4">{question}</span>
         <motion.svg
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2 }}
@@ -41,34 +39,28 @@ function FAQItem({ question, answer, isOpen, onClick }: FAQItemProps) {
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <p className="pb-5 text-dark-400 leading-relaxed">
-              {answer}
-            </p>
+            <p className="pb-5 text-dark-400 leading-relaxed">{answer}</p>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
-  )
+  );
 }
 
 export function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0)
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const handleClick = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index)
-  }
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
   return (
     <section id="faq" className="py-20 bg-dark-900/30">
       <Container>
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-dark-50 mb-4">
-              {FAQ_COPY.title}
-            </h2>
-            <p className="text-lg text-dark-400">
-              {FAQ_COPY.description}
-            </p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-dark-50 mb-4">{FAQ_COPY.title}</h2>
+            <p className="text-lg text-dark-400">{FAQ_COPY.description}</p>
           </div>
 
           <div className="bg-dark-900/50 border border-dark-800 rounded-xl overflow-hidden">
@@ -85,5 +77,5 @@ export function FAQ() {
         </div>
       </Container>
     </section>
-  )
+  );
 }

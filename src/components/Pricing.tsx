@@ -1,7 +1,7 @@
-import { Container } from './ui/Container'
-import { Button } from './ui/Button'
-import { PRICING_COPY } from '../data/content'
-import { motion } from 'framer-motion'
+import { Container } from './ui/Container';
+import { Button } from './ui/Button';
+import { PRICING_COPY } from '../data/content';
+import { motion } from 'framer-motion';
 
 export function Pricing() {
   return (
@@ -22,18 +22,14 @@ export function Pricing() {
             <h2 className="text-3xl sm:text-4xl font-bold text-dark-50 mb-4">
               {PRICING_COPY.title}
             </h2>
-            <p className="text-lg text-dark-400">
-              {PRICING_COPY.description}
-            </p>
+            <p className="text-lg text-dark-400">{PRICING_COPY.description}</p>
           </div>
 
           <div className="bg-dark-900 border border-dark-800 rounded-2xl p-8 max-w-md mx-auto">
             <div className="text-center mb-8">
               <div className="text-5xl font-bold text-dark-50 mb-2">
                 {PRICING_COPY.price}
-                <span className="text-lg text-dark-400 font-normal">
-                  {PRICING_COPY.period}
-                </span>
+                <span className="text-lg text-dark-400 font-normal">{PRICING_COPY.period}</span>
               </div>
               <p className="text-dark-400">During beta period</p>
             </div>
@@ -41,8 +37,18 @@ export function Pricing() {
             <ul className="space-y-4 mb-8">
               {PRICING_COPY.features.map((feature, index) => (
                 <li key={index} className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-teal-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  <svg
+                    className="w-5 h-5 text-teal-500 flex-shrink-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
                   </svg>
                   <span className="text-dark-300">{feature}</span>
                 </li>
@@ -56,5 +62,5 @@ export function Pricing() {
         </motion.div>
       </Container>
     </section>
-  )
+  );
 }

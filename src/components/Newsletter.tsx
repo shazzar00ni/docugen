@@ -1,44 +1,44 @@
-import { Container } from './ui/Container'
-import { Button } from './ui/Button'
-import { Input } from './ui/Input'
-import { NEWSLETTER_COPY } from '../data/content'
-import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { Container } from './ui/Container';
+import { Button } from './ui/Button';
+import { Input } from './ui/Input';
+import { NEWSLETTER_COPY } from '../data/content';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 const isValidEmail = (email: string): boolean => {
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-  return emailRegex.test(email)
-}
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailRegex.test(email);
+};
 
 export function Newsletter() {
-  const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState('')
-  const [touched, setTouched] = useState(false)
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
+  const [touched, setTouched] = useState(false);
 
   const handleBlur = () => {
-    setTouched(true)
+    setTouched(true);
     if (email && !isValidEmail(email)) {
-      setError('Please enter a valid email address')
+      setError('Please enter a valid email address');
     } else {
-      setError('')
+      setError('');
     }
-  }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setTouched(true)
+    e.preventDefault();
+    setTouched(true);
     if (email && isValidEmail(email)) {
-      setSubmitted(true)
-      setError('')
+      setSubmitted(true);
+      setError('');
     } else if (!email) {
-      setError('Email is required')
+      setError('Email is required');
     } else {
-      setError('Please enter a valid email address')
+      setError('Please enter a valid email address');
     }
-  }
+  };
 
-  const showError = touched && error
+  const showError = touched && error;
 
   return (
     <section className="py-20 bg-dark-900/30">
@@ -53,30 +53,33 @@ export function Newsletter() {
           <h2 className="text-3xl sm:text-4xl font-bold text-dark-50 mb-4">
             {NEWSLETTER_COPY.title}
           </h2>
-          <p className="text-lg text-dark-400 mb-8">
-            {NEWSLETTER_COPY.description}
-          </p>
+          <p className="text-lg text-dark-400 mb-8">{NEWSLETTER_COPY.description}</p>
 
           {!submitted ? (
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
+            >
               <div className="flex-1 text-left">
                 <Input
                   type="email"
                   placeholder={NEWSLETTER_COPY.placeholder}
                   value={email}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setEmail(e.target.value)
+                    setEmail(e.target.value);
                     if (touched && e.target.value && !isValidEmail(e.target.value)) {
-                      setError('Please enter a valid email address')
+                      setError('Please enter a valid email address');
                     } else if (touched && !e.target.value) {
-                      setError('Email is required')
+                      setError('Email is required');
                     } else {
-                      setError('')
+                      setError('');
                     }
                   }}
                   onBlur={handleBlur}
                   className={`${showError ? '!border-red-500 focus:!ring-red-500' : ''}`}
-                  {...(showError ? { 'aria-invalid': true, 'aria-describedby': 'email-error' } : {})}
+                  {...(showError
+                    ? { 'aria-invalid': true, 'aria-describedby': 'email-error' }
+                    : {})}
                 />
                 {showError && (
                   <p id="email-error" className="text-red-500 text-sm mt-1" role="alert">
@@ -84,14 +87,22 @@ export function Newsletter() {
                   </p>
                 )}
               </div>
-              <Button type="submit">
-                {NEWSLETTER_COPY.button}
-              </Button>
+              <Button type="submit">{NEWSLETTER_COPY.button}</Button>
             </form>
           ) : (
             <div className="bg-teal-500/10 border border-teal-500/20 rounded-lg p-4 inline-flex items-center space-x-3">
-              <svg className="w-5 h-5 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              <svg
+                className="w-5 h-5 text-teal-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
               </svg>
               <span className="text-teal-400">You're on the list! We'll be in touch soon.</span>
             </div>
@@ -99,5 +110,5 @@ export function Newsletter() {
         </motion.div>
       </Container>
     </section>
-  )
+  );
 }

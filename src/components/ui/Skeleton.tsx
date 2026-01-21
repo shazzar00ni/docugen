@@ -1,28 +1,23 @@
 interface SkeletonProps {
-  className?: string
-  variant?: 'text' | 'circular' | 'rectangular'
-  width?: number | string
-  height?: number | string
+  className?: string;
+  variant?: 'text' | 'circular' | 'rectangular';
+  width?: number | string;
+  height?: number | string;
 }
 
-export function Skeleton({
-  className = '',
-  variant = 'text',
-  width,
-  height,
-}: SkeletonProps) {
-  const baseStyles = 'bg-dark-800 animate-pulse'
+export function Skeleton({ className = '', variant = 'text', width, height }: SkeletonProps) {
+  const baseStyles = 'bg-dark-800 animate-pulse';
 
   const variantStyles = {
     text: 'rounded',
     circular: 'rounded-full',
     rectangular: 'rounded-lg',
-  }
+  };
 
   const style: React.CSSProperties = {
     width: width || (variant === 'text' ? '100%' : 'auto'),
     height: height || (variant === 'text' ? '1em' : 'auto'),
-  }
+  };
 
   return (
     <div
@@ -30,7 +25,7 @@ export function Skeleton({
       className={`${baseStyles} ${variantStyles[variant]} ${className}`}
       style={style}
     />
-  )
+  );
 }
 
 export function SkeletonCard() {
@@ -45,29 +40,15 @@ export function SkeletonCard() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export function SkeletonButton() {
-  return (
-    <Skeleton
-      variant="rectangular"
-      width={120}
-      height={40}
-      className="rounded-lg"
-    />
-  )
+  return <Skeleton variant="rectangular" width={120} height={40} className="rounded-lg" />;
 }
 
 export function SkeletonInput() {
-  return (
-    <Skeleton
-      variant="rectangular"
-      width="100%"
-      height={48}
-      className="rounded-lg"
-    />
-  )
+  return <Skeleton variant="rectangular" width="100%" height={48} className="rounded-lg" />;
 }
 
 export function SkeletonFeature() {
@@ -78,7 +59,7 @@ export function SkeletonFeature() {
       <Skeleton width="100%" height={16} />
       <Skeleton width="80%" height={16} />
     </div>
-  )
+  );
 }
 
 export function SkeletonTestimonial() {
@@ -98,5 +79,5 @@ export function SkeletonTestimonial() {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,24 +1,39 @@
-import { Container } from './ui/Container'
-import { HOW_IT_WORKS } from '../data/content'
-import { motion } from 'framer-motion'
+import { Container } from './ui/Container';
+import { HOW_IT_WORKS } from '../data/content';
+import { motion } from 'framer-motion';
 
 const icons = {
   document: (
     <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+      />
     </svg>
   ),
   sparkles: (
     <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+      />
     </svg>
   ),
   rocket: (
     <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+      />
     </svg>
   ),
-}
+};
 
 export function HowItWorks() {
   return (
@@ -52,18 +67,19 @@ export function HowItWorks() {
                     {step.step}
                   </span>
                 </div>
-                <h3 className="text-xl font-semibold text-dark-100 mb-3">
-                  {step.title}
-                </h3>
-                <p className="text-dark-400 leading-relaxed">
-                  {step.description}
-                </p>
+                <h3 className="text-xl font-semibold text-dark-100 mb-3">{step.title}</h3>
+                <p className="text-dark-400 leading-relaxed">{step.description}</p>
               </div>
 
               {index < HOW_IT_WORKS.length - 1 && (
                 <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 text-dark-700">
                   <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
                   </svg>
                 </div>
               )}
@@ -72,5 +88,5 @@ export function HowItWorks() {
         </div>
       </Container>
     </section>
-  )
+  );
 }
