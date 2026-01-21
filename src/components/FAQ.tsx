@@ -1,0 +1,89 @@
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Container } from './ui/Container'
+import { FAQ_COPY, FAQS } from '../data/content'
+
+interface FAQItemProps {
+  question: string
+  answer: string
+  isOpen: boolean
+  onClick: () => void
+}
+
+function FAQItem({ question, answer, isOpen, onClick }: FAQItemProps) {
+  return (
+    <div className="border-b border-dark-800">
+      <button
+        onClick={onClick}
+        className="w-full py-5 flex items-center justify-between text-left focus:outline-none"
+        aria-expanded={isOpen}
+      >
+        <span className="text-lg font-medium text-dark-100 pr-4">
+          {question}
+        </span>
+        <motion.svg
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+          className="w-5 h-5 text-dark-400 flex-shrink-0"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </motion.svg>
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden"
+          >
+            <p className="pb-5 text-dark-400 leading-relaxed">
+              {answer}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+export function FAQ() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0)
+
+  const handleClick = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index)
+  }
+
+  return (
+    <section id="faq" className="py-20 bg-dark-900/30">
+      <Container>
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-dark-50 mb-4">
+              {FAQ_COPY.title}
+            </h2>
+            <p className="text-lg text-dark-400">
+              {FAQ_COPY.description}
+            </p>
+          </div>
+
+          <div className="bg-dark-900/50 border border-dark-800 rounded-xl overflow-hidden">
+            {FAQS.map((faq, index) => (
+              <FAQItem
+                key={faq.question}
+                question={faq.question}
+                answer={faq.answer}
+                isOpen={openIndex === index}
+                onClick={() => handleClick(index)}
+              />
+            ))}
+          </div>
+        </div>
+      </Container>
+    </section>
+  )
+}

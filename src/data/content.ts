@@ -123,3 +123,39 @@ export const FOOTER_COPY = {
   tagline: 'Documentation made beautiful, fast, and simple.',
   copyright: `© ${new Date().getFullYear()} DocuGen. All rights reserved.`,
 }
+
+export const FAQ_COPY = {
+  title: 'Frequently Asked Questions',
+  description: 'Everything you need to know about DocuGen.',
+}
+
+export const FAQS = [
+  {
+    question: 'What file formats does DocuGen support?',
+    answer: 'DocuGen supports Markdown (.md) and MDX (.mdx) files. MDX allows you to embed React components directly in your documentation for interactive examples.',
+  },
+  {
+    question: 'Is there a free tier?',
+    answer: 'Yes! DocuGen is completely free during the beta period. No credit card required. Early adopters will get lifetime access to their plan when we launch.',
+  },
+  {
+    question: 'Can I use my own domain?',
+    answer: 'Absolutely. You can deploy your documentation to any custom domain. SSL certificates are automatically provisioned and renewed at no extra cost.',
+  },
+  {
+    question: 'How does the AI structuring work?',
+    answer: 'Our AI analyzes your markdown files and automatically generates a logical navigation structure, table of contents, and cross-references between pages. It learns from your file organization and heading hierarchy.',
+  },
+  {
+    question: 'Can I export my documentation site?',
+    answer: 'Yes. DocuGen generates standard static HTML/CSS/JS files that you can download and host anywhere - GitHub Pages, Netlify, Vercel, or your own server. No lock-in.',
+  },
+  {
+    question: 'Is there version control integration?',
+    answer: 'DocuGen works great with Git. Since it generates static files, you can commit the output to your repository or use it as part of your CI/CD pipeline.',
+  },
+  {
+    question: 'How is my data stored and protected?',
+    answer: 'Your documentation files are processed in memory and never stored on our servers. Everything happens locally or in ephemeral cloud functions that are deleted immediately after processing.',
+  },
+]
