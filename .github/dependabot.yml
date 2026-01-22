@@ -1,0 +1,36 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '09:00'
+    labels:
+      - 'dependencies'
+      - 'npm'
+    reviewers:
+      - 'shazzar00ni'
+    groups:
+      development-dependencies:
+        patterns:
+          - '@types/*'
+          - 'eslint-*'
+          - 'prettier'
+          - 'vitest'
+          - '@testing-library/*'
+          - 'husky'
+          - 'lint-staged'
+        update-types:
+          - 'minor'
+          - 'patch'
+      production-dependencies:
+        patterns:
+          - 'react'
+          - 'react-dom'
+          - 'framer-motion'
+          - 'heroicons'
+        update-types:
+          - 'minor'
+          - 'patch'
+    open-pull-requests-limit: 10
