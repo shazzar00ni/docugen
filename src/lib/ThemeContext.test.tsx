@@ -3,6 +3,13 @@ import { ThemeProvider } from './ThemeContext';
 import { useTheme } from './useTheme';
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 
+const localStorageMock = {
+  getItem: vi.fn(),
+  setItem: vi.fn(),
+  clear: vi.fn(),
+  removeItem: vi.fn(),
+};
+
 function TestComponent() {
   const { theme, toggleTheme, setTheme } = useTheme();
   return (
@@ -24,7 +31,8 @@ function TestComponent() {
 describe('ThemeContext', () => {
   beforeEach(() => {
     vi.useFakeTimers();
-    localStorage.clear();
+    localStorageMock.getItem.mockReturnValue(null);
+    vi.stubGlobal('localStorage', localStorageMock);
   });
 
   afterEach(() => {
@@ -54,7 +62,7 @@ describe('ThemeContext', () => {
   });
 
   it('toggles theme from light to dark', () => {
-    localStorage.setItem('docugen-theme', 'light');
+    localStorageMock.getItem.mockReturnValue('light');
 
     render(
       <ThemeProvider>
@@ -78,7 +86,7 @@ describe('ThemeContext', () => {
   });
 
   it('sets theme to dark directly', () => {
-    localStorage.setItem('docugen-theme', 'light');
+    localStorageMock.getItem.mockReturnValue('light');
 
     render(
       <ThemeProvider>
@@ -112,7 +120,7 @@ describe('ThemeContext', () => {
   });
 
   it('reads theme from localStorage on mount', () => {
-    localStorage.setItem('docugen-theme', 'light');
+    localStorageMock.getItem.mockReturnValue('light');
 
     render(
       <ThemeProvider>
