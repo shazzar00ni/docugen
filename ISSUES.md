@@ -592,25 +592,29 @@ Add end-to-end tests using Playwright to ensure the landing page works correctly
 
 **Acceptance Criteria:**
 
-- [ ] Install and configure Playwright
-- [ ] Create tests for:
+- [x] Install and configure Playwright
+- [x] Create tests for:
   - Page loads correctly
   - Navigation links work
   - Newsletter form submission
   - Responsive behavior
-- [ ] Add E2E test scripts to package.json
-- [ ] Configure CI to run E2E tests
+- [x] Add E2E test scripts to package.json
+- [x] Configure CI to run E2E tests
 
-**Dependencies to Add:**
+**Dependencies Added:**
 
 - `@playwright/test`
 
-**Files to Create:**
+**Files Created:**
 
-- `playwright.config.ts`
-- `e2e/landing.spec.ts`
+- `playwright.config.ts` ✅ CREATED
+- `e2e/landing.spec.ts` ✅ CREATED (10 tests)
 
-**Status:** ⏳ PENDING
+**Files Modified:**
+
+- `package.json` ✅ MODIFIED (added e2e scripts)
+
+**Status:** ✅ COMPLETED
 
 ---
 
@@ -878,15 +882,16 @@ Add support for privacy-respecting analytics to track page views and user intera
 | Feature Requests       | 8           | 7         |
 | Bug Fixes/Improvements | 6           | 4         |
 | Documentation          | 3           | 3         |
-| Testing                | 2           | 1         |
+| Testing                | 2           | 2         |
 | DevOps & Tooling       | 4           | 3         |
 | Design & UX            | 2           | 1         |
 | Security               | 2           | 1         |
 | Analytics              | 1           | 0         |
-| **Total**              | **28**      | **20**    |
+| **Total**              | **28**      | **21**    |
 
 ### Completed Issues ✅
 
+- **#1:** Dark/Light Mode Toggle
 - **#2:** Mobile Navigation Menu
 - **#3:** Scroll-to-Top Button
 - **#4:** Testimonials Section
@@ -903,6 +908,7 @@ Add support for privacy-respecting analytics to track page views and user intera
 - **#15:** Contributing Guidelines
 - **#16:** Code of Conduct
 - **#18:** Testing Infrastructure
+- **#19:** Playwright E2E Tests
 - **#20:** CI/CD Pipeline
 - **#21:** Prettier Configuration
 - **#22:** Pre-commit Hooks
@@ -932,7 +938,7 @@ Add support for privacy-respecting analytics to track page views and user intera
 
 **Good First Issues (for new contributors):**
 
-- Issue #1: Dark/Light Mode Toggle ⏳
+- Issue #1: Dark/Light Mode Toggle ✅
 - Issue #3: Scroll-to-Top Button ✅
 - Issue #5: FAQ Section ✅
 - Issue #7: Loading Skeletons ✅
