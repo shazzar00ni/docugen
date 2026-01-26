@@ -10,6 +10,17 @@
   body {
     @apply bg-dark-950 text-dark-100;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer utilities {
@@ -19,5 +30,22 @@
 
   .gradient-text {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-teal-600;
+  }
+
+  .gradient-animate {
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
 }
