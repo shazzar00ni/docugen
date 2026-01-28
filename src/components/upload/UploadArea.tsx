@@ -1,13 +1,22 @@
 import React, { useState, useRef, useCallback } from 'react';
 
 export type UploadAreaProps = {
-  onUpload: (file: File) => void;
+  onUpload: (content: string, fileName?: string) => void;
 };
 
-/** Lightweight drag-and-drop Markdown/MDX uploader for Phase 1 */
+/** Real Phase 1 Markdown/MDX uploader with text reading */
 export function UploadArea({ onUpload }: UploadAreaProps) {
   const [dragOver, setDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const readFileAsText = (f: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = () => reject(reader.error);
+      reader.readAsText(f);
+    });
+  };
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -23,7 +32,9 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
       setDragOver(false);
       const f = e.dataTransfer?.files?.[0];
       if (f && (f.name.endsWith('.md') || f.name.endsWith('.mdx'))) {
-        onUpload(f);
+        readFileAsText(f)
+          .then(content => onUpload(content, f.name))
+          .catch(console.error);
       }
     },
     [onUpload]
@@ -32,7 +43,9 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const f = e.target.files?.[0];
       if (f && (f.name.endsWith('.md') || f.name.endsWith('.mdx'))) {
-        onUpload(f);
+        readFileAsText(f)
+          .then(content => onUpload(content, f.name))
+          .catch(console.error);
       }
     },
     [onUpload]

@@ -1,14 +1,27 @@
 import React, { useState } from 'react';
 import { UploadArea } from './components/upload/UploadArea';
+import { parseMarkdown } from './lib/markdown';
+import { MarkdownViewer } from './components/markdown/MarkdownViewer';
 
 export function App() {
+  const [html, setHtml] = useState<string | null>(null);
   const [uploaded, setUploaded] = useState<string | null>(null);
-  const handleUpload = (f: File) => setUploaded(f.name);
+
+  const handleUpload = (content: string, fileName?: string) => {
+    const rendered = parseMarkdown(content);
+    setHtml(rendered);
+    if (fileName) setUploaded(fileName);
+  };
 
   return (
-    <div>
+    <div className="min-h-screen bg-dark-950">
       <UploadArea onUpload={handleUpload} />
-      {uploaded && <div>Uploaded: {uploaded}</div>}
+      {uploaded && <div className="p-2 text-sm text-teal-300">Uploaded: {uploaded}</div>}
+      {html && (
+        <div className="p-4">
+          <MarkdownViewer content={html} />
+        </div>
+      )}
     </div>
   );
 }
