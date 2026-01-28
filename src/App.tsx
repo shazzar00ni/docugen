@@ -1,4 +1,5 @@
 import { Suspense, lazy } from 'react';
+import { ThemeProvider } from './lib/ThemeContext';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { HowItWorks } from './components/HowItWorks';
@@ -32,31 +33,33 @@ function Loading() {
 
 function App() {
   return (
-    <div className="min-h-screen bg-dark-950">
-      <Navbar />
-      <main>
-        <Hero />
-        <HowItWorks />
-        <Suspense fallback={<Loading />}>
-          <Features />
-        </Suspense>
-        <Suspense fallback={<Loading />}>
-          <Testimonials />
-        </Suspense>
-        <FAQ />
-        <Suspense fallback={<Loading />}>
-          <Preview />
-        </Suspense>
-        <Suspense fallback={<Loading />}>
-          <Pricing />
-        </Suspense>
-        <Suspense fallback={<Loading />}>
-          <Newsletter />
-        </Suspense>
-      </main>
-      <Footer />
-      <ScrollToTop />
-    </div>
+    <ThemeProvider>
+      <div className="min-h-screen bg-light-50 dark:bg-dark-950 transition-colors duration-300">
+        <Navbar />
+        <main>
+          <Hero />
+          <HowItWorks />
+          <Suspense fallback={<Loading />}>
+            <Features />
+          </Suspense>
+          <Suspense fallback={<Loading />}>
+            <Testimonials />
+          </Suspense>
+          <FAQ />
+          <Suspense fallback={<Loading />}>
+            <Preview />
+          </Suspense>
+          <Suspense fallback={<Loading />}>
+            <Pricing />
+          </Suspense>
+          <Suspense fallback={<Loading />}>
+            <Newsletter />
+          </Suspense>
+        </main>
+        <Footer />
+        <ScrollToTop />
+      </div>
+    </ThemeProvider>
   );
 }
 

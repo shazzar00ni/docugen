@@ -8,6 +8,10 @@
   }
 
   body {
+    @apply bg-light-50 text-light-900 transition-colors duration-300;
+  }
+
+  .dark body {
     @apply bg-dark-950 text-dark-100;
   }
 }
