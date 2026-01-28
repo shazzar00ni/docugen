@@ -1,61 +1,14 @@
-import { Suspense, lazy } from 'react';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { HowItWorks } from './components/HowItWorks';
-import { Footer } from './components/Footer';
-import { ScrollToTop } from './components/ScrollToTop';
-import { FAQ } from './components/FAQ';
+import React, { useState } from 'react';
+import { UploadArea } from './components/upload/UploadArea';
 
-const Features = lazy(() =>
-  import('./components/Features').then(module => ({ default: module.Features }))
-);
-const Testimonials = lazy(() =>
-  import('./components/Testimonials').then(module => ({ default: module.Testimonials }))
-);
-const Preview = lazy(() =>
-  import('./components/Preview').then(module => ({ default: module.Preview }))
-);
-const Pricing = lazy(() =>
-  import('./components/Pricing').then(module => ({ default: module.Pricing }))
-);
-const Newsletter = lazy(() =>
-  import('./components/Newsletter').then(module => ({ default: module.Newsletter }))
-);
+export function App() {
+  const [uploaded, setUploaded] = useState<string | null>(null);
+  const handleUpload = (f: File) => setUploaded(f.name);
 
-function Loading() {
   return (
-    <div className="py-20 text-center">
-      <div className="inline-block w-8 h-8 border-2 border-teal-500 border-t-transparent rounded-full animate-spin" />
-    </div>
-  );
-}
-
-function App() {
-  return (
-    <div className="min-h-screen bg-dark-950">
-      <Navbar />
-      <main>
-        <Hero />
-        <HowItWorks />
-        <Suspense fallback={<Loading />}>
-          <Features />
-        </Suspense>
-        <Suspense fallback={<Loading />}>
-          <Testimonials />
-        </Suspense>
-        <FAQ />
-        <Suspense fallback={<Loading />}>
-          <Preview />
-        </Suspense>
-        <Suspense fallback={<Loading />}>
-          <Pricing />
-        </Suspense>
-        <Suspense fallback={<Loading />}>
-          <Newsletter />
-        </Suspense>
-      </main>
-      <Footer />
-      <ScrollToTop />
+    <div>
+      <UploadArea onUpload={handleUpload} />
+      {uploaded && <div>Uploaded: {uploaded}</div>}
     </div>
   );
 }
