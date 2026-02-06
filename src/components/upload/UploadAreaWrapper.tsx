@@ -1,9 +1,9 @@
-import React, { useState, useRef, useCallback } from 'react';
-import { UploadAreaProps } from './UploadArea';
+import { useState } from 'react';
+import { UploadArea } from './UploadArea';
 
 export function UploadAreaWrapper() {
-  const [uploaded, setUploaded] = useState<string | null>(null);
-  const onUpload = (content: string, fileName?: string) => {
+  const [, setUploaded] = useState<string | null>(null);
+  const onUpload = (_content: string, fileName?: string) => {
     setUploaded(fileName ?? 'unknown');
   };
   return <UploadArea onUpload={onUpload} />;
