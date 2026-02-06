@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { UploadArea } from './components/upload/UploadArea';
 
 export function App() {
