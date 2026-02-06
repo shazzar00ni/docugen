@@ -16,7 +16,7 @@ const ALLOWED_MIME_TYPES = [
 ];
 
 type ValidationError = {
-  type: 'extension' | 'size' | 'mime';
+  type: 'extension' | 'size' | 'mime' | 'processing';
   message: string;
 };
 
@@ -27,8 +27,12 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const validateFile = useCallback((file: File): ValidationError | null => {
-    // Check file extension
-    if (!file.name.endsWith('.md') && !file.name.endsWith('.mdx')) {
+    // Check file extension - use last extension to prevent bypass via multiple extensions
+    const fileName = file.name.toLowerCase();
+    const lastDotIndex = fileName.lastIndexOf('.');
+    const extension = lastDotIndex !== -1 ? fileName.substring(lastDotIndex) : '';
+
+    if (extension !== '.md' && extension !== '.mdx') {
       return {
         type: 'extension',
         message: 'Only .md and .mdx files are allowed',
@@ -43,8 +47,9 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
       };
     }
 
-    // Check MIME type
-    if (file.type && !ALLOWED_MIME_TYPES.includes(file.type)) {
+    // Check MIME type - always validate to prevent empty MIME type bypass
+    // Allow common MIME types for Markdown files
+    if (!ALLOWED_MIME_TYPES.includes(file.type)) {
       return {
         type: 'mime',
         message: 'Invalid file type. Please upload a valid Markdown file',
@@ -70,7 +75,7 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
         onUpload(file);
       } catch (err) {
         setError({
-          type: 'mime',
+          type: 'processing',
           message: 'Failed to process file. Please try again',
         });
       }
@@ -102,7 +107,8 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
       processFile(file);
-      // Reset input value to allow re-selecting the same file
+      // Reset input value to allow re-selecting the same file, even after errors
+      // This allows users to re-upload a file that failed validation after fixing it
       e.target.value = '';
     },
     [processFile]
