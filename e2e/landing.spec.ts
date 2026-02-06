@@ -14,7 +14,7 @@ test.describe('Landing Page', () => {
   test('should navigate to sections via anchor links', async ({ page }) => {
     await page.goto('/');
 
-    await page.click('a[href="#features"]');
+    await page.locator('a[href="#features"]').click();
 
     await expect(page).toHaveURL(/.*features/);
   });
