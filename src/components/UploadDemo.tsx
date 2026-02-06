@@ -19,6 +19,14 @@ export function UploadDemo() {
     setIsDragging(false);
   }, []);
 
+  const simulateUpload = useCallback(() => {
+    setIsUploading(true);
+    setTimeout(() => {
+      setIsUploading(false);
+      setIsComplete(true);
+    }, 2000);
+  }, []);
+
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
@@ -27,7 +35,7 @@ export function UploadDemo() {
       setFile(droppedFile);
       simulateUpload();
     }
-  }, []);
+  }, [simulateUpload]);
 
   const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -35,15 +43,7 @@ export function UploadDemo() {
       setFile(selectedFile);
       simulateUpload();
     }
-  }, []);
-
-  const simulateUpload = () => {
-    setIsUploading(true);
-    setTimeout(() => {
-      setIsUploading(false);
-      setIsComplete(true);
-    }, 2000);
-  };
+  }, [simulateUpload]);
 
   const resetDemo = () => {
     setFile(null);
