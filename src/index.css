@@ -1,6 +1,49 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+/* Syntax highlighting for code blocks */
+@import 'highlight.js/styles/github-dark.css';
+
+/* Define custom theme colors for Tailwind v4 */
+@theme {
+  --color-light-50: #f8fafc;
+  --color-light-100: #f1f5f9;
+  --color-light-200: #e2e8f0;
+  --color-light-300: #cbd5e1;
+  --color-light-400: #94a3b8;
+  --color-light-500: #64748b;
+  --color-light-600: #475569;
+  --color-light-700: #334155;
+  --color-light-800: #1e293b;
+  --color-light-900: #0f172a;
+  --color-light-950: #020617;
+
+  --color-teal-50: #f0fdfa;
+  --color-teal-100: #ccfbf1;
+  --color-teal-200: #99f6e4;
+  --color-teal-300: #5eead4;
+  --color-teal-400: #2dd4bf;
+  --color-teal-500: #14b8a6;
+  --color-teal-600: #0d9488;
+  --color-teal-700: #0f766e;
+  --color-teal-800: #115e59;
+  --color-teal-900: #134e4a;
+  --color-teal-950: #042f2e;
+
+  --color-dark-50: #f8fafc;
+  --color-dark-100: #f1f5f9;
+  --color-dark-200: #e2e8f0;
+  --color-dark-300: #cbd5e1;
+  --color-dark-400: #94a3b8;
+  --color-dark-500: #64748b;
+  --color-dark-600: #475569;
+  --color-dark-700: #334155;
+  --color-dark-800: #1e293b;
+  --color-dark-900: #0f172a;
+  --color-dark-950: #020617;
+
+  --font-sans: Inter, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
 
 @layer base {
   html {
@@ -23,5 +66,75 @@
 
   .gradient-text {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-teal-600;
+  }
+}
+
+/* Markdown viewer styles */
+@layer components {
+  .markdown-viewer {
+    @apply text-dark-200;
+  }
+
+  .markdown-viewer h1,
+  .markdown-viewer h2,
+  .markdown-viewer h3,
+  .markdown-viewer h4,
+  .markdown-viewer h5,
+  .markdown-viewer h6 {
+    @apply text-dark-100 font-semibold;
+  }
+
+  .markdown-viewer a {
+    @apply text-teal-400 hover:text-teal-300 transition-colors;
+  }
+
+  .markdown-viewer code {
+    @apply bg-dark-800 px-1.5 py-0.5 rounded text-sm;
+  }
+
+  .markdown-viewer pre {
+    @apply bg-dark-900 rounded-lg p-4 overflow-x-auto my-4;
+  }
+
+  .markdown-viewer pre code {
+    @apply bg-transparent p-0;
+  }
+
+  .markdown-viewer blockquote {
+    @apply border-l-4 border-teal-500 pl-4 italic text-dark-300 my-4;
+  }
+
+  .markdown-viewer table {
+    @apply w-full border-collapse my-4;
+  }
+
+  .markdown-viewer th,
+  .markdown-viewer td {
+    @apply border border-dark-700 px-4 py-2;
+  }
+
+  .markdown-viewer th {
+    @apply bg-dark-800 font-semibold text-dark-100;
+  }
+
+  .markdown-viewer img {
+    @apply rounded-lg my-4;
+  }
+
+  .markdown-viewer hr {
+    @apply border-dark-700 my-8;
+  }
+
+  .markdown-viewer ul,
+  .markdown-viewer ol {
+    @apply my-4 pl-6;
+  }
+
+  .markdown-viewer li {
+    @apply my-2;
+  }
+
+  .markdown-viewer .anchor-link {
+    @apply no-underline;
   }
 }

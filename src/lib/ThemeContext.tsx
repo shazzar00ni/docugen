@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState, type ReactNode } from 'react';
+import { createContext, useState, type ReactNode } from 'react';
 
 export type Theme = 'dark' | 'light';
 
@@ -45,13 +45,11 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>('dark');
-
-  useEffect(() => {
+  const [theme, setTheme] = useState<Theme>(() => {
     const initialTheme = getInitialTheme();
-    setTheme(initialTheme);
     applyTheme(initialTheme);
-  }, []);
+    return initialTheme;
+  });
 
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
