@@ -1,20 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from './ui/Button';
 
 export function CookieConsent() {
-  const [showConsent, setShowConsent] = useState(false);
-
-  useEffect(() => {
+  const [showConsent, setShowConsent] = useState(() => {
     try {
       const hasConsented = localStorage.getItem('docugen-cookie-consent');
-      if (!hasConsented) {
-        setShowConsent(true);
-      }
+      return !hasConsented;
     } catch {
-      setShowConsent(true);
+      return true;
     }
-  }, []);
+  });
 
   const handleAccept = () => {
     try {
