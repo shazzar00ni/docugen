@@ -1,6 +1,32 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-light-50: #f8fafc;
+  --color-light-100: #f1f5f9;
+  --color-light-200: #e2e8f0;
+  --color-light-300: #cbd5e1;
+  --color-light-400: #94a3b8;
+  --color-light-500: #64748b;
+  --color-light-600: #475569;
+  --color-light-700: #334155;
+  --color-light-800: #1e293b;
+  --color-light-900: #0f172a;
+  --color-light-950: #020617;
+
+  --color-teal-400: #2dd4bf;
+  --color-teal-500: #14b8a6;
+  --color-teal-600: #0d9488;
+  --color-teal-700: #0f766e;
+
+  --color-dark-100: #f3f4f6;
+  --color-dark-200: #e5e7eb;
+  --color-dark-300: #d1d5db;
+  --color-dark-500: #6b7280;
+  --color-dark-700: #374151;
+  --color-dark-800: #1f2937;
+  --color-dark-900: #111827;
+  --color-dark-950: #030712;
+}
 
 @layer base {
   html {
@@ -8,6 +34,10 @@
   }
 
   body {
+    @apply bg-light-50 text-light-900 transition-colors duration-300;
+  }
+
+  .dark body {
     @apply bg-dark-950 text-dark-100;
   }
 }
