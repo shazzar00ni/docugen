@@ -41,7 +41,7 @@ export function Newsletter() {
   const showError = touched && error;
 
   return (
-    <section className="py-20 bg-dark-900/30">
+    <section className="py-20 bg-slate-900/30">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -50,10 +50,10 @@ export function Newsletter() {
           transition={{ duration: 0.5 }}
           className="max-w-2xl mx-auto text-center"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-dark-50 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-slate-50 mb-4">
             {NEWSLETTER_COPY.title}
           </h2>
-          <p className="text-lg text-dark-400 mb-8">{NEWSLETTER_COPY.description}</p>
+          <p className="text-lg text-slate-400 mb-8">{NEWSLETTER_COPY.description}</p>
 
           {!submitted ? (
             <form

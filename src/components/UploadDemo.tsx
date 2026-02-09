@@ -73,7 +73,7 @@ export function UploadDemo() {
                 ${
                   isDragging
                     ? 'border-teal-500 bg-teal-500/10'
-                    : 'border-dark-700 hover:border-teal-500/50 bg-dark-900/50'
+                    : 'border-slate-700 hover:border-teal-500/50 bg-slate-900/50'
                 }
               `}
             >
@@ -85,7 +85,7 @@ export function UploadDemo() {
                 className="hidden"
                 aria-label="Upload documentation file"
               />
-              <div className="w-16 h-16 mx-auto mb-4 bg-dark-800 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-slate-800 rounded-full flex items-center justify-center">
                 <svg
                   className="w-8 h-8 text-teal-400"
                   fill="none"
@@ -100,12 +100,12 @@ export function UploadDemo() {
                   />
                 </svg>
               </div>
-              <p className="text-dark-200 font-medium mb-2">Drop your Markdown files here</p>
-              <p className="text-dark-500 text-sm mb-4">or click to browse (.md, .mdx)</p>
-              <div className="flex items-center justify-center space-x-2 text-xs text-dark-500">
-                <span className="px-2 py-1 bg-dark-800 rounded">README.md</span>
-                <span className="px-2 py-1 bg-dark-800 rounded">guide.mdx</span>
-                <span className="px-2 py-1 bg-dark-800 rounded">+ more</span>
+              <p className="text-slate-200 font-medium mb-2">Drop your Markdown files here</p>
+              <p className="text-slate-500 text-sm mb-4">or click to browse (.md, .mdx)</p>
+              <div className="flex items-center justify-center space-x-2 text-xs text-slate-500">
+                <span className="px-2 py-1 bg-slate-800 rounded">README.md</span>
+                <span className="px-2 py-1 bg-slate-800 rounded">guide.mdx</span>
+                <span className="px-2 py-1 bg-slate-800 rounded">+ more</span>
               </div>
             </div>
           </motion.div>
@@ -118,7 +118,7 @@ export function UploadDemo() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.3 }}
-            className="bg-dark-900/50 border border-dark-800 rounded-xl p-6"
+            className="bg-slate-900/50 border border-slate-800 rounded-xl p-6"
           >
             <div className="flex items-center space-x-4">
               <div className="w-12 h-12 bg-teal-500/10 rounded-lg flex items-center justify-center">
@@ -137,8 +137,8 @@ export function UploadDemo() {
                 </svg>
               </div>
               <div className="flex-1">
-                <p className="text-dark-100 font-medium">{file.name}</p>
-                <p className="text-dark-500 text-sm">
+                <p className="text-slate-100 font-medium">{file.name}</p>
+                <p className="text-slate-500 text-sm">
                   {isUploading ? 'Analyzing and structuring...' : 'Ready to process'}
                 </p>
               </div>
@@ -147,7 +147,7 @@ export function UploadDemo() {
               )}
             </div>
             {isUploading && (
-              <div className="mt-4 h-1 bg-dark-800 rounded-full overflow-hidden">
+              <div className="mt-4 h-1 bg-slate-800 rounded-full overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: '100%' }}
@@ -185,8 +185,8 @@ export function UploadDemo() {
                 </svg>
               </div>
               <div className="flex-1">
-                <p className="text-dark-100 font-medium">Documentation processed!</p>
-                <p className="text-dark-400 text-sm">12 sections extracted, 3 pages generated</p>
+                <p className="text-slate-100 font-medium">Documentation processed!</p>
+                <p className="text-slate-400 text-sm">12 sections extracted, 3 pages generated</p>
               </div>
               <Button variant="ghost" size="sm" onClick={resetDemo}>
                 Try another

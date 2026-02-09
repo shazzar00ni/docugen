@@ -8,7 +8,7 @@ export function Navbar() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-light-50/80 dark:bg-dark-950/80 backdrop-blur-md border-b border-light-200/50 dark:border-dark-800/50 transition-colors duration-300">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-50/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 transition-colors duration-300">
       <Container>
         <div className="flex items-center justify-between h-16">
           <a href="#" className="flex items-center space-x-2 group">
@@ -27,7 +27,7 @@ export function Navbar() {
                 />
               </svg>
             </div>
-            <span className="font-semibold text-lg text-light-900 dark:text-dark-100 group-hover:text-teal-400 transition-colors">
+            <span className="font-semibold text-lg text-slate-900 dark:text-slate-100 group-hover:text-teal-400 transition-colors">
               {SITE.name}
             </span>
           </a>
@@ -37,7 +37,7 @@ export function Navbar() {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-light-600 dark:text-dark-300 hover:text-teal-400 dark:hover:text-teal-400 transition-colors text-sm font-medium"
+                className="text-slate-600 dark:text-slate-300 hover:text-teal-400 dark:hover:text-teal-400 transition-colors text-sm font-medium"
               >
                 {link.label}
               </a>
@@ -48,7 +48,7 @@ export function Navbar() {
             <button
               onClick={toggleTheme}
               aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-              className="p-2 rounded-lg text-light-600 dark:text-dark-300 hover:text-teal-500 dark:hover:text-teal-400 hover:bg-light-100 dark:hover:bg-dark-800 transition-all duration-200"
+              className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-teal-500 dark:hover:text-teal-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200"
             >
               {theme === 'dark' ? (
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -73,7 +73,7 @@ export function Navbar() {
             <Button
               variant="ghost"
               size="sm"
-              className="hidden sm:inline-flex text-light-700 dark:text-dark-200 hover:text-light-900 dark:hover:text-dark-100 hover:bg-light-100 dark:hover:bg-dark-800"
+              className="hidden sm:inline-flex text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
             >
               Sign In
             </Button>

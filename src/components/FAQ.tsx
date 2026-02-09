@@ -12,17 +12,17 @@ interface FAQItemProps {
 
 function FAQItem({ question, answer, isOpen, onClick }: FAQItemProps) {
   return (
-    <div className="border-b border-dark-800">
+    <div className="border-b border-slate-800">
       <button
         onClick={onClick}
         className="w-full py-5 flex items-center justify-between text-left focus:outline-none"
         aria-expanded={isOpen}
       >
-        <span className="text-lg font-medium text-dark-100 pr-4">{question}</span>
+        <span className="text-lg font-medium text-slate-100 pr-4">{question}</span>
         <motion.svg
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2 }}
-          className="w-5 h-5 text-dark-400 flex-shrink-0"
+          className="w-5 h-5 text-slate-400 flex-shrink-0"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -39,7 +39,7 @@ function FAQItem({ question, answer, isOpen, onClick }: FAQItemProps) {
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <p className="pb-5 text-dark-400 leading-relaxed">{answer}</p>
+            <p className="pb-5 text-slate-400 leading-relaxed">{answer}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -55,15 +55,15 @@ export function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-20 bg-dark-900/30">
+    <section id="faq" className="py-20 bg-slate-900/30">
       <Container>
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-dark-50 mb-4">{FAQ_COPY.title}</h2>
-            <p className="text-lg text-dark-400">{FAQ_COPY.description}</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-50 mb-4">{FAQ_COPY.title}</h2>
+            <p className="text-lg text-slate-400">{FAQ_COPY.description}</p>
           </div>
 
-          <div className="bg-dark-900/50 border border-dark-800 rounded-xl overflow-hidden">
+          <div className="bg-slate-900/50 border border-slate-800 rounded-xl overflow-hidden">
             {FAQS.map((faq, index) => (
               <FAQItem
                 key={faq.question}

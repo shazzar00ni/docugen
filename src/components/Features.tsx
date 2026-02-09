@@ -70,10 +70,10 @@ export function Features() {
     <section id="features" className="py-20">
       <Container>
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-dark-50 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-slate-50 mb-4">
             Everything you need to ship docs
           </h2>
-          <p className="text-lg text-dark-400 max-w-2xl mx-auto">
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
             Built by developers, for developers. No bloat, no lock-in, just great documentation.
           </p>
         </div>
@@ -86,13 +86,13 @@ export function Features() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-dark-900/50 border border-dark-800 rounded-xl p-6 hover:border-teal-500/30 transition-colors duration-300"
+              className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-teal-500/30 transition-colors duration-300"
             >
               <div className="w-10 h-10 bg-teal-500/10 rounded-lg flex items-center justify-center text-teal-400 mb-4">
                 {icons[feature.icon as keyof typeof icons]}
               </div>
-              <h3 className="text-lg font-semibold text-dark-100 mb-2">{feature.title}</h3>
-              <p className="text-dark-400 text-sm leading-relaxed">{feature.description}</p>
+              <h3 className="text-lg font-semibold text-slate-100 mb-2">{feature.title}</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">{feature.description}</p>
             </motion.div>
           ))}
         </div>
