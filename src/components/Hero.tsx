@@ -78,6 +78,8 @@ export function Hero() {
         </div>
       </Container>
 
+      {/* Animated gradient layer behind content */}
+      <div className="absolute inset-0 -z-20 hero-gradient" aria-hidden="true" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-teal-900/20 via-dark-950/0 to-dark-950/0 pointer-events-none" />
     </section>
   );

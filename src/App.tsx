@@ -36,9 +36,15 @@ function App() {
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-light-50 dark:bg-dark-950 transition-colors duration-300">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only absolute left-0 top-0 m-4 px-3 py-2 bg-teal-600 text-white rounded"
+        >
+          Skip to content
+        </a>
         <Navbar />
         <Analytics />
-        <main>
+        <main id="main" role="main">
           <Hero />
           <HowItWorks />
           <Suspense fallback={<Loading />}>
