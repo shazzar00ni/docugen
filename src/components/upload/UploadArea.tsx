@@ -68,6 +68,7 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
           onChange={handleFileSelect}
           className="hidden"
           aria-label="Upload documentation file"
+          data-testid="doc-upload-input"
         />
         <div className="w-16 h-16 mx-auto mb-4 bg-dark-800 rounded-full flex items-center justify-center">
           <svg

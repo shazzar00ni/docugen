@@ -11,6 +11,13 @@ describe('parseMarkdown', () => {
     expect(html).toContain('<p>This is a paragraph.</p>');
     expect(html).toContain('<h2>Subtitle</h2>');
   });
+
+  it('escapes HTML inside paragraphs', () => {
+    const md = 'Paragraph with <strong>bold</strong> text';
+    const html = parseMarkdown(md);
+    // HTML should be escaped, not render as actual HTML tags
+    expect(html).toContain('Paragraph with &lt;strong&gt;bold&lt;/strong&gt; text');
+  });
 });
 
 describe('MarkdownViewer', () => {
