@@ -18,6 +18,6 @@ This document provides guidelines for AI agents working in the DocuGen codebase.
 
 ## Next Steps (summary)
 
-- Security Headers: open PR (29) and merge after review.
-- Analytics Integration: open PR (32) and merge after review.
+- Security Headers: track via ISSUES.md; open a PR for this work and merge after review.
+- Analytics Integration: track via ISSUES.md; open a PR for this work and merge after review.
 - Then proceed on remaining items as needed.
