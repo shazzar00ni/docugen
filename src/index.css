@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
 @layer base {
   html {
@@ -8,28 +6,26 @@
   }
 
   body {
-    background-color: #f8fafc;
-    color: #0f172a;
+    background-color: var(--color-slate-50);
+    color: var(--color-slate-900);
     transition:
       background-color 0.3s,
       color 0.3s;
   }
 
   .dark body {
-    background-color: #020617;
-    color: #f8fafc;
+    background-color: var(--color-slate-950);
+    color: var(--color-slate-100);
   }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+@utility text-balance {
+  text-wrap: balance;
+}
 
-  .gradient-text {
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    background-image: linear-gradient(to right, #06b6d4, #0891b2);
-  }
+@utility gradient-text {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, var(--color-cyan-500), var(--color-cyan-600));
 }

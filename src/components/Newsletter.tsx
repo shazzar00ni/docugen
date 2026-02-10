@@ -117,7 +117,7 @@ export function Newsletter() {
                     }
                   }}
                   onBlur={handleBlur}
-                  className={`${showError ? '!border-red-500 focus:!ring-red-500' : ''}`}
+                  className={`${showError ? 'border-red-500! focus:ring-red-500!' : ''}`}
                   {...(showError
                     ? { 'aria-invalid': true, 'aria-describedby': 'email-error' }
                     : {})}
