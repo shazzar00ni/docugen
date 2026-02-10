@@ -1,6 +1,23 @@
 import { Container } from './ui/Container';
 import { motion } from 'framer-motion';
 
+/**
+ * Preview component that displays a demonstration of generated documentation.
+ * Shows a mock browser window with a realistic documentation site layout including
+ * sidebar navigation, content area, and various UI elements like tips and code blocks.
+ * Uses entrance animations and responsive design to showcase the product output.
+ *
+ * @example
+ * ```tsx
+ * import { Preview } from '@/components/Preview';
+ *
+ * function LandingPage() {
+ *   return <Preview />;
+ * }
+ * ```
+ *
+ * @returns A JSX element representing the preview section with documentation demo
+ */
 export function Preview() {
   return (
     <section className="py-20 bg-slate-900/30">

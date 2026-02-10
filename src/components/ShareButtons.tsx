@@ -1,11 +1,41 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+/**
+ * Props for the ShareButtons component
+ */
 interface ShareButtonsProps {
+  /** The URL to share - defaults to 'https://docugen.ai' */
   url?: string;
+  /** The title to use when sharing - defaults to 'DocuGen - Convert documentation into static websites' */
   title?: string;
 }
 
+/**
+ * ShareButtons component that provides social media sharing functionality.
+ * Features a toggle button that reveals a dropdown with Twitter, LinkedIn sharing options,
+ * and a copy link feature. Uses smooth animations for the dropdown appearance.
+ *
+ * @example
+ * ```tsx
+ * import { ShareButtons } from '@/components/ShareButtons';
+ *
+ * function BlogPost() {
+ *   return (
+ *     <div>
+ *       <h1>My Post</h1>
+ *       <ShareButtons
+ *         url="https://mysite.com/my-post"
+ *         title="Check out my new post"
+ *       />
+ *     </div>
+ *   );
+ * }
+ * ```
+ *
+ * @param {ShareButtonsProps} props - The component props
+ * @returns A JSX element representing the share buttons with dropdown menu
+ */
 export function ShareButtons({
   url = 'https://docugen.ai',
   title = 'DocuGen - Convert documentation into static websites',

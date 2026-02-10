@@ -35,6 +35,22 @@ const icons = {
   ),
 };
 
+/**
+ * HowItWorks component that displays a step-by-step guide for using the product.
+ * Renders process steps in a responsive grid layout with entrance animations and connecting arrows.
+ * Each step includes an icon, step number, title, and description with hover effects.
+ *
+ * @example
+ * ```tsx
+ * import { HowItWorks } from '@/components/HowItWorks';
+ *
+ * function LandingPage() {
+ *   return <HowItWorks />;
+ * }
+ * ```
+ *
+ * @returns A JSX element representing the how-it-works section with animated process steps
+ */
 export function HowItWorks() {
   return (
     <section id="how-it-works" className="py-20 bg-slate-900/30">

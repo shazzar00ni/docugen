@@ -1,6 +1,27 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+/**
+ * ScrollToTop component that provides a floating button for returning to the top of the page.
+ * Automatically shows/hides based on scroll position with smooth animations.
+ * Uses Framer Motion for entrance/exit animations and smooth scrolling behavior.
+ *
+ * @example
+ * ```tsx
+ * import { ScrollToTop } from '@/components/ScrollToTop';
+ *
+ * function App() {
+ *   return (
+ *     <div>
+ *       <main>...</main>
+ *       <ScrollToTop />
+ *     </div>
+ *   );
+ * }
+ * ```
+ *
+ * @returns A JSX element representing the scroll-to-top button with conditional visibility
+ */
 export function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
 

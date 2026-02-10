@@ -2,6 +2,22 @@ import { Container } from './ui/Container';
 import { TESTIMONIALS } from '../data/content';
 import { motion } from 'framer-motion';
 
+/**
+ * Testimonials component that displays customer reviews and feedback.
+ * Renders testimonial cards in a responsive grid layout with entrance animations.
+ * Each card includes a quote, author name, role, company, and stylized avatar.
+ *
+ * @example
+ * ```tsx
+ * import { Testimonials } from '@/components/Testimonials';
+ *
+ * function LandingPage() {
+ *   return <Testimonials />;
+ * }
+ * ```
+ *
+ * @returns A JSX element representing the testimonials section with customer feedback
+ */
 export function Testimonials() {
   return (
     <section id="testimonials" className="py-20 bg-slate-900/30">

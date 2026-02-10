@@ -1,6 +1,27 @@
 import { Container } from './ui/Container';
 import { FOOTER_LINKS, FOOTER_COPY, SITE } from '../data/content';
 
+/**
+ * Footer component that displays the main navigation footer of the application.
+ * Features site branding, navigation links, social media links, and copyright information.
+ * Uses responsive layout for optimal viewing on different screen sizes.
+ *
+ * @example
+ * ```tsx
+ * import { Footer } from '@/components/Footer';
+ *
+ * function App() {
+ *   return (
+ *     <div>
+ *       <main>...</main>
+ *       <Footer />
+ *     </div>
+ *   );
+ * }
+ * ```
+ *
+ * @returns A JSX element representing the site footer with navigation and branding
+ */
 export function Footer() {
   return (
     <footer className="border-t border-slate-800 py-12">

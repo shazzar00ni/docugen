@@ -3,9 +3,21 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { NAV_LINKS } from '../data/content';
 import { Button } from './ui/Button';
 
+/**
+ * Mobile navigation menu component.
+ * Provides hamburger menu functionality for mobile devices.
+ *
+ * @returns Mobile navigation component with slide-in animation
+ */
 export function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
+  /**
+   * Manages body scroll overflow when menu is open.
+   * Prevents background scrolling when mobile menu is active.
+   *
+   * @returns Cleanup function to restore body overflow
+   */
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -17,6 +29,11 @@ export function MobileMenu() {
     };
   }, [isOpen]);
 
+  /**
+   * Closes the mobile menu.
+   *
+   * @returns Function to close menu
+   */
   const closeMenu = () => setIsOpen(false);
 
   return (
