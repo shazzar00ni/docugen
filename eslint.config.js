@@ -18,6 +18,18 @@ export default [
           jsx: true,
         },
       },
+      globals: {
+        window: 'readonly',
+        document: 'readonly',
+        console: 'readonly',
+        localStorage: 'readonly',
+        navigator: 'readonly',
+        setTimeout: 'readonly',
+        File: 'readonly',
+        Element: 'readonly',
+        HTMLInputElement: 'readonly',
+        React: 'readonly',
+      },
     },
     rules: {
       'no-unused-vars': 'warn',
@@ -33,6 +45,18 @@ export default [
         ecmaFeatures: {
           jsx: true,
         },
+      },
+      globals: {
+        window: 'readonly',
+        document: 'readonly',
+        console: 'readonly',
+        localStorage: 'readonly',
+        navigator: 'readonly',
+        setTimeout: 'readonly',
+        File: 'readonly',
+        Element: 'readonly',
+        HTMLInputElement: 'readonly',
+        React: 'readonly',
       },
     },
     plugins: {
