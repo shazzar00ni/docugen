@@ -108,6 +108,20 @@ describe('parseMarkdown', () => {
       '<td align="left"><a href="https://docugen.com" target="_blank" rel="noopener noreferrer">https://docugen.com</a></td>'
     );
   });
+
+  it('renders images with alt text', () => {
+    const md = '![Alt text](https://example.com/image.png)';
+    const html = parseMarkdown(md);
+    expect(html).toContain('<img src="https://example.com/image.png" alt="Alt text" />');
+  });
+
+  it('renders images with title', () => {
+    const md = '![Alt](https://example.com/image.png "Image title")';
+    const html = parseMarkdown(md);
+    expect(html).toContain(
+      '<img src="https://example.com/image.png" alt="Alt" title="Image title" />'
+    );
+  });
 });
 
 describe('MarkdownViewer with new constructs', () => {
@@ -166,5 +180,14 @@ describe('MarkdownViewer with new constructs', () => {
     expect(screen.getByText('B')).toBeInTheDocument();
     expect(screen.getByText('1')).toBeInTheDocument();
     expect(screen.getByText('2')).toBeInTheDocument();
+  });
+
+  it('renders sanitized images via MarkdownViewer', () => {
+    const md = '![Logo](https://example.com/logo.png)';
+    const html = parseMarkdown(md);
+    render(<MarkdownViewer content={html} />);
+    const img = screen.getByRole('img');
+    expect(img).toHaveAttribute('src', 'https://example.com/logo.png');
+    expect(img).toHaveAttribute('alt', 'Logo');
   });
 });

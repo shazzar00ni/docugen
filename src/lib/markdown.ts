@@ -25,13 +25,35 @@ export function parseMarkdown(md: string): string {
 
   // Helper to process inline constructs within a line
   const processInline = (line: string): string => {
-    const inlineCodeSegments = line.split(/(`.+?`)/);
-    return inlineCodeSegments
+    let result = line;
+    // Images first: ![alt text](url "title")
+    result = result.replace(
+      /!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)/g,
+      (match, alt, src, title) => {
+        const altEsc = escapeHtml(alt);
+        const srcEsc = escapeHtml(src);
+        const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
+        return `<img src="${srcEsc}" alt="${altEsc}"${titleAttr} />`;
+      }
+    );
+    // Then links: [text](url "title")
+    result = result.replace(
+      /\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)/g,
+      (match, text, href, title) => {
+        const textEsc = escapeHtml(text);
+        const hrefEsc = escapeHtml(href);
+        const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
+        return `<a href="${hrefEsc}" target="_blank" rel="noopener noreferrer"${titleAttr}>${textEsc}</a>`;
+      }
+    );
+    // Inline code
+    const inlineCodeSegments = result.split(/(`.+?`)/);
+    result = inlineCodeSegments
       .map(seg => {
         if (seg.startsWith('`') && seg.endsWith('`')) {
           return `<code>${escapeHtml(seg.slice(1, -1))}</code>`;
         }
-        // Autolink detection
+        // Autolink detection (fallback)
         const urlMatch = seg.match(/(https?:\/\/[^\s]+)/g);
         if (urlMatch) {
           let replaced = seg;
@@ -46,6 +68,7 @@ export function parseMarkdown(md: string): string {
         return escapeHtml(seg);
       })
       .join('');
+    return result;
   };
 
   // Helper to parse a table block
