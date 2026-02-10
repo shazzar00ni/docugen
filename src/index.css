@@ -25,3 +25,38 @@
     @apply bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-teal-600;
   }
 }
+
+/* Animated hero gradient background */
+.hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(56, 189, 248, 0.15),
+    rgba(20, 184, 166, 0.15),
+    rgba(168, 85, 247, 0.15)
+  );
+  background-size: 300% 300%;
+  animation: heroGradientMove 20s ease infinite;
+  pointer-events: none;
+  /* ensure it's behind content when combined with -z-20 utility in the element */
+  z-index: 0;
+}
+
+@keyframes heroGradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-gradient {
+    animation: none;
+  }
+}
