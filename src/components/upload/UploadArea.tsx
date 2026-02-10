@@ -2,12 +2,23 @@ import React, { useState, useRef, useCallback } from 'react';
 
 export type UploadAreaProps = {
   onUpload: (content: string, fileName?: string) => void;
+  onUploadError?: (error: string) => void;
 };
 
-/** Real Phase 1 Markdown/MDX uploader with text reading */
-export function UploadArea({ onUpload }: UploadAreaProps) {
+/** Real Phase 1 Markdown/MDX uploader with text reading, validation, and error handling */
+export function UploadArea({ onUpload, onUploadError }: UploadAreaProps) {
   const [dragOver, setDragOver] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const isValidMarkdownFile = (file: File): boolean => {
+    // Extension check
+    const hasValidExtension = file.name.endsWith('.md') || file.name.endsWith('.mdx');
+    if (!hasValidExtension) return false;
+    // MIME type check for text files
+    const validMimeTypes = ['text/markdown', 'text/plain', 'text/x-markdown'];
+    return validMimeTypes.includes(file.type);
+  };
 
   const readFileAsText = (f: File): Promise<string> => {
     return new Promise((resolve, reject) => {
@@ -16,6 +27,12 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
       reader.onerror = () => reject(reader.error);
       reader.readAsText(f);
     });
+  };
+
+  const handleError = (message: string) => {
+    setError(message);
+    onUploadError?.(message);
+    setTimeout(() => setError(null), 5000); // Auto-clear after 5s
   };
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
@@ -27,32 +44,51 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
     setDragOver(false);
   }, []);
   const handleDrop = useCallback(
-    (e: React.DragEvent) => {
+    async (e: React.DragEvent) => {
       e.preventDefault();
       setDragOver(false);
+      setError(null);
       const f = e.dataTransfer?.files?.[0];
-      if (f && (f.name.endsWith('.md') || f.name.endsWith('.mdx'))) {
-        readFileAsText(f)
-          .then(content => onUpload(content, f.name))
-          .catch(console.error);
+      if (!f) return;
+      if (!isValidMarkdownFile(f)) {
+        handleError('Only .md and .mdx files are supported');
+        return;
+      }
+      try {
+        const content = await readFileAsText(f);
+        onUpload(content, f.name);
+      } catch (err) {
+        handleError(`Failed to read file: ${err instanceof Error ? err.message : 'Unknown error'}`);
       }
     },
-    [onUpload]
+    [onUpload, onUploadError]
   );
   const handleFileSelect = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      setError(null);
       const f = e.target.files?.[0];
-      if (f && (f.name.endsWith('.md') || f.name.endsWith('.mdx'))) {
-        readFileAsText(f)
-          .then(content => onUpload(content, f.name))
-          .catch(console.error);
+      if (!f) return;
+      if (!isValidMarkdownFile(f)) {
+        handleError('Only .md and .mdx files are supported');
+        return;
+      }
+      try {
+        const content = await readFileAsText(f);
+        onUpload(content, f.name);
+      } catch (err) {
+        handleError(`Failed to read file: ${err instanceof Error ? err.message : 'Unknown error'}`);
       }
     },
-    [onUpload]
+    [onUpload, onUploadError]
   );
 
   return (
     <div className="mt-6">
+      {error && (
+        <div className="mb-4 p-3 bg-red-500/10 border border border-red-500/30 rounded-lg">
+          <p className="text-red-300 text-sm">{error}</p>
+        </div>
+      )}
       <div
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
