@@ -4,6 +4,22 @@ import { HERO_COPY } from '../data/content';
 import { motion } from 'framer-motion';
 import { UploadDemo } from './UploadDemo';
 
+/**
+ * Hero component that displays the main landing section of the application.
+ * Features animated content including headline, subheadline, call-to-action buttons, and an upload demo.
+ * Uses Framer Motion for smooth entrance animations and staggered delays.
+ *
+ * @example
+ * ```tsx
+ * import { Hero } from '@/components/Hero';
+ *
+ * function LandingPage() {
+ *   return <Hero />;
+ * }
+ * ```
+ *
+ * @returns A JSX element representing the hero section with animated content
+ */
 export function Hero() {
   return (
     <section className="relative pt-32 pb-20 sm:pt-40 sm:pb-28 overflow-hidden">
@@ -14,9 +30,9 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="inline-flex items-center space-x-2 bg-dark-900/50 border border-dark-700 rounded-full px-4 py-1.5 mb-8">
+            <div className="inline-flex items-center space-x-2 bg-slate-900/50 border border-slate-700 rounded-full px-4 py-1.5 mb-8">
               <span className="w-2 h-2 bg-teal-500 rounded-full animate-pulse"></span>
-              <span className="text-sm text-dark-300">Now in early access</span>
+              <span className="text-sm text-slate-300">Now in early access</span>
             </div>
           </motion.div>
 
@@ -24,7 +40,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-dark-50 tracking-tight leading-tight text-balance mb-6"
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-50 tracking-tight leading-tight text-balance mb-6"
           >
             Your docs, <span className="gradient-text">deployed in seconds.</span>
           </motion.h1>
@@ -33,7 +49,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg sm:text-xl text-dark-300 mb-10 max-w-2xl mx-auto leading-relaxed"
+            className="text-lg sm:text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed"
           >
             {HERO_COPY.subheadline}
           </motion.p>
@@ -78,7 +94,7 @@ export function Hero() {
         </div>
       </Container>
 
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-teal-900/20 via-dark-950/0 to-dark-950/0 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-teal-900/20 via-slate-950/0 to-slate-950/0 pointer-events-none" />
     </section>
   );
 }

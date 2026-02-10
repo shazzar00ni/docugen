@@ -23,6 +23,12 @@ const Newsletter = lazy(() =>
   import('./components/Newsletter').then(module => ({ default: module.Newsletter }))
 );
 
+/**
+ * Loading spinner component for lazy-loaded content.
+ * Displays a rotating teal spinner during content loading.
+ *
+ * @returns Loading spinner component
+ */
 function Loading() {
   return (
     <div className="py-20 text-center">
@@ -31,10 +37,16 @@ function Loading() {
   );
 }
 
+/**
+ * Main application component with theme support and lazy loading.
+ * Renders the complete application layout with all sections.
+ *
+ * @returns Main app component wrapped in theme provider
+ */
 function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-light-50 dark:bg-dark-950 transition-colors duration-300">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
         <Navbar />
         <main>
           <Hero />

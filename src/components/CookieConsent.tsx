@@ -42,7 +42,7 @@ export function CookieConsent() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-dark-900 border-t border-dark-700"
+          className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-slate-900 border-t border-slate-700"
           role="dialog"
           aria-label="Cookie consent"
           aria-describedby="cookie-consent-text"
@@ -50,7 +50,7 @@ export function CookieConsent() {
           <div className="mx-auto max-w-7xl">
             <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex-1">
-                <p id="cookie-consent-text" className="text-sm text-dark-200">
+                <p id="cookie-consent-text" className="text-sm text-slate-200">
                   We use cookies to enhance your experience. By continuing to visit this site you
                   agree to our use of cookies.{' '}
                   <a href="/privacy" className="text-teal-400 hover:text-teal-300 underline">

@@ -2,6 +2,23 @@ import { useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from './ui/Button';
 
+/**
+ * UploadDemo component that provides an interactive file upload demonstration.
+ * Supports drag-and-drop and click-to-select functionality for Markdown files (.md, .mdx).
+ * Features multiple states: initial dropzone, uploading, and completion with animated transitions.
+ * Includes file validation, progress simulation, and the ability to reset and try again.
+ *
+ * @example
+ * ```tsx
+ * import { UploadDemo } from '@/components/UploadDemo';
+ *
+ * function UploadSection() {
+ *   return <UploadDemo />;
+ * }
+ * ```
+ *
+ * @returns A JSX element representing the upload demonstration interface
+ */
 export function UploadDemo() {
   const [isDragging, setIsDragging] = useState(false);
   const [file, setFile] = useState<File | null>(null);
@@ -9,16 +26,37 @@ export function UploadDemo() {
   const [isComplete, setIsComplete] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  /**
+   * Handles the drag over event for the dropzone.
+   * Prevents default browser behavior and sets the dragging state to true
+   * to provide visual feedback to the user.
+   *
+   * @param e - The drag event object
+   */
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(true);
   }, []);
 
+  /**
+   * Handles the drag leave event for the dropzone.
+   * Prevents default browser behavior and sets the dragging state to false
+   * to remove the visual feedback when dragging stops.
+   *
+   * @param e - The drag event object
+   */
   const handleDragLeave = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
   }, []);
 
+  /**
+   * Handles the drop event for the dropzone.
+   * Prevents default browser behavior, processes the dropped file, and validates file type.
+   * Only accepts Markdown files (.md, .mdx) and initiates the upload simulation if valid.
+   *
+   * @param e - The drag event object containing file data
+   */
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
@@ -29,6 +67,12 @@ export function UploadDemo() {
     }
   }, []);
 
+  /**
+   * Handles file selection via the file input dialog.
+   * Validates the selected file type and initiates upload simulation for valid Markdown files.
+   *
+   * @param e - The change event object from the file input
+   */
   const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile && (selectedFile.name.endsWith('.md') || selectedFile.name.endsWith('.mdx'))) {
@@ -37,6 +81,11 @@ export function UploadDemo() {
     }
   }, []);
 
+  /**
+   * Simulates the file upload process with a 2-second delay.
+   * Sets uploading state to true immediately, then transitions to complete state after timeout.
+   * Provides visual feedback during the upload process with progress indication.
+   */
   const simulateUpload = () => {
     setIsUploading(true);
     setTimeout(() => {
@@ -45,6 +94,11 @@ export function UploadDemo() {
     }, 2000);
   };
 
+  /**
+   * Resets the upload demo to its initial state.
+   * Clears the selected file and resets all state variables to allow for new uploads.
+   * Called when the user clicks "Try another" after a successful upload.
+   */
   const resetDemo = () => {
     setFile(null);
     setIsUploading(false);
@@ -73,7 +127,7 @@ export function UploadDemo() {
                 ${
                   isDragging
                     ? 'border-teal-500 bg-teal-500/10'
-                    : 'border-dark-700 hover:border-teal-500/50 bg-dark-900/50'
+                    : 'border-slate-700 hover:border-teal-500/50 bg-slate-900/50'
                 }
               `}
             >
@@ -85,7 +139,7 @@ export function UploadDemo() {
                 className="hidden"
                 aria-label="Upload documentation file"
               />
-              <div className="w-16 h-16 mx-auto mb-4 bg-dark-800 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-slate-800 rounded-full flex items-center justify-center">
                 <svg
                   className="w-8 h-8 text-teal-400"
                   fill="none"
@@ -100,12 +154,12 @@ export function UploadDemo() {
                   />
                 </svg>
               </div>
-              <p className="text-dark-200 font-medium mb-2">Drop your Markdown files here</p>
-              <p className="text-dark-500 text-sm mb-4">or click to browse (.md, .mdx)</p>
-              <div className="flex items-center justify-center space-x-2 text-xs text-dark-500">
-                <span className="px-2 py-1 bg-dark-800 rounded">README.md</span>
-                <span className="px-2 py-1 bg-dark-800 rounded">guide.mdx</span>
-                <span className="px-2 py-1 bg-dark-800 rounded">+ more</span>
+              <p className="text-slate-200 font-medium mb-2">Drop your Markdown files here</p>
+              <p className="text-slate-500 text-sm mb-4">or click to browse (.md, .mdx)</p>
+              <div className="flex items-center justify-center space-x-2 text-xs text-slate-500">
+                <span className="px-2 py-1 bg-slate-800 rounded">README.md</span>
+                <span className="px-2 py-1 bg-slate-800 rounded">guide.mdx</span>
+                <span className="px-2 py-1 bg-slate-800 rounded">+ more</span>
               </div>
             </div>
           </motion.div>
@@ -118,7 +172,7 @@ export function UploadDemo() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.3 }}
-            className="bg-dark-900/50 border border-dark-800 rounded-xl p-6"
+            className="bg-slate-900/50 border border-slate-800 rounded-xl p-6"
           >
             <div className="flex items-center space-x-4">
               <div className="w-12 h-12 bg-teal-500/10 rounded-lg flex items-center justify-center">
@@ -137,8 +191,8 @@ export function UploadDemo() {
                 </svg>
               </div>
               <div className="flex-1">
-                <p className="text-dark-100 font-medium">{file.name}</p>
-                <p className="text-dark-500 text-sm">
+                <p className="text-slate-100 font-medium">{file.name}</p>
+                <p className="text-slate-500 text-sm">
                   {isUploading ? 'Analyzing and structuring...' : 'Ready to process'}
                 </p>
               </div>
@@ -147,7 +201,7 @@ export function UploadDemo() {
               )}
             </div>
             {isUploading && (
-              <div className="mt-4 h-1 bg-dark-800 rounded-full overflow-hidden">
+              <div className="mt-4 h-1 bg-slate-800 rounded-full overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: '100%' }}
@@ -185,8 +239,8 @@ export function UploadDemo() {
                 </svg>
               </div>
               <div className="flex-1">
-                <p className="text-dark-100 font-medium">Documentation processed!</p>
-                <p className="text-dark-400 text-sm">12 sections extracted, 3 pages generated</p>
+                <p className="text-slate-100 font-medium">Documentation processed!</p>
+                <p className="text-slate-400 text-sm">12 sections extracted, 3 pages generated</p>
               </div>
               <Button variant="ghost" size="sm" onClick={resetDemo}>
                 Try another
