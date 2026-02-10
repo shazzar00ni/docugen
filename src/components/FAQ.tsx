@@ -10,6 +10,18 @@ interface FAQItemProps {
   onClick: () => void;
 }
 
+/**
+ * FAQItem component that represents a single FAQ item with expandable answer.
+ * Features smooth animations for expanding/collapsing and a rotating chevron indicator.
+ * Handles accessibility attributes and keyboard navigation.
+ *
+ * @param question - The FAQ question text
+ * @param answer - The FAQ answer text that appears when expanded
+ * @param isOpen - Whether the item is currently expanded
+ * @param onClick - Click handler to toggle the expanded state
+ *
+ * @returns A JSX element representing a single FAQ item
+ */
 function FAQItem({ question, answer, isOpen, onClick }: FAQItemProps) {
   return (
     <div className="border-b border-slate-800">
@@ -47,9 +59,31 @@ function FAQItem({ question, answer, isOpen, onClick }: FAQItemProps) {
   );
 }
 
+/**
+ * FAQ component that displays a list of frequently asked questions in an accordion format.
+ * Only one FAQ item can be expanded at a time for better user experience.
+ * Features smooth animations and proper accessibility support.
+ *
+ * @example
+ * ```tsx
+ * import { FAQ } from '@/components/FAQ';
+ *
+ * function HelpSection() {
+ *   return <FAQ />;
+ * }
+ * ```
+ *
+ * @returns A JSX element representing the FAQ section with expandable items
+ */
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
+  /**
+   * Handles the click event on FAQ items to toggle their expanded state.
+   * Closes the currently open item if clicking the same item, otherwise opens the clicked item.
+   *
+   * @param index - The index of the FAQ item that was clicked
+   */
   const handleClick = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };

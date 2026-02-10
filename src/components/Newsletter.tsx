@@ -5,17 +5,51 @@ import { NEWSLETTER_COPY } from '../data/content';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
+/**
+ * Validates whether a given string is a properly formatted email address.
+ * Uses a regular expression to check for standard email format requirements.
+ *
+ * @param email - The email string to validate
+ * @returns True if the email is valid, false otherwise
+ *
+ * @example
+ * ```tsx
+ * isValidEmail('user@example.com'); // true
+ * isValidEmail('invalid-email');    // false
+ * ```
+ */
 const isValidEmail = (email: string): boolean => {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   return emailRegex.test(email);
 };
 
+/**
+ * Newsletter component that provides an email subscription form with validation.
+ * Features real-time email validation, error handling, and success state management.
+ * Includes form validation on blur and submit with user-friendly error messages.
+ *
+ * @example
+ * ```tsx
+ * import { Newsletter } from '@/components/Newsletter';
+ *
+ * function Footer() {
+ *   return <Newsletter />;
+ * }
+ * ```
+ *
+ * @returns A JSX element representing the newsletter subscription form
+ */
 export function Newsletter() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
   const [touched, setTouched] = useState(false);
 
+  /**
+   * Handles the blur event for the email input field.
+   * Marks the field as touched and validates the email if a value is present.
+   * Sets appropriate error messages based on validation results.
+   */
   const handleBlur = () => {
     setTouched(true);
     if (email && !isValidEmail(email)) {
@@ -25,6 +59,13 @@ export function Newsletter() {
     }
   };
 
+  /**
+   * Handles form submission for the newsletter subscription.
+   * Prevents default form behavior, validates the email, and updates the UI state accordingly.
+   * Shows success state if email is valid, otherwise displays appropriate error messages.
+   *
+   * @param e - The form event object
+   */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setTouched(true);

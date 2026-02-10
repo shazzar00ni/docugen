@@ -10,6 +10,31 @@ interface InputProps {
   'aria-describedby'?: string;
 }
 
+/**
+ * Styled input field component with focus states and accessibility support.
+ * Designed for dark theme with teal accent colors.
+ *
+ * @param placeholder - Input placeholder text
+ * @param type - Input type ('text' | 'email')
+ * @param className - Additional CSS classes
+ * @param disabled - Whether the input is disabled
+ * @param value - Current input value
+ * @param onChange - Change event handler
+ * @param onBlur - Blur event handler
+ * @param props - Additional HTML input attributes
+ * @returns Styled input element
+ *
+ * @example
+ * ```typescript
+ * <Input
+ *   type="email"
+ *   placeholder="Enter your email"
+ *   value={email}
+ *   onChange={handleChange}
+ *   disabled={isSubmitting}
+ * />
+ * ```
+ */
 export function Input({
   placeholder,
   type = 'text',

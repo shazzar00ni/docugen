@@ -13,6 +13,12 @@ export const ThemeContext = createContext<ThemeContextType | undefined>(undefine
 
 const THEME_STORAGE_KEY = 'docugen-theme';
 
+/**
+ * Determines the initial theme based on localStorage and system preferences.
+ * Checks for stored theme first, then falls back to system preference.
+ *
+ * @returns Initial theme ('light' | 'dark')
+ */
 function getInitialTheme(): Theme {
   if (typeof window === 'undefined') {
     return 'dark';
@@ -31,6 +37,12 @@ function getInitialTheme(): Theme {
   }
 }
 
+/**
+ * Applies the theme to the document root element.
+ * Adds or removes the 'dark' class to enable Tailwind CSS dark mode.
+ *
+ * @param theme - Theme to apply ('light' | 'dark')
+ */
 function applyTheme(theme: Theme) {
   const root = document.documentElement;
   if (theme === 'dark') {
@@ -44,6 +56,20 @@ interface ThemeProviderProps {
   children: ReactNode;
 }
 
+/**
+ * React context provider for theme management.
+ * Manages theme state, persistence, and DOM theme application.
+ *
+ * @param children - Child components to wrap with theme context
+ * @returns Theme context provider component
+ *
+ * @example
+ * ```typescript
+ * <ThemeProvider>
+ *   <App />
+ * </ThemeProvider>
+ * ```
+ */
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>('dark');
 

@@ -65,6 +65,22 @@ const icons = {
   ),
 };
 
+/**
+ * Features component that displays a grid of product features with icons and descriptions.
+ * Renders feature cards in a responsive grid layout with entrance animations.
+ * Each feature includes an icon, title, and description with hover effects.
+ *
+ * @example
+ * ```tsx
+ * import { Features } from '@/components/Features';
+ *
+ * function ProductPage() {
+ *   return <Features />;
+ * }
+ * ```
+ *
+ * @returns A JSX element representing the features section with animated feature cards
+ */
 export function Features() {
   return (
     <section id="features" className="py-20">

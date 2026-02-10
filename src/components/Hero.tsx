@@ -4,6 +4,22 @@ import { HERO_COPY } from '../data/content';
 import { motion } from 'framer-motion';
 import { UploadDemo } from './UploadDemo';
 
+/**
+ * Hero component that displays the main landing section of the application.
+ * Features animated content including headline, subheadline, call-to-action buttons, and an upload demo.
+ * Uses Framer Motion for smooth entrance animations and staggered delays.
+ *
+ * @example
+ * ```tsx
+ * import { Hero } from '@/components/Hero';
+ *
+ * function LandingPage() {
+ *   return <Hero />;
+ * }
+ * ```
+ *
+ * @returns A JSX element representing the hero section with animated content
+ */
 export function Hero() {
   return (
     <section className="relative pt-32 pb-20 sm:pt-40 sm:pb-28 overflow-hidden">

@@ -5,6 +5,22 @@ interface SkeletonProps {
   height?: number | string;
 }
 
+/**
+ * Skeleton loading component with multiple variants.
+ * Displays animated placeholder content while actual content loads.
+ *
+ * @param className - Additional CSS classes
+ * @param variant - Skeleton shape ('text' | 'circular' | 'rectangular')
+ * @param width - Custom width (number or string)
+ * @param height - Custom height (number or string)
+ * @returns Animated skeleton placeholder
+ *
+ * @example
+ * ```typescript
+ * <Skeleton variant="text" width="100%" height={20} />
+ * <Skeleton variant="circular" width={40} height={40} />
+ * ```
+ */
 export function Skeleton({ className = '', variant = 'text', width, height }: SkeletonProps) {
   const baseStyles = 'bg-slate-800 animate-pulse';
 
@@ -28,6 +44,12 @@ export function Skeleton({ className = '', variant = 'text', width, height }: Sk
   );
 }
 
+/**
+ * Skeleton card component with avatar and text lines.
+ * Simulates a user card with profile image and content.
+ *
+ * @returns Skeleton card placeholder component
+ */
 export function SkeletonCard() {
   return (
     <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
@@ -43,14 +65,32 @@ export function SkeletonCard() {
   );
 }
 
+/**
+ * Skeleton button component with standard button dimensions.
+ * Simulates a button during loading state.
+ *
+ * @returns Skeleton button placeholder component
+ */
 export function SkeletonButton() {
   return <Skeleton variant="rectangular" width={120} height={40} className="rounded-lg" />;
 }
 
+/**
+ * Skeleton input field component with standard input height.
+ * Simulates a text input during loading state.
+ *
+ * @returns Skeleton input placeholder component
+ */
 export function SkeletonInput() {
   return <Skeleton variant="rectangular" width="100%" height={48} className="rounded-lg" />;
 }
 
+/**
+ * Skeleton feature card component with icon and text.
+ * Simulates a feature card with icon and description.
+ *
+ * @returns Skeleton feature card placeholder component
+ */
 export function SkeletonFeature() {
   return (
     <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 space-y-4">
@@ -62,6 +102,12 @@ export function SkeletonFeature() {
   );
 }
 
+/**
+ * Skeleton testimonial card component with quote and author.
+ * Simulates a testimonial card with quote text and author info.
+ *
+ * @returns Skeleton testimonial card placeholder component
+ */
 export function SkeletonTestimonial() {
   return (
     <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 space-y-4">

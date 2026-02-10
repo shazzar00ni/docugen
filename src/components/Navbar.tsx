@@ -4,6 +4,22 @@ import { Button } from './ui/Button';
 import { MobileMenu } from './MobileMenu';
 import { NAV_LINKS, SITE } from '../data/content';
 
+/**
+ * Navbar component that displays the main navigation header for the application.
+ * Features include theme toggle, navigation links, authentication buttons, and mobile menu support.
+ * The navbar is fixed at the top with a backdrop blur effect for better visibility over content.
+ *
+ * @example
+ * ```tsx
+ * import { Navbar } from '@/components/Navbar';
+ *
+ * function App() {
+ *   return <Navbar />;
+ * }
+ * ```
+ *
+ * @returns A JSX element representing the navigation header
+ */
 export function Navbar() {
   const { theme, toggleTheme } = useTheme();
 
