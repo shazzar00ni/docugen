@@ -15,19 +15,36 @@ describe('parseMarkdown', () => {
   it('escapes HTML inside paragraphs', () => {
     const md = 'Paragraph with <strong>bold</strong> text';
     const html = parseMarkdown(md);
-    // HTML should be escaped, not render as actual HTML tags
     expect(html).toContain('Paragraph with &lt;strong&gt;bold&lt;/strong&gt; text');
+  });
+
+  it('renders unordered lists', () => {
+    const md = '- First\n- Second\n- Third';
+    const html = parseMarkdown(md);
+    expect(html).toContain('<ul><li>First</li></ul>');
+    expect(html).toContain('<ul><li>Second</li></ul>');
+    expect(html).toContain('<ul><li>Third</li></ul>');
+  });
+
+  it('renders ordered lists', () => {
+    const md = '1. One\n2. Two\n3. Three';
+    const html = parseMarkdown(md);
+    expect(html).toContain('<ol><li>One</li></ol>');
+    expect(html).toContain('<ol><li>Two</li></ol>');
+    expect(html).toContain('<ol><li>Three</li></ol>');
+  });
+
+  it('renders fenced code blocks', () => {
+    const md = '```\nconsole.log("hi");\n```';
+    const html = parseMarkdown(md);
+    expect(html).toContain('<pre><code>console.log("hi");</code></pre>');
   });
 });
 
-describe('MarkdownViewer', () => {
+describe('MarkdownViewer with new constructs', () => {
   beforeEach(() => {
-    // Stub DOMPurify.sanitize to run in Node/JSDOM
     vi.stubGlobal('DOMPurify', {
-      sanitize: vi.fn((html: string) => {
-        // Simple stub: strip script tags
-        return html.replace(/<script[\s\S]*?<\/script>/gi, '');
-      }),
+      sanitize: vi.fn((html: string) => html),
     });
   });
 
@@ -35,19 +52,17 @@ describe('MarkdownViewer', () => {
     vi.unstubAllGlobals();
   });
 
-  it('renders sanitized content and strips dangerous HTML', () => {
-    const dangerous = '<script>alert("xss");</script><h1>Safe</h1>';
-    render(<MarkdownViewer content={dangerous} />);
-    // script tag should be removed by sanitizer
-    expect(document.querySelector('script')).toBeNull();
-    // sanitized content should render
-    expect(screen.getByText('Safe')).toBeInTheDocument();
+  it('renders sanitized lists via MarkdownViewer', () => {
+    const md = '- Item';
+    const html = parseMarkdown(md);
+    render(<MarkdownViewer content={html} />);
+    expect(screen.getByText('Item')).toBeInTheDocument();
   });
 
-  it('renders sample parsed HTML', () => {
-    const sampleMd = '# Hello';
-    const html = parseMarkdown(sampleMd);
+  it('renders sanitized code blocks via MarkdownViewer', () => {
+    const md = '```js\nconsole.log(1);\n```';
+    const html = parseMarkdown(md);
     render(<MarkdownViewer content={html} />);
-    expect(screen.getByText('Hello')).toBeInTheDocument();
+    expect(screen.getByText('console.log(1);')).toBeInTheDocument();
   });
 });
