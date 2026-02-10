@@ -1,6 +1,7 @@
 import { Suspense, lazy } from 'react';
 import { ThemeProvider } from './lib/ThemeContext';
 import { Navbar } from './components/Navbar';
+import { Analytics } from './components/Analytics';
 import { Hero } from './components/Hero';
 import { HowItWorks } from './components/HowItWorks';
 import { Footer } from './components/Footer';
@@ -35,8 +36,15 @@ function App() {
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-light-50 dark:bg-dark-950 transition-colors duration-300">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only absolute left-0 top-0 m-4 px-3 py-2 bg-teal-600 text-white rounded"
+        >
+          Skip to content
+        </a>
         <Navbar />
-        <main>
+        <Analytics />
+        <main id="main" role="main">
           <Hero />
           <HowItWorks />
           <Suspense fallback={<Loading />}>
