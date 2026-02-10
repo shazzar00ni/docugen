@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 export function Analytics() {
   useEffect(() => {
-    const plausibleDomain = (window as unknown as { PLAUSIBLE_DOMAIN?: string }).PLAUSIBLE_DOMAIN;
+    const plausibleDomain = (import.meta as any).env?.VITE_PLAUSIBLE_DOMAIN as string | undefined;
     if (plausibleDomain) {
       const s = document.createElement('script');
       s.defer = true;
