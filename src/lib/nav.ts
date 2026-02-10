@@ -7,6 +7,27 @@ export type NavItem = {
   children: NavItem[];
 };
 
+/** Flatten navigation hierarchy to a list representing current path to a given item */
+export function getPathToItem(items: NavItem[], targetId: string): NavItem[] {
+  const path: NavItem[] = [];
+  function traverse(current: NavItem[]): boolean {
+    for (const item of current) {
+      if (item.id === targetId) {
+        path.push(item);
+        return true;
+      }
+      if (traverse(item.children)) {
+        path.push(item);
+        return true;
+      }
+      path.pop(); // not in this branch
+    }
+    return false;
+  }
+  traverse(items);
+  return path;
+}
+
 /**
  * Extract heading hierarchy from parsed HTML to drive navigation and TOC
  */
