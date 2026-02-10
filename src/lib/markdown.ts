@@ -48,6 +48,48 @@ export function parseMarkdown(md: string): string {
       .join('');
   };
 
+  // Helper to parse a table block
+  const parseTableBlock = (tableLines: string[]): void => {
+    if (tableLines.length < 2) return;
+    const headerRow = tableLines[0]
+      .split('|')
+      .map(cell => cell.trim())
+      .filter(Boolean);
+    const delimRow = tableLines[1];
+    // Detect alignment from delimiter row
+    const alignments = delimRow.split('|').map(cell => {
+      const c = cell.trim();
+      if (c.startsWith(':') && c.endsWith(':')) return ' center';
+      if (c.endsWith(':')) return ' right';
+      if (c.startsWith(':')) return ' left';
+      return ' left';
+    });
+    const bodyRows = tableLines.slice(2).map(row =>
+      row
+        .split('|')
+        .map(cell => cell.trim())
+        .filter(Boolean)
+    );
+
+    // Build table HTML
+    let tableHtml = '<table>\n<thead>\n<tr>\n';
+    headerRow.forEach((cell, i) => {
+      const align = alignments[i] || ' left';
+      tableHtml += `<th align="${align.replace(' ', '-')}">${processInline(cell)}</th>\n`;
+    });
+    tableHtml += '</tr>\n</thead>\n<tbody>\n';
+    bodyRows.forEach(row => {
+      tableHtml += '<tr>\n';
+      row.forEach((cell, i) => {
+        const align = alignments[i] || ' left';
+        tableHtml += `<td align="${align.replace(' ', '-')}">${processInline(cell)}</td>\n`;
+      });
+      tableHtml += '</tr>\n';
+    });
+    tableHtml += '</tbody>\n</table>';
+    html += tableHtml;
+  };
+
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     const trimmed = line.trim();
@@ -77,6 +119,20 @@ export function parseMarkdown(md: string): string {
         codeBlockLines = [line.slice(4)];
         continue;
       }
+    }
+
+    // Table detection: collect all consecutive table lines
+    if (trimmed.includes('|')) {
+      flushPara();
+      const tableLines: string[] = [];
+      let j = i;
+      while (j < lines.length && lines[j].trim().includes('|')) {
+        tableLines.push(lines[j]);
+        j++;
+      }
+      i = j - 1; // advance outer loop index
+      parseTableBlock(tableLines);
+      continue;
     }
 
     // Blockquote detection

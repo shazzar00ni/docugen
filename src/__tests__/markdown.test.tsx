@@ -73,6 +73,41 @@ describe('parseMarkdown', () => {
       '<blockquote>See <a href="https://example.com" target="_blank" rel="noopener noreferrer">https://example.com</a> and <code>inline</code> code.</blockquote>'
     );
   });
+
+  it('renders simple tables', () => {
+    const md = '| Name | Age |\n|------|-----|\n| Alice| 30  |\n| Bob  | 25  |';
+    const html = parseMarkdown(md);
+    expect(html).toContain('<table>');
+    expect(html).toContain('<thead>');
+    expect(html).toContain('<th align="left">Name</th>');
+    expect(html).toContain('<th align="left">Age</th>');
+    expect(html).toContain('<tbody>');
+    expect(html).toContain('<td align="left">Alice</td>');
+    expect(html).toContain('<td align="left">30</td>');
+    expect(html).toContain('<td align="left">Bob</td>');
+    expect(html).toContain('<td align="left">25</td>');
+    expect(html).toContain('</table>');
+  });
+
+  it('renders tables with alignment', () => {
+    const md = '| Left | Center | Right |\n|:----|:-----:|----:|\n| A    | B      | C    |';
+    const html = parseMarkdown(md);
+    expect(html).toContain('<th align="left">Left</th>');
+    expect(html).toContain('<th align="center">Center</th>');
+    expect(html).toContain('<th align="right">Right</th>');
+    expect(html).toContain('<td align="left">A</td>');
+    expect(html).toContain('<td align="center">B</td>');
+    expect(html).toContain('<td align="right">C</td>');
+  });
+
+  it('renders tables with inline constructs inside cells', () => {
+    const md = '| Name | Link |\n|------|------|\n| Doc  | https://docugen.com |';
+    const html = parseMarkdown(md);
+    expect(html).toContain('<td align="left">Doc</td>');
+    expect(html).toContain(
+      '<td align="left"><a href="https://docugen.com" target="_blank" rel="noopener noreferrer">https://docugen.com</a></td>'
+    );
+  });
 });
 
 describe('MarkdownViewer with new constructs', () => {
@@ -121,5 +156,15 @@ describe('MarkdownViewer with new constructs', () => {
     const html = parseMarkdown(md);
     render(<MarkdownViewer content={html} />);
     expect(screen.getByText('A note')).toBeInTheDocument();
+  });
+
+  it('renders sanitized tables via MarkdownViewer', () => {
+    const md = '| A | B |\n|---|---|\n| 1 | 2 |';
+    const html = parseMarkdown(md);
+    render(<MarkdownViewer content={html} />);
+    expect(screen.getByText('A')).toBeInTheDocument();
+    expect(screen.getByText('B')).toBeInTheDocument();
+    expect(screen.getByText('1')).toBeInTheDocument();
+    expect(screen.getByText('2')).toBeInTheDocument();
   });
 });
