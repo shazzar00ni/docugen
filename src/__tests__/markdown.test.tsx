@@ -122,6 +122,14 @@ describe('parseMarkdown', () => {
       '<img src="https://example.com/image.png" alt="Alt" title="Image title" />'
     );
   });
+
+  it('renders links with title', () => {
+    const md = '[Example](https://example.com "Link title")';
+    const html = parseMarkdown(md);
+    expect(html).toContain(
+      '<a href="https://example.com" target="_blank" rel="noopener noreferrer" title="Link title">Example</a>'
+    );
+  });
 });
 
 describe('MarkdownViewer with new constructs', () => {
@@ -189,5 +197,15 @@ describe('MarkdownViewer with new constructs', () => {
     const img = screen.getByRole('img');
     expect(img).toHaveAttribute('src', 'https://example.com/logo.png');
     expect(img).toHaveAttribute('alt', 'Logo');
+  });
+
+  it('renders sanitized links with title via MarkdownViewer', () => {
+    const md = '[Example](https://example.com "Link title")';
+    const html = parseMarkdown(md);
+    render(<MarkdownViewer content={html} />);
+    const link = screen.getByRole('link');
+    expect(link).toHaveAttribute('href', 'https://example.com');
+    expect(link).toHaveAttribute('title', 'Link title');
+    expect(link).toHaveTextContent('Example');
   });
 });
