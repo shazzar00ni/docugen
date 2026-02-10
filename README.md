@@ -59,12 +59,23 @@ npm run preview
 
 ## Tech Stack
 
-- **React 18** - UI framework
+- **React 19** - UI framework with latest features
 - **Vite** - Build tool and dev server
-- **TypeScript** - Type safety
+- **TypeScript** - Type safety with strict mode
 - **Tailwind CSS** - Utility-first styling
 - **Framer Motion** - Subtle animations
 - **Heroicons** - Clean SVG icons
+
+## Documentation
+
+Comprehensive documentation is available in the [`docs/`](./docs/) directory:
+
+- **[Getting Started](./docs/DEVELOPMENT.md)** - Development setup and workflow
+- **[Architecture](./docs/ARCHITECTURE.md)** - System design and technical decisions
+- **[Component Library](./docs/COMPONENTS.md)** - UI components, props, and usage examples
+- **[API Reference](./docs/API.md)** - Data structures, content API, and type definitions
+- **[Testing Guide](./docs/TESTING.md)** - Testing strategy, patterns, and best practices
+- **[Roadmap](./.planning/ROADMAP.md)** - Development phases and milestones
 
 ## Project Structure
 
@@ -121,12 +132,18 @@ Since this is a static site, you can deploy anywhere:
 
 ## Contributing
 
-This is a landing page for the DocuGen product. If you'd like to improve the page:
+We welcome contributions! Please see our [Contributing Guidelines](./CONTRIBUTING.md) for details.
+
+For development setup and workflow, check the [Development Guide](./docs/DEVELOPMENT.md).
+
+Quick start:
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+2. Read the [Development Guide](./docs/DEVELOPMENT.md)
+3. Create a feature branch
+4. Make your changes
+5. Run tests: `npm run test:run`
+6. Submit a pull request
 
 ## License
 
