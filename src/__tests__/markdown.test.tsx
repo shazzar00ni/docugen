@@ -39,6 +39,26 @@ describe('parseMarkdown', () => {
     const html = parseMarkdown(md);
     expect(html).toContain('<pre><code>console.log("hi");</code></pre>');
   });
+
+  it('renders indented code blocks', () => {
+    const md = '    const x = 1;\n    console.log(x);';
+    const html = parseMarkdown(md);
+    expect(html).toContain('<pre><code>const x = 1;\nconsole.log(x);</code></pre>');
+  });
+
+  it('renders inline code', () => {
+    const md = 'Use `const x = 1` to declare.';
+    const html = parseMarkdown(md);
+    expect(html).toContain('<p>Use <code>const x = 1</code> to declare.</p>');
+  });
+
+  it('detects autolinks', () => {
+    const md = 'Visit https://example.com for more.';
+    const html = parseMarkdown(md);
+    expect(html).toContain(
+      '<a href="https://example.com" target="_blank" rel="noopener noreferrer">https://example.com</a>'
+    );
+  });
 });
 
 describe('MarkdownViewer with new constructs', () => {
@@ -64,5 +84,21 @@ describe('MarkdownViewer with new constructs', () => {
     const html = parseMarkdown(md);
     render(<MarkdownViewer content={html} />);
     expect(screen.getByText('console.log(1);')).toBeInTheDocument();
+  });
+
+  it('renders sanitized inline code via MarkdownViewer', () => {
+    const md = 'Here is `inline` code.';
+    const html = parseMarkdown(md);
+    render(<MarkdownViewer content={html} />);
+    expect(screen.getByText('inline')).toBeInTheDocument();
+  });
+
+  it('renders sanitized autolinks via MarkdownViewer', () => {
+    const md = 'See https://docugen.com';
+    const html = parseMarkdown(md);
+    render(<MarkdownViewer content={html} />);
+    const link = screen.getByRole('link');
+    expect(link).toHaveAttribute('href', 'https://docugen.com');
+    expect(link).toHaveTextContent('https://docugen.com');
   });
 });
