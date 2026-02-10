@@ -59,6 +59,20 @@ describe('parseMarkdown', () => {
       '<a href="https://example.com" target="_blank" rel="noopener noreferrer">https://example.com</a>'
     );
   });
+
+  it('renders blockquotes', () => {
+    const md = '> A quote\n> over multiple lines';
+    const html = parseMarkdown(md);
+    expect(html).toContain('<blockquote>A quote\nover multiple lines</blockquote>');
+  });
+
+  it('renders blockquotes with inline constructs', () => {
+    const md = '> See https://example.com and `inline` code.';
+    const html = parseMarkdown(md);
+    expect(html).toContain(
+      '<blockquote>See <a href="https://example.com" target="_blank" rel="noopener noreferrer">https://example.com</a> and <code>inline</code> code.</blockquote>'
+    );
+  });
 });
 
 describe('MarkdownViewer with new constructs', () => {
@@ -100,5 +114,12 @@ describe('MarkdownViewer with new constructs', () => {
     const link = screen.getByRole('link');
     expect(link).toHaveAttribute('href', 'https://docugen.com');
     expect(link).toHaveTextContent('https://docugen.com');
+  });
+
+  it('renders sanitized blockquotes via MarkdownViewer', () => {
+    const md = '> A note';
+    const html = parseMarkdown(md);
+    render(<MarkdownViewer content={html} />);
+    expect(screen.getByText('A note')).toBeInTheDocument();
   });
 });

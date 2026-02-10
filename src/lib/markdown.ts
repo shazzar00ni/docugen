@@ -23,7 +23,33 @@ export function parseMarkdown(md: string): string {
     }
   };
 
-  for (const line of lines) {
+  // Helper to process inline constructs within a line
+  const processInline = (line: string): string => {
+    const inlineCodeSegments = line.split(/(`.+?`)/);
+    return inlineCodeSegments
+      .map(seg => {
+        if (seg.startsWith('`') && seg.endsWith('`')) {
+          return `<code>${escapeHtml(seg.slice(1, -1))}</code>`;
+        }
+        // Autolink detection
+        const urlMatch = seg.match(/(https?:\/\/[^\s]+)/g);
+        if (urlMatch) {
+          let replaced = seg;
+          for (const url of urlMatch) {
+            replaced = replaced.replace(
+              url,
+              `<a href="${url}" target="_blank" rel="noopener noreferrer">${escapeHtml(url)}</a>`
+            );
+          }
+          return replaced;
+        }
+        return escapeHtml(seg);
+      })
+      .join('');
+  };
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
     const trimmed = line.trim();
 
     // Detect fenced code block start/end
@@ -53,48 +79,38 @@ export function parseMarkdown(md: string): string {
       }
     }
 
-    // Inline code within paragraphs
-    // Simple approach: split on ` and process segments
-    const inlineCodeSegments = line.split(/(`.+?`)/);
-    const processedLine = inlineCodeSegments
-      .map(seg => {
-        if (seg.startsWith('`') && seg.endsWith('`')) {
-          return `<code>${escapeHtml(seg.slice(1, -1))}</code>`;
-        }
-        // Autolink detection
-        const urlMatch = seg.match(/(https?:\/\/[^\s]+)/g);
-        if (urlMatch) {
-          let replaced = seg;
-          for (const url of urlMatch) {
-            replaced = replaced.replace(
-              url,
-              `<a href="${url}" target="_blank" rel="noopener noreferrer">${escapeHtml(url)}</a>`
-            );
-          }
-          return replaced;
-        }
-        return escapeHtml(seg);
-      })
-      .join('');
-    // If there was inline code or links, treat as its own paragraph fragment
-    if (processedLine !== escapeHtml(line) || line.includes('`') || line.match(/https?:\/\//)) {
-      para.push(processedLine);
+    // Blockquote detection
+    if (trimmed.startsWith('>')) {
+      flushPara();
+      // Collect consecutive blockquote lines
+      const blockquoteLines: string[] = [];
+      let j = i;
+      while (j < lines.length && lines[j].trim().startsWith('>')) {
+        // Remove leading > and optional space
+        blockquoteLines.push(lines[j].replace(/^>\s?/, ''));
+        j++;
+      }
+      i = j - 1; // advance outer loop index
+      // Recursively parse inner content for inline constructs
+      const inner = blockquoteLines.join('\n');
+      const innerProcessed = processInline(inner);
+      html += `<blockquote>${innerProcessed}</blockquote>`;
       continue;
     }
 
     // Unordered list
     if (/^[\s]*[-*+]\s/.test(line)) {
       flushPara();
-      const content = line.replace(/^[\s]*[-*+]\s/, '');
-      html += `<ul><li>${escapeHtml(content)}</li></ul>`;
+      const content = processInline(line.replace(/^[\s]*[-*+]\s/, ''));
+      html += `<ul><li>${content}</li></ul>`;
       continue;
     }
 
     // Ordered list
     if (/^[\s]*\d+\.\s/.test(line)) {
       flushPara();
-      const content = line.replace(/^[\s]*\d+\.\s/, '');
-      html += `<ol><li>${escapeHtml(content)}</li></ol>`;
+      const content = processInline(line.replace(/^[\s]*\d+\.\s/, ''));
+      html += `<ol><li>${content}</li></ol>`;
       continue;
     }
 
@@ -103,7 +119,7 @@ export function parseMarkdown(md: string): string {
     if (heading) {
       flushPara();
       const level = heading[1].length;
-      const text = escapeHtml(heading[2]);
+      const text = processInline(heading[2]);
       html += `<h${level}>${text}</h${level}>`;
       continue;
     }
@@ -114,8 +130,9 @@ export function parseMarkdown(md: string): string {
       continue;
     }
 
-    // Normal line: start or continue paragraph
-    para.push(line);
+    // Normal line: start or continue paragraph with inline processing
+    const processedLine = processInline(line);
+    para.push(processedLine);
   }
 
   flushPara();
