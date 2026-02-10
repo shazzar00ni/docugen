@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { parseMarkdown } from '../lib/markdown';
 import { render, screen } from '@testing-library/react';
 import { MarkdownViewer } from '../components/markdown/MarkdownViewer';
@@ -21,6 +21,20 @@ describe('parseMarkdown', () => {
 });
 
 describe('MarkdownViewer', () => {
+  beforeEach(() => {
+    // Stub DOMPurify.sanitize to run in Node/JSDOM
+    vi.stubGlobal('DOMPurify', {
+      sanitize: vi.fn((html: string) => {
+        // Simple stub: strip script tags
+        return html.replace(/<script[\s\S]*?<\/script>/gi, '');
+      }),
+    });
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
   it('renders sanitized content and strips dangerous HTML', () => {
     const dangerous = '<script>alert("xss");</script><h1>Safe</h1>';
     render(<MarkdownViewer content={dangerous} />);

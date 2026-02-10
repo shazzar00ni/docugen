@@ -1,18 +1,36 @@
 import React from 'react';
+import DOMPurify from 'dompurify';
+
+const SANITIZE_CONFIG = {
+  ALLOWED_TAGS: [
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'p',
+    'br',
+    'strong',
+    'em',
+    'a',
+    'ul',
+    'ol',
+    'li',
+    'blockquote',
+    'pre',
+    'code',
+  ],
+  ALLOWED_ATTR: ['href', 'target', 'rel'],
+  FORBID_TAGS: ['script', 'iframe', 'object', 'embed'],
+  FORBID_ATTR: ['on*', 'style'],
+};
 
 function sanitizeHtml(html: string): string {
-  // Basic sanitization: remove script tags and event handlers
-  const withoutScripts = html.replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '');
-  const withoutEvents = withoutScripts.replace(/\son\w+\s*=\s*(['\"]).*?\1/gi, '');
-  // Remove javascript: in href/src attributes
-  const sanitized = withoutEvents.replace(
-    /\s(href|src)\s*=\s*(['"])javascript:[^'" >]+(['"])?/gi,
-    ' '
-  );
-  return sanitized;
+  return DOMPurify.sanitize(html, SANITIZE_CONFIG);
 }
 
 export function MarkdownViewer({ content }: { content: string }) {
-  const safe = typeof window !== 'undefined' ? sanitizeHtml(content) : content;
+  const safe = sanitizeHtml(content);
   return <div dangerouslySetInnerHTML={{ __html: safe }} />;
 }
