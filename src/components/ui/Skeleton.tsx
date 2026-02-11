@@ -22,7 +22,7 @@ interface SkeletonProps {
  * ```
  */
 export function Skeleton({ className = '', variant = 'text', width, height }: SkeletonProps) {
-  const baseStyles = 'bg-slate-800 animate-pulse';
+  const baseStyles = 'bg-dark-800 animate-pulse rounded';
 
   const variantStyles = {
     text: 'rounded',
