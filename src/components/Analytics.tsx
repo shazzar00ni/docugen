@@ -8,7 +8,7 @@ import { useEffect } from 'react';
  */
 export function Analytics() {
   useEffect(() => {
-    const plausibleDomain = (import.meta as any).env?.VITE_PLAUSIBLE_DOMAIN as string | undefined;
+    const plausibleDomain = import.meta.env?.VITE_PLAUSIBLE_DOMAIN as string | undefined;
     if (plausibleDomain) {
       const s = document.createElement('script');
       s.defer = true;
