@@ -10,6 +10,7 @@ import { CustomizationPanel, type CustomTheme } from './components/theme/Customi
 import { MobileMenu } from './components/mobile/MobileMenu';
 import { ExportControls } from './components/deploy/ExportControls';
 import { DeploymentControls } from './components/deploy/DeploymentControls';
+import { DomainControls } from './components/domain/DomainControls';
 import { parseMarkdown, extractNavFromHtml, getPathToItem } from './lib/nav';
 
 export type DocViewerState = {
@@ -36,17 +37,20 @@ export function App() {
   const [siteTitle, setSiteTitle] = useState('DocuGen');
   const [logoUrl, setLogoUrl] = useState('');
   const [deploymentPanelOpen, setDeploymentPanelOpen] = useState(false);
+  const [domainPanelOpen, setDomainPanelOpen] = useState(false);
   const { theme, setTheme } = useTheme();
 
   // Generate combined CSS/JS for export
   const getAssets = () => {
-    const themeCSS = customTheme ? `
+    const themeCSS = customTheme
+      ? `
         :root {
           --color-bg: ${customTheme.bg};
           --color-text: ${customTheme.text};
           --color-primary: ${customTheme.primary};
         }
-      ` : '';
+      `
+      : '';
 
     const baseCSS = `
       /* Tailwind base styles would be included in production build */
@@ -123,14 +127,10 @@ export function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                {logoUrl && (
-                  <img
-                    src={logoUrl}
-                    alt="Logo"
-                    className="h-8 w-auto max-w-32"
-                  />
-                )}
-                <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{siteTitle}</h1>
+                {logoUrl && <img src={logoUrl} alt="Logo" className="h-8 w-auto max-w-32" />}
+                <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                  {siteTitle}
+                </h1>
               </div>
               <div className="flex items-center space-x-3">
                 <Breadcrumbs items={breadcrumbs} className="text-xs" />
@@ -141,7 +141,12 @@ export function App() {
                   aria-expanded={mobileMenuOpen}
                 >
                   <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7-6h7a1 1 0 011-1v12a1 1 0 01-1-1h-3a1 1 0 01-1-1v12a1 1 0 01-1-1h7a1 1 0 011 1z" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16m-7-6h7a1 1 0 011-1v12a1 1 0 01-1-1h-3a1 1 0 01-1-1v12a1 1 0 01-1-1h7a1 1 0 011 1z"
+                    />
                   </svg>
                 </button>
               </div>
@@ -154,28 +159,21 @@ export function App() {
           <MobileMenu>
             {/* Customization panel in mobile menu */}
             <div className="p-4">
-              <CustomizationPanel
-                onThemeUpdate={setCustomTheme}
-              />
+              <CustomizationPanel onThemeUpdate={setCustomTheme} />
             </div>
             {/* Export/Deploy controls in mobile menu */}
             <div className="p-4 space-y-4">
-              <ExportControls
-                html={state.renderedHtml}
-                css={assets.css}
-                js={assets.js}
-              />
+              <ExportControls html={state.renderedHtml} css={assets.css} js={assets.js} />
               <DeploymentControls
                 html={state.renderedHtml}
                 css={assets.css}
                 js={assets.js}
-                onDeploy={(result) => {
+                onDeploy={result => {
                   if (result.success) {
                     setDeploymentPanelOpen(false);
                   }
                 }}
               />
-            </div>
             </div>
           </MobileMenu>
         )}
@@ -204,43 +202,67 @@ export function App() {
           </main>
         </div>
 
-        {/* Desktop deployment panel trigger */}
-        <button
-          onClick={() => setDeploymentPanelOpen(!deploymentPanelOpen)}
-          className="hidden md:flex fixed bottom-4 right-4 p-2 bg-teal-600 text-white rounded-lg shadow-lg hover:bg-teal-700 z-40"
-          aria-label="Toggle deployment panel"
-        >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8h13M3 16h13m-13-8h13m-13-4h13" />
-          </svg>
-        </button>
+        {/* Desktop control buttons */}
+        <div className="hidden md:flex fixed bottom-4 left-4 space-x-2">
+          <button
+            onClick={() => setDeploymentPanelOpen(!deploymentPanelOpen)}
+            className="p-2 bg-teal-600 text-white rounded-lg shadow-lg hover:bg-teal-700 z-40"
+            aria-label="Toggle deployment panel"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 8h13M3 16h13m-13-8h13m-13-4h13"
+              />
+            </svg>
+          </button>
+          <button
+            onClick={() => setDomainPanelOpen(!domainPanelOpen)}
+            className="p-2 bg-teal-600 text-white rounded-lg shadow-lg hover:bg-teal-700 z-40"
+            aria-label="Toggle domain panel"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 5h14M3 10h14m-7 4h7a1 1 0 011-1v4a1 1 0 01-1-1h-3a1 1 0 01-1-1v4a1 1 0 01-1-1h7a1 1 0 011 1z"
+              />
+            </svg>
+          </button>
+        </div>
 
         {/* Deployment panel overlay */}
         {deploymentPanelOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 m-4 w-full max-w-md">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Export & Deploy</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                  Export & Deploy
+                </h3>
                 <button
                   onClick={() => setDeploymentPanelOpen(false)}
                   className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                   aria-label="Close export panel"
                 >
                   <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 </button>
               </div>
-              <ExportControls
-                html={state.renderedHtml}
-                css={assets.css}
-                js={assets.js}
-              />
+              <ExportControls html={state.renderedHtml} css={assets.css} js={assets.js} />
               <DeploymentControls
                 html={state.renderedHtml}
                 css={assets.css}
                 js={assets.js}
-                onDeploy={(result) => {
+                onDeploy={result => {
                   if (result.success) {
                     setDeploymentPanelOpen(false);
                   }
@@ -250,12 +272,42 @@ export function App() {
           </div>
         )}
 
+        {/* Domain panel overlay */}
+        {domainPanelOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 m-4 w-full max-w-md">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                  Domain Configuration
+                </h3>
+                <button
+                  onClick={() => setDomainPanelOpen(false)}
+                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                  aria-label="Close domain panel"
+                >
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <DomainControls
+                onSSLRequest={domain => {
+                  // In a real app, this would trigger a provisioning flow
+                  console.log('SSL requested for domain:', domain);
+                }}
+              />
+            </div>
+          </div>
+        )}
+
         {/* Theme toggle and customization panel trigger */}
         <ThemeToggle />
-        <CustomizationPanel
-          onThemeUpdate={setCustomTheme}
-          className="bottom-20 right-20"
-        />
+        <CustomizationPanel onThemeUpdate={setCustomTheme} className="bottom-20 right-20" />
       </div>
     </ThemeProvider>
   );
