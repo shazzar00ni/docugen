@@ -6,6 +6,7 @@ import { TableOfContents } from './components/navigation/TableOfContents';
 import { Breadcrumbs } from './components/navigation/Breadcrumbs';
 import { ThemeProvider, useTheme } from './components/theme/ThemeProvider';
 import { ThemeToggle } from './components/theme/ThemeToggle';
+import { MobileMenu } from './components/mobile/MobileMenu';
 import { parseMarkdown, extractNavFromHtml, getPathToItem } from './lib/nav';
 
 export type DocViewerState = {
@@ -27,6 +28,7 @@ function useFileWatcher(contentRef: React.MutableRefObject<string | null>) {
 export function App() {
   const [state, setState] = useState<DocViewerState | null>(null);
   const [activeNavId, setActiveNavId] = useState<string>();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme } = useTheme();
 
   // Handle file upload (supports re-uploads for hot reload)
@@ -36,6 +38,7 @@ export function App() {
     const navTree = extractNavFromHtml(html);
     setState({ rawMarkdown: content, fileName, renderedHtml: html, navTree });
     setActiveNavId(navTree[0]?.id);
+    setMobileMenuOpen(false); // Close mobile menu on new document
   };
 
   // Simple file watcher simulation (mock for demo)
@@ -62,24 +65,55 @@ export function App() {
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
-        {/* Header with breadcrumbs */}
+        {/* Header with breadcrumbs and mobile menu trigger */}
         <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <Breadcrumbs items={breadcrumbs} className="text-xs" />
+            <div className="flex items-center justify-between">
+              <Breadcrumbs items={breadcrumbs} className="text-xs" />
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="md:hidden p-2 text-gray-500 hover:text-gray-700 rounded-lg"
+                aria-label="Toggle navigation menu"
+                aria-expanded={mobileMenuOpen}
+              >
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16m-7-6h7a1 1 0 011-1v12a1 1 0 01-1-1h-3a1 1 0 01-1-1v12a1 1 0 01-1-1h7a1 1 0 011 1z"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </header>
+
+        {/* Mobile menu overlay */}
+        {mobileMenuOpen && (
+          <MobileMenu>
+            {/* Navigation for mobile */}
+            <div className="p-4">
+              <Navigation items={state.navTree} activeId={activeNavId} />
+            </div>
+            {/* TOC for mobile */}
+            <div className="p-4">
+              <TableOfContents items={state.navTree} />
+            </div>
+          </MobileMenu>
+        )}
 
         {/* Main content area with sidebar navigation and TOC */}
         <div className="flex max-w-7xl mx-auto">
           {/* Left sidebar: Navigation */}
-          <aside className="w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 h-screen sticky top-0 overflow-y-auto">
+          <aside className="hidden md:block w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 h-screen sticky top-0 overflow-y-auto">
             <div className="p-4">
               <Navigation items={state.navTree} activeId={activeNavId} />
             </div>
           </aside>
 
           {/* Right sidebar: Table of Contents */}
-          <aside className="w-64 bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 h-screen sticky top-0 overflow-y-auto">
+          <aside className="hidden md:block w-64 bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 h-screen sticky top-0 overflow-y-auto">
             <div className="p-4">
               <TableOfContents items={state.navTree} />
             </div>
@@ -87,7 +121,7 @@ export function App() {
 
           {/* Main content: MarkdownViewer */}
           <main className="flex-1 overflow-y-auto">
-            <article className="max-w-3xl mx-auto px-8 py-8 prose dark:prose-invert">
+            <article className="max-w-3xl mx-auto px-4 py-8 prose dark:prose-invert md:px-8">
               <MarkdownViewer content={state.renderedHtml} />
             </article>
           </main>
