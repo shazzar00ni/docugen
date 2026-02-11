@@ -39,6 +39,7 @@
     "husky": "^9.1.7",
     "jsdom": "^27.4.0",
     "lint-staged": "^16.2.7",
+    "playwright": "^1.35.0",
     "postcss": "^8.4.35",
     "prettier": "^3.8.1",
     "tailwindcss": "^4.1.18",
