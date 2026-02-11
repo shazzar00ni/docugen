@@ -15,7 +15,7 @@ npm run test:run     # Run Vitest once (CI mode)
 
 ## Project Overview
 
-DocuGen is a modern landing page for a developer tool that converts documentation into static websites. Built with React + Vite + TypeScript + Tailwind CSS.
+DocuGen is a modern landing page for a developer tool that converts documentation into static websites. Built with React 19 + Vite + TypeScript + Tailwind CSS.
 
 ## Code Style Guidelines
 
@@ -79,15 +79,27 @@ DocuGen is a modern landing page for a developer tool that converts documentatio
 ```
 src/
 ├── components/
-│   ├── ui/              # Reusable base components (Button, Input, Container)
-│   ├── sections/        # Page sections (Hero, Features, Pricing)
-│   └── *.tsx            # Standalone components
+│   ├── ui/              # Reusable base components (Button, Input, Container, Skeleton)
+│   ├── sections/        # Page sections (Hero, Features, Pricing, etc.)
+│   └── *.tsx            # Standalone components (Navbar, Footer, etc.)
 ├── data/
 │   └── content.ts       # All text copy, site config, constants
 ├── lib/
+│   ├── ThemeContext.tsx # Theme management context
+│   ├── useTheme.ts      # Theme hook
 │   └── utils.ts         # Helper functions
-├── App.tsx              # Root component
+├── test/
+│   └── setup.ts         # Test configuration and global mocks
+├── App.tsx              # Root component with lazy loading
 └── main.tsx             # Entry point
+
+docs/                    # Documentation files
+├── README.md           # Documentation index
+├── ARCHITECTURE.md     # System design
+├── DEVELOPMENT.md      # Development guide
+├── COMPONENTS.md       # Component library
+├── API.md              # API reference
+└── TESTING.md          # Testing guide
 ```
 
 ### Copy & Content
@@ -106,8 +118,9 @@ src/
 ### Performance
 
 - Use `React.memo()` for expensive components (none currently)
-- Lazy load sections if needed (not needed for landing page)
+- Lazy load sections: Features, Pricing, Testimonials, Preview, Newsletter wrapped in `React.lazy()`
 - Optimize images with WebP/AVIF formats
+- Code splitting via Vite for optimal bundle size
 
 ## Testing
 
@@ -118,11 +131,17 @@ npm run test         # Watch mode
 npm run test:run     # Run once (CI mode)
 ```
 
+Test Configuration:
+
+- Setup file: `src/test/setup.ts` - Global mocks and configuration
+- Mocks provided: `localStorage`, `IntersectionObserver`
+- Environment: jsdom
+
 Writing tests:
 
 - Place test files next to components: `src/components/ui/Button.test.tsx`
 - Use `render()` and `screen` from `@testing-library/react`
-- Mock `IntersectionObserver` for framer-motion viewport animations
+- Mock external dependencies only
 - Run `npm run test:run` before committing
 
 Verify manually:
@@ -132,6 +151,8 @@ Verify manually:
 3. Animations trigger on scroll (viewport)
 4. Responsive breakpoints work
 5. Run `npm run test:run` to verify all tests pass
+
+See [docs/TESTING.md](./docs/TESTING.md) for comprehensive testing guide.
 
 ## Deployment
 
@@ -150,6 +171,17 @@ Recommended VS Code settings in `.vscode/settings.json`:
   "typescript.preferences.importModuleSpecifier": "non-relative"
 }
 ```
+
+## Documentation
+
+Comprehensive documentation is available in the `docs/` directory:
+
+- [docs/README.md](./docs/README.md) - Documentation index and navigation
+- [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) - System architecture and design decisions
+- [docs/DEVELOPMENT.md](./docs/DEVELOPMENT.md) - Development setup and workflow
+- [docs/COMPONENTS.md](./docs/COMPONENTS.md) - Component library documentation
+- [docs/API.md](./docs/API.md) - API reference and data structures
+- [docs/TESTING.md](./docs/TESTING.md) - Testing strategy and patterns
 
 ## Additional Notes
 
