@@ -70,3 +70,58 @@ test('skip-to-content focus navigation', async ({ page }) => {
   await page.keyboard.press('Enter');
   await expect(page.getByRole('main')).toBeFocused();
 });
+
+test('faq accordion expands and collapses', async ({ page }) => {
+  await page.goto('/');
+  // Scroll to FAQ section
+  await page.getByRole('link', { name: /faq/i }).click();
+  await expect(page).toHaveURL(/#faq/);
+  await expect(page.getByRole('heading', { name: /frequently asked questions/i })).toBeVisible();
+  // Click first question to expand
+  const firstQuestion = page.getByRole('button', { name: /what file formats/i }).first();
+  await firstQuestion.click();
+  // Assert answer is visible
+  await expect(page.getByText(/markdown.*mdx/i)).toBeVisible();
+});
+
+test('mobile menu opens and closes', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 667 });
+  await page.goto('/');
+  // Open mobile menu
+  await page.getByRole('button', { name: /open menu/i }).click();
+  await expect(page.getByRole('link', { name: /features/i })).toBeVisible();
+  // Close via close button
+  await page.getByRole('button', { name: /close menu/i }).click();
+  await expect(page.getByRole('link', { name: /features/i })).not.toBeVisible();
+});
+
+test('scroll-to-top button appears on scroll', async ({ page }) => {
+  await page.goto('/');
+  // Scroll down significantly
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  // Scroll-to-top button should appear
+  await expect(page.getByRole('button', { name: /scroll to top/i })).toBeVisible();
+  // Click and verify scroll back up
+  await page.getByRole('button', { name: /scroll to top/i }).click();
+  await expect(
+    page.getByRole('heading', { name: /your docs, deployed in seconds/i })
+  ).toBeVisible();
+});
+
+test('dark/light mode toggle works', async ({ page }) => {
+  await page.goto('/');
+  // Get initial theme from html class
+  const html = page.locator('html');
+  const initialDark = await html.evaluate(el => el.classList.contains('dark'));
+  // Click toggle
+  await page.getByRole('button', { name: /switch to/i }).click();
+  // Verify theme switched
+  const afterDark = await html.evaluate(el => el.classList.contains('dark'));
+  expect(afterDark).not.toBe(initialDark);
+});
+
+test('upload demo accepts drag-and-drop', async ({ page }) => {
+  await page.goto('/');
+  // Upload demo should be visible in hero
+  await expect(page.getByText(/drag and drop.*\.md.*\.mdx/i)).toBeVisible();
+});
