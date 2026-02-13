@@ -49,7 +49,7 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
 
     // Check MIME type - always validate to prevent empty MIME type bypass
     // Allow common MIME types for Markdown files
-    if (!ALLOWED_MIME_TYPES.includes(file.type)) {
+    if (file.type && !ALLOWED_MIME_TYPES.includes(file.type)) {
       return {
         type: 'mime',
         message: 'Invalid file type. Please upload a valid Markdown file',
