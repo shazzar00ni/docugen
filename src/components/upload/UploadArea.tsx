@@ -182,6 +182,7 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
             <p className="text-red-400 font-medium mb-2">Upload Failed</p>
             <p className="text-red-300 text-sm mb-4">{error.message}</p>
             <button
+              type="button"
               onClick={e => {
                 e.stopPropagation();
                 setError(null);
