@@ -121,6 +121,9 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInputRef.current?.click(); } }}
+        role="button"
+        tabIndex={0}
         className={`relative border-2 border-dashed rounded-xl p-8 text-center cursor-pointer
           ${dragOver ? 'border-teal-500 bg-teal-500/10' : error ? 'border-red-500 bg-red-500/10' : 'border-dark-700 hover:border-teal-500/50 bg-dark-900/50'}`}
       >
