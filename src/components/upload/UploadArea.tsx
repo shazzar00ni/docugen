@@ -20,7 +20,16 @@ type ValidationError = {
   message: string;
 };
 
-/** Lightweight drag-and-drop Markdown/MDX uploader for Phase 1 */
+/**
+ * Drag-and-drop area for uploading Markdown files (.md, .mdx).
+ *
+ * Validates file extension, MIME type, and size (max 10 MB). On successful validation,
+ * invokes `onUpload` with the selected `File`; on validation or processing failure,
+ * displays an inline error and allows retry.
+ *
+ * @param onUpload - Callback invoked with a validated `File` to perform the actual upload.
+ * @returns The UploadArea React element.
+ */
 export function UploadArea({ onUpload }: UploadAreaProps) {
   const [dragOver, setDragOver] = useState(false);
   const [error, setError] = useState<ValidationError | null>(null);
