@@ -128,7 +128,9 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
           ${dragOver ? 'border-teal-500 bg-teal-500/10' : error ? 'border-red-500 bg-red-500/10' : 'border-dark-700 hover:border-teal-500/50 bg-dark-900/50'}`}
       >
         <input
-          ref={el => (fileInputRef.current = el)}
+         <input
+          ref={fileInputRef}
+           type="file"
           type="file"
           accept=".md,.mdx"
           onChange={handleFileSelect}
