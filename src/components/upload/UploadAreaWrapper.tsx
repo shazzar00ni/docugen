@@ -6,8 +6,14 @@ import { UploadArea } from './UploadArea';
  * @returns The UploadArea element with an `onUpload` handler that logs the uploaded file's name.
  */
 export function UploadAreaWrapper() {
-  const onUpload = (f: File) => {
+import { useCallback } from 'react';
+import { UploadArea } from './UploadArea';
+
+export function UploadAreaWrapper() {
+  const onUpload = useCallback((f: File) => {
     console.log('File uploaded:', f.name);
-  };
+  }, []);
+  return <UploadArea onUpload={onUpload} />;
+}
   return <UploadArea onUpload={onUpload} />;
 }
