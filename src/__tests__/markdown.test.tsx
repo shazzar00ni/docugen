@@ -11,6 +11,14 @@ describe('parseMarkdown', () => {
     expect(html).toContain('<p>This is a paragraph.</p>');
     expect(html).toContain('<h2>Subtitle</h2>');
   });
+
+  it('escapes HTML entities in input', () => {
+    const md = '<img onerror="alert(1)">';
+    const html = parseMarkdown(md);
+    expect(html).not.toContain('<img');
+    expect(html).toContain('&lt;img');
+  });
+});
 });
 
 describe('MarkdownViewer', () => {
