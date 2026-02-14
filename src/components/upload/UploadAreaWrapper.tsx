@@ -1,5 +1,5 @@
-import React, { useState, useRef, useCallback } from 'react';
-import { UploadAreaProps } from './UploadArea';
+import React, { useState } from 'react';
+import { UploadArea } from './UploadArea';
 
 export function UploadAreaWrapper() {
   const [uploaded, setUploaded] = useState<string | null>(null);
