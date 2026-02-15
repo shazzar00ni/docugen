@@ -15,6 +15,8 @@ export function UploadArea({ onUpload, onUploadError }: UploadAreaProps) {
     // Extension check
     const hasValidExtension = file.name.endsWith('.md') || file.name.endsWith('.mdx');
     if (!hasValidExtension) return false;
+    // Some browsers/OS report empty MIME for .md files — allow if extension is valid
+    if (!file.type) return true;
     // MIME type check for text files
     const validMimeTypes = ['text/markdown', 'text/plain', 'text/x-markdown'];
     return validMimeTypes.includes(file.type);
