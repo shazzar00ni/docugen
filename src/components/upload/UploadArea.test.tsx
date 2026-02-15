@@ -48,6 +48,7 @@ describe('UploadArea', () => {
         readAsText: vi.fn(function () {
           // Simulate async error after read
           setTimeout(() => {
+            this.error = fileReaderError;
             if (this.onerror) this.onerror(fileReaderError);
           }, 0);
         }),
