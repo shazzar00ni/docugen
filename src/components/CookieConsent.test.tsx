@@ -1,48 +1,141 @@
-import { render, screen, fireEvent, cleanup } from '@testing-library/react';
-import { describe, it, expect, afterEach } from 'vitest';
+import { render, screen, fireEvent, cleanup, waitFor } from '@testing-library/react';
+import { describe, it, expect, afterEach, beforeEach } from 'vitest';
 import { CookieConsent } from './CookieConsent';
 
 describe('CookieConsent', () => {
+  beforeEach(() => {
+    // Mock localStorage to start fresh for each test
+    const mockLocalStorage = {
+      store: {} as Record<string, string>,
+      getItem(key: string) {
+        return this.store[key] || null;
+      },
+      setItem(key: string, value: string) {
+        this.store[key] = value;
+      },
+      clear() {
+        this.store = {};
+      },
+    };
+
+    Object.defineProperty(window, 'localStorage', {
+      value: mockLocalStorage,
+      writable: true,
+      configurable: true,
+    });
+
+    // Clear localStorage before each test
+    localStorage.clear();
+  });
+
   afterEach(() => {
     cleanup();
   });
 
-  it('renders cookie consent banner', () => {
+  it('renders cookie consent banner when no consent stored', async () => {
     render(<CookieConsent />);
-    expect(screen.getByText(/We use cookies/i)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText(/We use cookies/i)).toBeInTheDocument();
+    });
   });
 
-  it('has working accept button', () => {
+  it('has working accept button', async () => {
     render(<CookieConsent />);
-    const acceptButton = screen.getByRole('button', { name: /Accept/i });
+    
+    await waitFor(() => {
+      expect(screen.getByText(/We use cookies/i)).toBeInTheDocument();
+    });
+
+    const acceptButton = screen.getByText('Accept');
     expect(acceptButton).toBeInTheDocument();
     fireEvent.click(acceptButton);
+    
+    // After clicking, banner should disappear
+    await waitFor(() => {
+      expect(screen.queryByText(/We use cookies/i)).not.toBeInTheDocument();
+    });
   });
 
-  it('has working decline button', () => {
+  it('has working decline button', async () => {
     render(<CookieConsent />);
-    const declineButton = screen.getByRole('button', { name: /Decline/i });
+    
+    await waitFor(() => {
+      expect(screen.getByText(/We use cookies/i)).toBeInTheDocument();
+    });
+
+    const declineButton = screen.getByText('Decline');
     expect(declineButton).toBeInTheDocument();
     fireEvent.click(declineButton);
+    
+    // After clicking, banner should disappear
+    await waitFor(() => {
+      expect(screen.queryByText(/We use cookies/i)).not.toBeInTheDocument();
+    });
   });
 
-  it('has correct heading hierarchy', () => {
+  it('has correct heading hierarchy', async () => {
     render(<CookieConsent />);
-    const dialog = screen.getByRole('dialog');
-    expect(dialog).toBeInTheDocument();
-    expect(dialog).toHaveAttribute('aria-label', 'Cookie consent');
+    await waitFor(() => {
+      const dialog = screen.getByRole('dialog');
+      expect(dialog).toBeInTheDocument();
+      expect(dialog).toHaveAttribute('aria-label', 'Cookie consent');
+    });
   });
 
-  it('includes link to privacy policy', () => {
+  it('includes link to privacy policy', async () => {
     render(<CookieConsent />);
+    await waitFor(() => {
+      expect(screen.getByText(/We use cookies/i)).toBeInTheDocument();
+    });
+
     const link = screen.getByRole('link', { name: /Learn more/i });
     expect(link).toBeInTheDocument();
     expect(link).toHaveAttribute('href', '/privacy');
   });
 
-  it('shows both accept and decline buttons', () => {
+  it('shows both accept and decline buttons', async () => {
     render(<CookieConsent />);
-    expect(screen.getByRole('button', { name: /Accept/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Decline/i })).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText(/We use cookies/i)).toBeInTheDocument();
+    });
+
+    expect(screen.getByText('Accept')).toBeInTheDocument();
+    expect(screen.getByText('Decline')).toBeInTheDocument();
+  });
+
+  it('does not render when consent already stored', () => {
+    localStorage.setItem('docugen-cookie-consent', 'accepted');
+    render(<CookieConsent />);
+    expect(screen.queryByText(/We use cookies/i)).not.toBeInTheDocument();
+  });
+
+  it('stores acceptance in localStorage', async () => {
+    render(<CookieConsent />);
+    
+    await waitFor(() => {
+      expect(screen.getByText(/We use cookies/i)).toBeInTheDocument();
+    });
+
+    const acceptButton = screen.getByText('Accept');
+    fireEvent.click(acceptButton);
+    
+    await waitFor(() => {
+      expect(localStorage.getItem('docugen-cookie-consent')).toBe('accepted');
+    });
+  });
+
+  it('stores decline in localStorage', async () => {
+    render(<CookieConsent />);
+    
+    await waitFor(() => {
+      expect(screen.getByText(/We use cookies/i)).toBeInTheDocument();
+    });
+
+    const declineButton = screen.getByText('Decline');
+    fireEvent.click(declineButton);
+    
+    await waitFor(() => {
+      expect(localStorage.getItem('docugen-cookie-consent')).toBe('declined');
+    });
   });
 });

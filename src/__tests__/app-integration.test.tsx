@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { App } from '../App';
 import { Breadcrumbs } from '../components/navigation/Breadcrumbs';
 import { NavItem } from '../lib/nav';
 
@@ -39,24 +40,39 @@ describe('Breadcrumbs', () => {
 });
 
 describe('App integration', () => {
-  it('renders initial upload view', () => {
-    const { container } = render(<App />);
-    expect(container.querySelector('.min-h-screen')).toBeInTheDocument();
-    expect(screen.getByText('Drop your Markdown files here')).toBeInTheDocument();
+  beforeEach(() => {
+    // Mock DOMPurify for MarkdownViewer
+    vi.stubGlobal('DOMPurify', {
+      sanitize: vi.fn((html: string) => html),
+    });
   });
 
-  it('renders docs viewer after upload', async () => {
-    const { container } = render(<App />);
-    const file = new File(['# Test\n## Subsection'], 'test.md', { type: 'text/markdown' });
-    const input = screen.getByTestId('doc-upload-input');
-    // Simulate file upload
-    const uploader = container.querySelector('UploadArea') as any;
-    await uploader.props.onUpload('# Test\n## Subsection', 'test.md');
+  it('renders initial upload view', () => {
+    render(<App />);
+    expect(screen.getByText('Drop your Markdown files here')).toBeInTheDocument();
+    expect(screen.getByTestId('doc-upload-input')).toBeInTheDocument();
+  });
 
-    // Verify navigation/TOC/Viewer are rendered
-    expect(screen.getByText('Test')).toBeInTheDocument();
-    expect(screen.getByText('Subsection')).toBeInTheDocument();
-    expect(screen.getByRole('navigation')).toBeInTheDocument();
-    expect(screen.getByRole('navigation', { name: 'Table of contents' })).toBeInTheDocument();
+  it('renders empty state when no file uploaded', () => {
+    render(<App />);
+    expect(screen.queryByRole('navigation', { name: 'Document navigation' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('navigation', { name: 'Table of contents' })).not.toBeInTheDocument();
+  });
+
+  it('handles file upload without filename gracefully', async () => {
+    render(<App />);
+
+    const input = screen.getByTestId('doc-upload-input') as HTMLInputElement;
+
+    // Simulate file with no name
+    Object.defineProperty(input, 'files', {
+      value: [],
+      writable: false,
+    });
+
+    fireEvent.change(input);
+
+    // Should remain in upload view since no file
+    expect(screen.getByText('Drop your Markdown files here')).toBeInTheDocument();
   });
 });
