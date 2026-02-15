@@ -5,7 +5,17 @@ export type UploadAreaProps = {
   onUploadError?: (error: string) => void;
 };
 
-/** Real Phase 1 Markdown/MDX uploader with text reading, validation, and error handling */
+/**
+ * Render an interactive dropzone and file picker for uploading Markdown (.md/.mdx) files.
+ *
+ * Validates file extension and MIME type, reads the selected file as text, and forwards the file content
+ * and name to `onUpload`. When validation or read failures occur, the component displays an error banner
+ * and invokes `onUploadError` if provided; errors are cleared automatically after 5 seconds.
+ *
+ * @param onUpload - Callback invoked with the file text and optional file name after a successful upload
+ * @param onUploadError - Optional callback invoked with an error message when upload validation or reading fails
+ * @returns The UploadArea React element
+ */
 export function UploadArea({ onUpload, onUploadError }: UploadAreaProps) {
   const [dragOver, setDragOver] = useState(false);
   const [error, setError] = useState<string | null>(null);
