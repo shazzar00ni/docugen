@@ -87,7 +87,7 @@ export function UploadArea({ onUpload, onUploadError }: UploadAreaProps) {
   return (
     <div className="mt-6">
       {error && (
-        <div className="mb-4 p-3 bg-red-500/10 border border border-red-500/30 rounded-lg">
+        <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
           <p className="text-red-300 text-sm">{error}</p>
         </div>
       )}
