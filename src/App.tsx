@@ -8,9 +8,14 @@ export function App() {
   const [uploaded, setUploaded] = useState<string | null>(null);
 
   const handleUpload = (content: string, fileName?: string) => {
-    const rendered = parseMarkdown(content);
-    setHtml(rendered);
-    if (fileName) setUploaded(fileName);
+    try {
+      const rendered = parseMarkdown(content);
+      setHtml(rendered);
+      if (fileName) setUploaded(fileName);
+    } catch (err) {
+      console.error('Failed to parse markdown:', err);
+      setHtml(null);
+    }
   };
 
   return (
