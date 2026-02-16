@@ -1,5 +1,5 @@
-import React, { useState, useRef, useCallback } from 'react';
-import { UploadAreaProps } from './UploadArea';
+import { useState } from 'react';
+import { UploadArea } from './UploadArea';
 
 /**
  * Renders an UploadArea and captures the most recently uploaded file name in internal state.
@@ -10,8 +10,8 @@ import { UploadAreaProps } from './UploadArea';
  * @returns A React element rendering the UploadArea component.
  */
 export function UploadAreaWrapper() {
-  const [uploaded, setUploaded] = useState<string | null>(null);
-  const onUpload = (content: string, fileName?: string) => {
+  const [, setUploaded] = useState<string | null>(null);
+  const onUpload = (_content: string, fileName?: string) => {
     setUploaded(fileName ?? 'unknown');
   };
   return <UploadArea onUpload={onUpload} />;

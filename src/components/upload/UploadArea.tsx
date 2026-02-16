@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback } from 'react';
 
 export type UploadAreaProps = {
   onUpload: (content: string, fileName?: string) => void;
@@ -39,11 +39,14 @@ export function UploadArea({ onUpload, onUploadError }: UploadAreaProps) {
     });
   };
 
-  const handleError = (message: string) => {
-    setError(message);
-    onUploadError?.(message);
-    setTimeout(() => setError(null), 5000); // Auto-clear after 5s
-  };
+  const handleError = useCallback(
+    (message: string) => {
+      setError(message);
+      onUploadError?.(message);
+      setTimeout(() => setError(null), 5000); // Auto-clear after 5s
+    },
+    [onUploadError]
+  );
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -71,7 +74,8 @@ export function UploadArea({ onUpload, onUploadError }: UploadAreaProps) {
         handleError(`Failed to read file: ${err instanceof Error ? err.message : 'Unknown error'}`);
       }
     },
-    [onUpload, onUploadError]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [onUpload, onUploadError, handleError]
   );
   const handleFileSelect = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,7 +93,8 @@ export function UploadArea({ onUpload, onUploadError }: UploadAreaProps) {
         handleError(`Failed to read file: ${err instanceof Error ? err.message : 'Unknown error'}`);
       }
     },
-    [onUpload, onUploadError]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [onUpload, onUploadError, handleError]
   );
 
   return (

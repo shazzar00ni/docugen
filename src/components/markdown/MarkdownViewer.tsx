@@ -1,4 +1,3 @@
-import React from 'react';
 import DOMPurify from 'dompurify';
 
 const SANITIZE_CONFIG = {

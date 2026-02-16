@@ -1,7 +1,7 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { UploadArea } from '../components/upload/UploadArea';
+import { UploadArea } from './UploadArea';
 
 describe('UploadArea', () => {
   const onUpload = vi.fn();
@@ -45,7 +45,7 @@ describe('UploadArea', () => {
     const fileReaderError = new Error('Read failed');
     vi.stubGlobal('FileReader', {
       prototype: {
-        readAsText: vi.fn(function () {
+        readAsText: vi.fn(function (this: { onerror?: (error: Error) => void }) {
           // Simulate async error after read
           setTimeout(() => {
             if (this.onerror) this.onerror(fileReaderError);
