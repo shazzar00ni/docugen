@@ -8,13 +8,17 @@ import { useEffect } from 'react';
  */
 export function Analytics() {
   useEffect(() => {
-    const plausibleDomain = (import.meta as any).env?.VITE_PLAUSIBLE_DOMAIN as string | undefined;
+    const plausibleDomain = import.meta.env.VITE_PLAUSIBLE_DOMAIN;
     if (plausibleDomain) {
       const script = document.createElement('script');
       script.defer = true;
       script.setAttribute('data-domain', plausibleDomain);
       script.src = 'https://plausible.io/js/plausible.js';
       document.head.appendChild(script);
+
+      return () => {
+        document.head.removeChild(script);
+      };
     }
   }, []);
   return null;
