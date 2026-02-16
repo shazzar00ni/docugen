@@ -10,6 +10,7 @@ Comprehensive guide to testing in DocuGen, including setup, patterns, and best p
 - [Testing Patterns](#testing-patterns)
 - [Component Testing](#component-testing)
 - [Hook Testing](#hook-testing)
+- [End-to-End (E2E) Testing](#end-to-end-e2e-testing)
 - [Mocking](#mocking)
 - [Coverage](#coverage)
 - [Best Practices](#best-practices)
@@ -22,6 +23,7 @@ DocuGen uses a comprehensive testing strategy focused on:
 
 - **Unit Testing**: Component behavior and logic
 - **Integration Testing**: Component interactions
+- **End-to-End (E2E) Testing**: Full user flows in a real browser
 - **Accessibility Testing**: Screen reader compatibility
 - **User Experience Testing**: Real user interactions
 
@@ -462,6 +464,96 @@ describe('ThemeContext', () => {
 2. Hook state updates
 3. Error handling for misuse
 4. localStorage integration (mocked)
+
+## End-to-End (E2E) Testing
+
+DocuGen uses [Playwright](https://playwright.dev/) for end-to-end testing, simulating real user interactions in actual browsers.
+
+### E2E Stack
+
+| Tool           | Purpose             | Version |
+| -------------- | ------------------- | ------- |
+| **Playwright** | E2E test runner     | Latest  |
+| **Chromium**   | Chrome/Edge browser | -       |
+| **Firefox**    | Firefox browser     | -       |
+| **WebKit**     | Safari browser      | -       |
+
+### Configuration
+
+**Location**: `playwright.config.ts`
+
+```typescript
+import { defineConfig, devices } from '@playwright/test';
+
+const config = defineConfig({
+  testDir: './e2e',
+  timeout: 30 * 1000,
+  use: {
+    baseURL: 'http://localhost:5173',
+  },
+  webServer: {
+    command: 'npm run dev',
+    port: 5173,
+    reuseExistingServer: false,
+  },
+  projects: [
+    { name: 'Chromium', use: { ...devices['Desktop Chrome'] } },
+    { name: 'Firefox', use: { ...devices['Desktop Firefox'] } },
+    { name: 'WebKit', use: { ...devices['Desktop Safari'] } },
+  ],
+});
+
+export default config;
+```
+
+### Running E2E Tests
+
+```bash
+# Run all E2E tests
+npm run e2e
+
+# Run in headed mode (see browser)
+npm run e2e:headed
+
+# Run specific test file
+npx playwright test e2e/landing.spec.ts
+
+# Run specific browser
+npx playwright test --project=Chromium
+```
+
+### E2E Test Structure
+
+E2E tests are located in the `e2e/` directory:
+
+```text
+e2e/
+└── landing.spec.ts    # Landing page tests
+```
+
+### Writing E2E Tests
+
+Example test from `e2e/landing.spec.ts`:
+
+```typescript
+import { test, expect } from '@playwright/test';
+
+test('loads landing page and core sections', async ({ page }) => {
+  await page.goto('/');
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.getByRole('heading', { name: /your docs/i })).toBeVisible();
+  await expect(page.getByRole('navigation')).toBeVisible();
+  await expect(page.getByRole('main')).toBeVisible();
+});
+```
+
+### Best Practices for E2E Tests
+
+1. **Use semantic locators**: Prefer `getByRole`, `getByLabel`, `getByText` over CSS selectors
+2. **Test user flows**: Focus on critical user journeys
+3. **Assert visibility**: Always use `toBeVisible()` for assertions
+4. **Handle async properly**: Use `await` for all async operations
+5. **Test responsive behavior**: Verify layouts at different viewport sizes
 
 ## Mocking
 

@@ -10,6 +10,13 @@ export function Analytics() {
   useEffect(() => {
     const plausibleDomain = import.meta.env.VITE_PLAUSIBLE_DOMAIN;
     if (plausibleDomain) {
+      const existingScript = document.querySelector(
+        'script[data-domain="' + plausibleDomain + '"]'
+      );
+      if (existingScript) {
+        return;
+      }
+
       const script = document.createElement('script');
       script.defer = true;
       script.setAttribute('data-domain', plausibleDomain);

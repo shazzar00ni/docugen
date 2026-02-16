@@ -316,9 +316,14 @@ Example: Newsletter Form
 ### Build Process
 
 ```mermaid
-TypeScript → ESLint → Vite Build → Static Files
-    ↓           ↓           ↓            ↓
-  Compile    Lint      Bundle/Minify   dist/
+graph LR
+    A[TypeScript] --> B[ESLint]
+    B --> C[Vite Build]
+    C --> D[Static Files - dist/]
+
+    A -.-> A1[Compile]
+    B -.-> B1[Lint]
+    C -.-> C1[Bundle/Minify]
 ```
 
 **Steps**:
