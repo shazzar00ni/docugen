@@ -25,7 +25,7 @@ export function Skeleton({ className = '', variant = 'text', width, height }: Sk
   const baseStyles = 'bg-dark-800 animate-pulse rounded';
 
   const variantStyles = {
-    text: 'rounded',
+    text: '',
     circular: 'rounded-full',
     rectangular: 'rounded-lg',
   };
@@ -52,7 +52,7 @@ export function Skeleton({ className = '', variant = 'text', width, height }: Sk
  */
 export function SkeletonCard() {
   return (
-    <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
+    <div className="bg-dark-950/50 border border-dark-800 rounded-xl p-6">
       <div className="flex items-start space-x-4">
         <Skeleton variant="circular" width={40} height={40} />
         <div className="flex-1 space-y-3">
@@ -93,7 +93,7 @@ export function SkeletonInput() {
  */
 export function SkeletonFeature() {
   return (
-    <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 space-y-4">
+    <div className="bg-dark-950/50 border border-dark-800 rounded-xl p-6 space-y-4">
       <Skeleton variant="circular" width={40} height={40} />
       <Skeleton width="60%" height={24} />
       <Skeleton width="100%" height={16} />
@@ -110,7 +110,7 @@ export function SkeletonFeature() {
  */
 export function SkeletonTestimonial() {
   return (
-    <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 space-y-4">
+    <div className="bg-dark-950/50 border border-dark-800 rounded-xl p-6 space-y-4">
       <Skeleton variant="rectangular" width={32} height={32} className="mb-2" />
       <div className="space-y-2">
         <Skeleton width="100%" height={16} />

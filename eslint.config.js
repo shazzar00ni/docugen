@@ -2,11 +2,25 @@ import js from '@eslint/js';
 import typescript from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import globals from 'globals';
 
 export default [
   js.configs.recommended,
   {
     ignores: ['dist/', 'node_modules/', 'vite.config.js'],
+  },
+  {
+    files: ['*.config.ts', '*.config.js'],
+    languageOptions: {
+      parser: typescriptParser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+      globals: {
+        ...globals.node,
+      },
+    },
   },
   {
     files: ['**/*.{js,jsx}'],
