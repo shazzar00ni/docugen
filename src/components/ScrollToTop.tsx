@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+/**
+ * Renders a floating "scroll to top" button that appears after the page is scrolled beyond 300 pixels.
+ *
+ * The button animates in and out, is keyboard-focusable with accessible labeling, and scrolls the window to the top with smooth behavior when activated.
+ *
+ * @returns A JSX element containing the floating scroll-to-top button
+ */
 export function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
 

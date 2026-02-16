@@ -1,6 +1,12 @@
 import { Container } from './ui/Container';
 import { motion } from 'framer-motion';
 
+/**
+ * Renders a styled documentation preview demonstrating a two-column docs layout
+ * with a header bar, sidebar navigation, content area, pro tip block, and code snippet.
+ *
+ * @returns The JSX element for the documentation preview UI
+ */
 export function Preview() {
   return (
     <section className="py-20 bg-slate-900/30">

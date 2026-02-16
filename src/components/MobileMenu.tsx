@@ -3,6 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { NAV_LINKS } from '../data/content';
 import { Button } from './ui/Button';
 
+/**
+ * Mobile navigation menu with an animated slide-in drawer and backdrop for small screens.
+ *
+ * Displays a toggle button that opens a right-side drawer containing navigation links and action buttons.
+ * When open, the component prevents background scrolling by locking document.body overflow; clicking the backdrop or a navigation link closes the menu.
+ *
+ * @returns The JSX element for the mobile menu component.
+ */
 export function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
 

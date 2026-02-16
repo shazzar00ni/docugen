@@ -1,6 +1,13 @@
 import { Container } from './ui/Container';
 import { FOOTER_LINKS, FOOTER_COPY, SITE } from '../data/content';
 
+/**
+ * Render the site footer including branding, navigation links, social icons, and copyright.
+ *
+ * Uses SITE.name for the brand label, FOOTER_LINKS to render navigation anchors, and FOOTER_COPY for the copyright text.
+ *
+ * @returns The rendered footer JSX element
+ */
 export function Footer() {
   return (
     <footer className="border-t border-slate-800 py-12">
