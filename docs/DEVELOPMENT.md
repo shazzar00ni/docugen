@@ -213,7 +213,6 @@ docugen/
 │   ├── test/
 │   │   └── setup.ts        # Test configuration
 │   ├── App.tsx            # Root component
-│   ├── AppAnalyticsBridge.tsx
 │   ├── index.css          # Global styles
 │   └── main.tsx           # Entry point
 ├── public/                # Static assets

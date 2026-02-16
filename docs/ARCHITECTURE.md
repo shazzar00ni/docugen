@@ -85,8 +85,7 @@ src/
 │   └── utils.ts         # Utility functions
 ├── test/
 │   └── setup.ts         # Test configuration
-├── App.tsx              # Root component
-├── AppAnalyticsBridge.tsx # Analytics initialization
+├── App.tsx              # Root component with lazy loading
 ├── index.css            # Global styles
 └── main.tsx             # Application entry point
 ```
