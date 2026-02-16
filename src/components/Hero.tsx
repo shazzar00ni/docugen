@@ -3,6 +3,7 @@ import { Button } from './ui/Button';
 import { HERO_COPY } from '../data/content';
 import { motion } from 'framer-motion';
 import { UploadDemo } from './UploadDemo';
+import { AnimatedGradientBackground } from './AnimatedGradientBackground';
 
 /**
  * Hero component that displays the main landing section of the application.
@@ -23,6 +24,7 @@ import { UploadDemo } from './UploadDemo';
 export function Hero() {
   return (
     <section className="relative pt-32 pb-20 sm:pt-40 sm:pb-28 overflow-hidden">
+      <AnimatedGradientBackground />
       <Container>
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
