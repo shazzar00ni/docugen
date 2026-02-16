@@ -1,3 +1,12 @@
+/**
+ * Convert a Markdown string into an HTML string supporting a lightweight subset of Markdown.
+ *
+ * Supports ATX headings, paragraphs, fenced (```) and indented code blocks, blockquotes, ordered
+ * and unordered lists, tables, images, links, inline code, and autolinks.
+ *
+ * @param md - The Markdown source text to parse
+ * @returns The HTML string generated from the provided Markdown
+ */
 export function parseMarkdown(md: string): string {
   const escapeHtml = (s: string) =>
     s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -29,7 +38,7 @@ export function parseMarkdown(md: string): string {
     // Images first: ![alt text](url "title")
     result = result.replace(
       /!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)/g,
-      (match, alt, src, title) => {
+      (_match, alt, src, title) => {
         const altEsc = escapeHtml(alt);
         const srcEsc = escapeHtml(src);
         const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
@@ -39,7 +48,7 @@ export function parseMarkdown(md: string): string {
     // Then links: [text](url "title")
     result = result.replace(
       /\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)/g,
-      (match, text, href, title) => {
+      (_match, text, href, title) => {
         const textEsc = escapeHtml(text);
         const hrefEsc = escapeHtml(href);
         const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
