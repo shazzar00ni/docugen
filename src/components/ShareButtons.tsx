@@ -1,11 +1,41 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+/**
+ * Props for the ShareButtons component
+ */
 interface ShareButtonsProps {
+  /** The URL to share - defaults to 'https://docugen.ai' */
   url?: string;
+  /** The title to use when sharing - defaults to 'DocuGen - Convert documentation into static websites' */
   title?: string;
 }
 
+/**
+ * ShareButtons component that provides social media sharing functionality.
+ * Features a toggle button that reveals a dropdown with Twitter, LinkedIn sharing options,
+ * and a copy link feature. Uses smooth animations for the dropdown appearance.
+ *
+ * @example
+ * ```tsx
+ * import { ShareButtons } from '@/components/ShareButtons';
+ *
+ * function BlogPost() {
+ *   return (
+ *     <div>
+ *       <h1>My Post</h1>
+ *       <ShareButtons
+ *         url="https://mysite.com/my-post"
+ *         title="Check out my new post"
+ *       />
+ *     </div>
+ *   );
+ * }
+ * ```
+ *
+ * @param {ShareButtonsProps} props - The component props
+ * @returns A JSX element representing the share buttons with dropdown menu
+ */
 export function ShareButtons({
   url = 'https://docugen.ai',
   title = 'DocuGen - Convert documentation into static websites',
@@ -48,7 +78,7 @@ export function ShareButtons({
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 rounded-lg bg-dark-800 text-dark-200 hover:bg-dark-700 hover:text-teal-400 transition-colors"
+        className="p-2 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 hover:text-teal-400 transition-colors"
         aria-label="Share"
       >
         <AnimatePresence mode="wait">
@@ -94,10 +124,10 @@ export function ShareButtons({
             initial={{ opacity: 0, scale: 0.9, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: -10 }}
-            className="absolute right-0 mt-2 w-48 bg-dark-800 rounded-lg shadow-xl border border-dark-700 py-2 z-50"
+            className="absolute right-0 mt-2 w-48 bg-slate-800 rounded-lg shadow-xl border border-slate-700 py-2 z-50"
           >
             <div className="px-3 pb-2">
-              <p className="text-xs text-dark-400 uppercase tracking-wider font-medium">
+              <p className="text-xs text-slate-400 uppercase tracking-wider font-medium">
                 Share via
               </p>
             </div>
@@ -107,16 +137,16 @@ export function ShareButtons({
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 px-4 py-2 text-dark-200 hover:bg-dark-700 hover:text-teal-400 transition-colors"
+                className="flex items-center gap-3 px-4 py-2 text-slate-200 hover:bg-slate-700 hover:text-teal-400 transition-colors"
               >
                 {link.icon}
                 <span>{link.name}</span>
               </a>
             ))}
-            <div className="border-t border-dark-700 my-2" />
+            <div className="border-t border-slate-700 my-2" />
             <button
               onClick={handleCopyLink}
-              className="flex items-center gap-3 w-full px-4 py-2 text-dark-200 hover:bg-dark-700 hover:text-teal-400 transition-colors"
+              className="flex items-center gap-3 w-full px-4 py-2 text-slate-200 hover:bg-slate-700 hover:text-teal-400 transition-colors"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path

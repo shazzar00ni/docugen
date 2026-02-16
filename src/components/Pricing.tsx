@@ -3,6 +3,22 @@ import { Button } from './ui/Button';
 import { PRICING_COPY } from '../data/content';
 import { motion } from 'framer-motion';
 
+/**
+ * Pricing component that displays the product pricing information.
+ * Features a centered pricing card with beta pricing, feature list, and call-to-action.
+ * Uses entrance animations and responsive design for optimal user experience.
+ *
+ * @example
+ * ```tsx
+ * import { Pricing } from '@/components/Pricing';
+ *
+ * function LandingPage() {
+ *   return <Pricing />;
+ * }
+ * ```
+ *
+ * @returns A JSX element representing the pricing section with beta pricing information
+ */
 export function Pricing() {
   return (
     <section id="pricing" className="py-20">
@@ -19,19 +35,19 @@ export function Pricing() {
               <span className="w-2 h-2 bg-teal-400 rounded-full mr-2 animate-pulse"></span>
               {PRICING_COPY.badge}
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-dark-50 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-50 mb-4">
               {PRICING_COPY.title}
             </h2>
-            <p className="text-lg text-dark-400">{PRICING_COPY.description}</p>
+            <p className="text-lg text-slate-400">{PRICING_COPY.description}</p>
           </div>
 
-          <div className="bg-dark-900 border border-dark-800 rounded-2xl p-8 max-w-md mx-auto">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 max-w-md mx-auto">
             <div className="text-center mb-8">
-              <div className="text-5xl font-bold text-dark-50 mb-2">
+              <div className="text-5xl font-bold text-slate-50 mb-2">
                 {PRICING_COPY.price}
-                <span className="text-lg text-dark-400 font-normal">{PRICING_COPY.period}</span>
+                <span className="text-lg text-slate-400 font-normal">{PRICING_COPY.period}</span>
               </div>
-              <p className="text-dark-400">During beta period</p>
+              <p className="text-slate-400">During beta period</p>
             </div>
 
             <ul className="space-y-4 mb-8">
@@ -50,7 +66,7 @@ export function Pricing() {
                       d="M5 13l4 4L19 7"
                     />
                   </svg>
-                  <span className="text-dark-300">{feature}</span>
+                  <span className="text-slate-300">{feature}</span>
                 </li>
               ))}
             </ul>

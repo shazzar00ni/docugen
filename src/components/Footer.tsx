@@ -1,9 +1,30 @@
 import { Container } from './ui/Container';
 import { FOOTER_LINKS, FOOTER_COPY, SITE } from '../data/content';
 
+/**
+ * Footer component that displays the main navigation footer of the application.
+ * Features site branding, navigation links, social media links, and copyright information.
+ * Uses responsive layout for optimal viewing on different screen sizes.
+ *
+ * @example
+ * ```tsx
+ * import { Footer } from '@/components/Footer';
+ *
+ * function App() {
+ *   return (
+ *     <div>
+ *       <main>...</main>
+ *       <Footer />
+ *     </div>
+ *   );
+ * }
+ * ```
+ *
+ * @returns A JSX element representing the site footer with navigation and branding
+ */
 export function Footer() {
   return (
-    <footer className="border-t border-dark-800 py-12">
+    <footer className="border-t border-slate-800 py-12">
       <Container>
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center space-x-2">
@@ -22,7 +43,7 @@ export function Footer() {
                 />
               </svg>
             </div>
-            <span className="font-semibold text-dark-100">{SITE.name}</span>
+            <span className="font-semibold text-slate-100">{SITE.name}</span>
           </div>
 
           <div className="flex items-center space-x-6">
@@ -30,7 +51,7 @@ export function Footer() {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-dark-400 hover:text-teal-400 transition-colors text-sm"
+                className="text-slate-400 hover:text-teal-400 transition-colors text-sm"
               >
                 {link.label}
               </a>
@@ -41,7 +62,7 @@ export function Footer() {
             <a
               href="#"
               aria-label="GitHub"
-              className="text-dark-400 hover:text-dark-100 transition-colors"
+              className="text-slate-400 hover:text-slate-100 transition-colors"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path
@@ -54,7 +75,7 @@ export function Footer() {
             <a
               href="#"
               aria-label="Twitter"
-              className="text-dark-400 hover:text-dark-100 transition-colors"
+              className="text-slate-400 hover:text-slate-100 transition-colors"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path
@@ -68,7 +89,7 @@ export function Footer() {
         </div>
 
         <div className="mt-8 text-center md:text-left">
-          <p className="text-sm text-dark-500">{FOOTER_COPY.copyright}</p>
+          <p className="text-sm text-slate-500">{FOOTER_COPY.copyright}</p>
         </div>
       </Container>
     </footer>

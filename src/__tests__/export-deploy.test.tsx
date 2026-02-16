@@ -1,14 +1,19 @@
+/// <reference types="vitest globals" />
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ExportControls } from '../components/deploy/ExportControls';
 import { DeploymentControls } from '../components/deploy/DeploymentControls';
-import { exportStaticZip } from '../lib/export';
-import { deployToGitHubPages } from '../lib/github';
 
 // Mock URL.createObjectURL and link creation
 const mockCreateObjectURL = vi.fn().mockImplementation(() => 'blob:mock-url');
 Object.defineProperty(URL, 'createObjectURL', { value: mockCreateObjectURL });
+
+// Mock Blob
+class MockBlob {
+  constructor() {}
+}
+Object.defineProperty(globalThis, 'Blob', { value: MockBlob });
 
 // Mock DOMPurify to avoid actual DOM interaction in tests
 vi.mock('dompurify', () => ({

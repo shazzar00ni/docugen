@@ -3,9 +3,21 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { NAV_LINKS } from '../data/content';
 import { Button } from './ui/Button';
 
+/**
+ * Mobile navigation menu component.
+ * Provides hamburger menu functionality for mobile devices.
+ *
+ * @returns Mobile navigation component with slide-in animation
+ */
 export function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
+  /**
+   * Manages body scroll overflow when menu is open.
+   * Prevents background scrolling when mobile menu is active.
+   *
+   * @returns Cleanup function to restore body overflow
+   */
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -17,13 +29,18 @@ export function MobileMenu() {
     };
   }, [isOpen]);
 
+  /**
+   * Closes the mobile menu.
+   *
+   * @returns Function to close menu
+   */
   const closeMenu = () => setIsOpen(false);
 
   return (
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden p-2 text-dark-300 hover:text-dark-100 transition-colors"
+        className="md:hidden p-2 text-slate-300 hover:text-slate-100 transition-colors"
         aria-label={isOpen ? 'Close menu' : 'Open menu'}
         aria-expanded={isOpen}
       >
@@ -78,7 +95,7 @@ export function MobileMenu() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-dark-950/50 backdrop-blur-sm z-40"
+              className="fixed inset-0 bg-slate-950/50 backdrop-blur-sm z-40"
               onClick={closeMenu}
               aria-hidden="true"
             />
@@ -87,7 +104,7 @@ export function MobileMenu() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 w-full max-w-xs bg-dark-950 border-l border-dark-800 z-50 md:hidden"
+              className="fixed top-0 right-0 bottom-0 w-full max-w-xs bg-slate-950 border-l border-slate-800 z-50 md:hidden"
             >
               <div className="flex flex-col h-full pt-20 px-6 pb-6">
                 <nav className="flex-1 space-y-2">
@@ -96,13 +113,13 @@ export function MobileMenu() {
                       key={link.label}
                       href={link.href}
                       onClick={closeMenu}
-                      className="block px-4 py-3 text-dark-300 hover:text-teal-400 hover:bg-dark-900/50 rounded-lg transition-colors text-base font-medium"
+                      className="block px-4 py-3 text-slate-300 hover:text-teal-400 hover:bg-slate-900/50 rounded-lg transition-colors text-base font-medium"
                     >
                       {link.label}
                     </a>
                   ))}
                 </nav>
-                <div className="space-y-3 pt-4 border-t border-dark-800">
+                <div className="space-y-3 pt-4 border-t border-slate-800">
                   <Button variant="ghost" className="w-full justify-center">
                     Sign In
                   </Button>

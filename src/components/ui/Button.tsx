@@ -9,6 +9,25 @@ interface ButtonProps {
   type?: 'button' | 'submit';
 }
 
+/**
+ * Reusable button component with multiple variants and sizes.
+ * Supports primary, secondary, and ghost styles with focus states.
+ *
+ * @param children - Button content or components
+ * @param variant - Button style variant ('primary' | 'secondary' | 'ghost')
+ * @param size - Button size ('sm' | 'md' | 'lg')
+ * @param className - Additional CSS classes
+ * @param onClick - Click event handler
+ * @param type - HTML button type ('button' | 'submit')
+ * @returns Styled button component
+ *
+ * @example
+ * ```typescript
+ * <Button variant="primary" size="md" onClick={handleClick}>
+ *   Click me
+ * </Button>
+ * ```
+ */
 export function Button({
   children,
   variant = 'primary',
@@ -24,8 +43,8 @@ export function Button({
     primary:
       'bg-teal-600 text-white hover:bg-teal-500 focus:ring-teal-500 shadow-lg shadow-teal-500/25',
     secondary:
-      'bg-dark-800 text-dark-100 hover:bg-dark-700 focus:ring-dark-500 border border-dark-700',
-    ghost: 'text-dark-300 hover:text-teal-400 hover:bg-dark-900/50 focus:ring-dark-500',
+      'bg-dark-800 text-light-100 hover:bg-dark-700 focus:ring-dark-500 border border-dark-700',
+    ghost: 'text-dark-300 hover:text-teal-400 hover:bg-dark-950/50 focus:ring-dark-500',
   };
 
   const sizes = {

@@ -1,6 +1,27 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+/**
+ * ScrollToTop component that provides a floating button for returning to the top of the page.
+ * Automatically shows/hides based on scroll position with smooth animations.
+ * Uses Framer Motion for entrance/exit animations and smooth scrolling behavior.
+ *
+ * @example
+ * ```tsx
+ * import { ScrollToTop } from '@/components/ScrollToTop';
+ *
+ * function App() {
+ *   return (
+ *     <div>
+ *       <main>...</main>
+ *       <ScrollToTop />
+ *     </div>
+ *   );
+ * }
+ * ```
+ *
+ * @returns A JSX element representing the scroll-to-top button with conditional visibility
+ */
 export function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -33,7 +54,7 @@ export function ScrollToTop() {
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.2 }}
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-40 w-12 h-12 bg-teal-600 hover:bg-teal-500 text-white rounded-full shadow-lg shadow-teal-500/25 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 focus:ring-offset-dark-950"
+          className="fixed bottom-6 right-6 z-40 w-12 h-12 bg-teal-600 hover:bg-teal-500 text-white rounded-full shadow-lg shadow-teal-500/25 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 focus:ring-offset-slate-950"
           aria-label="Scroll to top"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
