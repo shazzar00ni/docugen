@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { UploadArea } from './UploadArea';
 
@@ -48,6 +48,7 @@ describe('UploadArea', () => {
         readAsText: vi.fn(function (this: { onerror?: (error: Error) => void }) {
           // Simulate async error after read
           setTimeout(() => {
+            this.error = fileReaderError;
             if (this.onerror) this.onerror(fileReaderError);
           }, 0);
         }),

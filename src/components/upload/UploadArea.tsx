@@ -25,6 +25,8 @@ export function UploadArea({ onUpload, onUploadError }: UploadAreaProps) {
     // Extension check
     const hasValidExtension = file.name.endsWith('.md') || file.name.endsWith('.mdx');
     if (!hasValidExtension) return false;
+    // Some browsers/OS report empty MIME for .md files — allow if extension is valid
+    if (!file.type) return true;
     // MIME type check for text files
     const validMimeTypes = ['text/markdown', 'text/plain', 'text/x-markdown'];
     return validMimeTypes.includes(file.type);
@@ -100,7 +102,7 @@ export function UploadArea({ onUpload, onUploadError }: UploadAreaProps) {
   return (
     <div className="mt-6">
       {error && (
-        <div className="mb-4 p-3 bg-red-500/10 border border border-red-500/30 rounded-lg">
+        <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
           <p className="text-red-300 text-sm">{error}</p>
         </div>
       )}
@@ -109,6 +111,14 @@ export function UploadArea({ onUpload, onUploadError }: UploadAreaProps) {
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            fileInputRef.current?.click();
+          }
+        }}
+        role="button"
+        tabIndex={0}
         className={`relative border-2 border-dashed rounded-xl p-8 text-center cursor-pointer
           ${dragOver ? 'border-teal-500 bg-teal-500/10' : 'border-dark-700 hover:border-teal-500/50 bg-dark-900/50'}`}
       >
