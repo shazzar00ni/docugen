@@ -137,10 +137,13 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
           ${dragOver ? 'border-teal-500 bg-teal-500/10' : error ? 'border-red-500 bg-red-500/10' : 'border-dark-700 hover:border-teal-500/50 bg-dark-900/50'}`}
       >
         <input
-         <input
-          ref={fileInputRef}
-           type="file"
+         ref={fileInputRef}
           type="file"
+          accept=".md,.mdx"
+         onChange={handleFileSelect}
+          className="hidden"
+         aria-label="Upload documentation file"
+        />
           accept=".md,.mdx"
           onChange={handleFileSelect}
           className="hidden"
