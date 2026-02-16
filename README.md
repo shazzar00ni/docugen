@@ -104,20 +104,68 @@ The design system is configured in `tailwind.config.js`:
 
 ## Deployment
 
-### Vercel (Recommended)
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions including:
+
+- Security headers configuration
+- Analytics setup
+- Platform-specific deployment guides
+
+### Quick Deploy
+
+#### Vercel (Recommended)
 
 1. Import your repository at [vercel.com](https://vercel.com)
 2. Vercel automatically detects Vite and configures the build
-3. Custom domains can be added in the Vercel dashboard
+3. Security headers are automatically configured via `vercel.json`
+4. Add environment variables for analytics (optional):
+   ```
+   VITE_PLAUSIBLE_DOMAIN=yourdomain.com
+   ```
+5. Custom domains can be added in the Vercel dashboard
 
-### Static Hosting
+#### Netlify
+
+1. Import your repository at [netlify.com](https://netlify.com)
+2. Use `_headers` file for security headers configuration
+3. Add environment variables in site settings
+4. Deploy
+
+#### Static Hosting
 
 Since this is a static site, you can deploy anywhere:
 
-- Netlify: `npm run build` → upload `dist/` folder
 - GitHub Pages: Enable in repository settings
 - AWS S3 + CloudFront
 - Any static hosting service
+
+### Security Headers
+
+DocuGen includes pre-configured security headers:
+
+- Content-Security-Policy (CSP)
+- X-Content-Type-Options
+- X-Frame-Options
+- Referrer-Policy
+- Permissions-Policy
+
+Headers are configured in:
+
+- `vercel.json` for Vercel deployments
+- `_headers` for Netlify deployments
+
+### Analytics (Optional)
+
+DocuGen supports privacy-respecting analytics via Plausible:
+
+1. Sign up at [plausible.io](https://plausible.io)
+2. Add your domain to Plausible
+3. Set environment variable:
+   ```
+   VITE_PLAUSIBLE_DOMAIN=yourdomain.com
+   ```
+4. Analytics script loads automatically on page load
+
+No analytics code is loaded if the environment variable is not set.
 
 ## Contributing
 
