@@ -543,7 +543,7 @@ const config = defineConfig({
   webServer: {
     command: 'npm run dev',
     port: 5173,
-    reuseExistingServer: false,
+    reuseExistingServer: !process.env.CI,
   },
   projects: [
     { name: 'Chromium', use: { ...devices['Desktop Chrome'] } },
