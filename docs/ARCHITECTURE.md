@@ -55,7 +55,7 @@ DocuGen is a modern landing page built with React 19 and TypeScript. The applica
 
 ### Directory Structure
 
-```
+```text
 src/
 ├── components/           # React components
 │   ├── ui/              # Base UI primitives (Button, Input, Container, Skeleton)

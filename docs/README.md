@@ -41,7 +41,7 @@ npm run lint
 
 ### Project Structure
 
-```
+```text
 docugen/
 ├── docs/                  # This documentation
 ├── src/

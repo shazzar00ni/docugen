@@ -167,7 +167,7 @@ All tests should pass.
 
 Understanding the project layout is crucial for effective development.
 
-```
+```text
 docugen/
 ├── docs/                    # Documentation files
 │   ├── README.md           # Documentation index
@@ -306,8 +306,8 @@ The project uses TypeScript strict mode. This means:
 
 - No implicit `any` types
 - Strict null checks enabled
-- All functions must have return types
 - All props must be typed
+- Note: Explicit function return types are a project convention enforced by the linter (`@typescript-eslint/explicit-function-return-type`), not by TypeScript's strict mode
 
 ```typescript
 // Good
@@ -446,7 +446,7 @@ The project uses dark mode as default:
 // Good - Dark mode default
 <div className="bg-dark-900 text-dark-100">
   Light mode override
-  <span className="dark:text-dark-300">
+  <span className="dark:text-dark-300">Dark text</span>
 </div>
 
 // Bad - Light mode default
@@ -536,7 +536,7 @@ Format: `type/description`
 
 Use conventional commits:
 
-```
+```text
 type(scope): description
 
 [optional body]

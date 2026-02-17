@@ -45,7 +45,7 @@ The design system uses semantic color names with dark mode as default:
 
 Consistent spacing using Tailwind's default scale:
 
-```
+```text
 1  = 0.25rem  (4px)
 2  = 0.5rem   (8px)
 3  = 0.75rem  (12px)
@@ -392,8 +392,8 @@ Grid display of product features with icons.
 **Usage**:
 
 ```tsx
-// Lazy loaded in App.tsx
-const Features = lazy(() => import('@/components/Features'));
+// Lazy loaded in App.tsx - components use named exports
+const Features = lazy(() => import('@/components/Features').then(m => ({ default: m.Features })));
 
 <Suspense fallback={<SkeletonFeature />}>
   <Features />
@@ -457,8 +457,8 @@ Pricing plans comparison section.
 **Usage**:
 
 ```tsx
-// Lazy loaded
-const Pricing = lazy(() => import('@/components/Pricing'));
+// Lazy loaded - components use named exports
+const Pricing = lazy(() => import('@/components/Pricing').then(m => ({ default: m.Pricing })));
 
 <Suspense fallback={<div>Loading...</div>}>
   <Pricing />
@@ -510,8 +510,10 @@ Customer testimonial carousel/grid.
 **Usage**:
 
 ```tsx
-// Lazy loaded
-const Testimonials = lazy(() => import('@/components/Testimonials'));
+// Lazy loaded - components use named exports
+const Testimonials = lazy(() =>
+  import('@/components/Testimonials').then(m => ({ default: m.Testimonials }))
+);
 
 <Suspense fallback={<SkeletonTestimonial />}>
   <Testimonials />
@@ -572,8 +574,8 @@ Documentation preview section.
 **Usage**:
 
 ```tsx
-// Lazy loaded
-const Preview = lazy(() => import('@/components/Preview'));
+// Lazy loaded - components use named exports
+const Preview = lazy(() => import('@/components/Preview').then(m => ({ default: m.Preview })));
 
 <Suspense fallback={<SkeletonCard />}>
   <Preview />

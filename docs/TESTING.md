@@ -42,7 +42,56 @@ DocuGen uses a comprehensive testing strategy focused on:
 | **React Testing Library** | Component testing utilities | 16.3.2  |
 | **Jest DOM**              | DOM assertions              | 6.9.1   |
 | **jsdom**                 | Browser environment         | 27.4.0  |
-| **@vitest/coverage-v8**   | Code coverage               | 4.0.18  |
+| **Playwright**            | End-to-end testing          | latest  |
+
+### End-to-End (E2E) Testing
+
+DocuGen uses Playwright for end-to-end testing to verify full user flows in a real browser.
+
+**Setup**:
+
+- Config file: `playwright.config.ts`
+- Test directory: `e2e/`
+- Example test: `e2e/landing.spec.ts`
+
+**Commands**:
+
+```bash
+# Run all E2E tests (headless)
+npm run test:e2e
+
+# Run E2E tests in headed mode (see browser)
+npm run test:e2e -- --headed
+
+# Run specific E2E test file
+npx playwright test e2e/landing.spec.ts
+
+# Run E2E tests with UI
+npx playwright test --ui
+```
+
+**Test Structure**:
+
+- Tests use Playwright's `test` and `expect` functions
+- Page object patterns for reusable selectors
+- Located in `e2e/` directory
+
+**Example Test**:
+
+```typescript
+import { test, expect } from '@playwright/test';
+
+test('landing page loads correctly', async ({ page }) => {
+  await page.goto('/');
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.locator('header')).toBeVisible();
+  await expect(page.locator('nav')).toBeVisible();
+  await expect(page.locator('main')).toBeVisible();
+  await expect(page.locator('footer')).toBeVisible();
+});
+```
+
+| **@vitest/coverage-v8** | Code coverage | 4.0.18 |
 
 ### Why This Stack?
 
@@ -950,11 +999,19 @@ Create helper functions for common operations:
 
 ```typescript
 // test/utils.tsx
-import { render as rtlRender } from '@testing-library/react';
+import React from 'react';
+import { render as rtlRender, type RenderOptions } from '@testing-library/react';
 import { ThemeProvider } from '@/lib/ThemeContext';
 
-export function render(ui, { theme = 'dark', ...options } = {}) {
-  const Wrapper = ({ children }) => (
+interface TestRenderOptions extends RenderOptions {
+  theme?: 'dark' | 'light';
+}
+
+export function render(
+  ui: React.ReactElement,
+  { theme = 'dark', ...options }: TestRenderOptions = {}
+) {
+  const Wrapper: React.FC<React.PropsWithChildren> = ({ children }) => (
     <ThemeProvider defaultTheme={theme}>
       {children}
     </ThemeProvider>

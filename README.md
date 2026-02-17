@@ -1,7 +1,5 @@
 # DocuGen
 
-https://docugen-git-copilot-sub-pr-39-shazzar00nis-projects.vercel.app/#
-
 Beautiful documentation made simple. Upload your Markdown, MDX, or README files and deploy a stunning static documentation website in seconds.
 
 ## What is DocuGen?

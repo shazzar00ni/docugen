@@ -54,7 +54,8 @@ DocuGen is a modern landing page for a developer tool that converts documentatio
 ### Tailwind CSS
 
 - Use design system colors from `tailwind.config.js` (e.g., `text-dark-100`, `bg-teal-600`)
-- Dark mode first: default dark colors, use `dark:` prefix for light mode if needed
+- Dark mode first: The app defaults to dark mode. Use `dark:` prefix to activate styles when dark mode is active.
+- If implementing light mode, configure `darkMode: 'class'` in `tailwind.config.js` and use `.light` class strategy, or use a plugin that provides `light:` utilities.
 - Avoid arbitrary values (`[...]`) - extend theme instead
 - Use semantic color names: `text-dark-300` for secondary text, `text-teal-400` for accents
 - Consistent spacing: use `4`, `6`, `8`, `12`, `16` scale
@@ -76,7 +77,7 @@ DocuGen is a modern landing page for a developer tool that converts documentatio
 
 ### File Organization
 
-```
+```text
 src/
 ├── components/
 │   ├── ui/              # Reusable base components (Button, Input, Container, Skeleton)

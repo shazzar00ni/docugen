@@ -17,7 +17,7 @@ DocuGen uses a centralized content management approach. All text, configuration,
 
 ### Architecture
 
-```
+```text
 Content (content.ts) → Components → UI
 ```
 
@@ -650,10 +650,14 @@ Provides theme context to the application.
 ```tsx
 import { ThemeProvider } from '@/lib/ThemeContext';
 
-// In main.tsx
-<ThemeProvider>
-  <App />
-</ThemeProvider>;
+// In App.tsx - ThemeProvider wraps the app content
+function App() {
+  return (
+    <ThemeProvider>
+      <div className="app">{/* App content */}</div>
+    </ThemeProvider>
+  );
+}
 ```
 
 **Features**:
@@ -747,7 +751,7 @@ Easily swap content for experiments:
 
 ```typescript
 // content.ts
-const isExperiment = process.env.EXPERIMENT === 'true';
+const isExperiment = Boolean(import.meta.env.VITE_EXPERIMENT);
 
 export const HERO_COPY = isExperiment ? { headline: 'Variant A' } : { headline: 'Variant B' };
 ```
