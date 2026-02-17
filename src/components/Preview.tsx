@@ -83,7 +83,7 @@ export function Preview() {
 
               <div className="flex-1 p-8">
                 <div className="mb-6">
-                  <h1 className="text-2xl font-bold text-slate-50 mb-2">Introduction</h1>
+                  <h3 className="text-2xl font-bold text-slate-50 mb-2">Introduction</h3>
                   <div className="flex items-center space-x-4 text-sm text-slate-500">
                     <span>Last updated: January 15, 2026</span>
                     <span>5 min read</span>
@@ -96,7 +96,7 @@ export function Preview() {
                     production-ready static website.
                   </p>
 
-                  <h3 className="text-lg font-semibold text-slate-100 mt-8 mb-3">Why DocuGen?</h3>
+                  <h4 className="text-lg font-semibold text-slate-100 mt-8 mb-3">Why DocuGen?</h4>
                   <p className="text-slate-300 leading-relaxed mb-4">
                     Most documentation tools are either too simple or too complex. We built DocuGen
                     to hit the sweet spot: powerful enough for serious projects, simple enough to
@@ -128,9 +128,9 @@ export function Preview() {
                     </div>
                   </div>
 
-                  <h3 className="text-lg font-semibold text-slate-100 mt-8 mb-3">
+                  <h4 className="text-lg font-semibold text-slate-100 mt-8 mb-3">
                     Getting Started
-                  </h3>
+                  </h4>
                   <p className="text-slate-300 leading-relaxed mb-3">
                     Ready to transform your docs? Here's how:
                   </p>
