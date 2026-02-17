@@ -13,20 +13,22 @@ export function Analytics() {
       const existingScript = document.querySelector(
         'script[data-domain="' + plausibleDomain + '"]'
       );
-      if (existingScript) {
-        return;
-      }
+  useEffect(() => {
+    const plausibleDomain = (import.meta as any).env?.VITE_PLAUSIBLE_DOMAIN as string | undefined;
+    if (!plausibleDomain) return;
 
-      const script = document.createElement('script');
-      script.defer = true;
-      script.setAttribute('data-domain', plausibleDomain);
-      script.src = 'https://plausible.io/js/plausible.js';
-      document.head.appendChild(script);
+    // Guard against duplicate injection
+    if (document.querySelector('script[data-domain]')) return;
 
-      return () => {
-        document.head.removeChild(script);
-      };
-    }
+    const script = document.createElement('script');
+    script.defer = true;
+    script.setAttribute('data-domain', plausibleDomain);
+    script.src = 'https://plausible.io/js/plausible.js';
+    document.head.appendChild(script);
+
+    return () => {
+      script.remove();
+    };
   }, []);
   return null;
 }
