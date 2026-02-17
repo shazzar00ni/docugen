@@ -538,12 +538,12 @@ const config = defineConfig({
   testDir: './e2e',
   timeout: 30 * 1000,
   use: {
-    baseURL: 'http://localhost:5173',
+    baseURL: 'http://localhost:3000',
   },
   webServer: {
     command: 'npm run dev',
-    port: 5173,
-    reuseExistingServer: !process.env.CI,
+    port: 3000,
+    reuseExistingServer: false,
   },
   projects: [
     { name: 'Chromium', use: { ...devices['Desktop Chrome'] } },
@@ -553,7 +553,6 @@ const config = defineConfig({
 });
 
 export default config;
-```
 
 ### Running E2E Tests
 
