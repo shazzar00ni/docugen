@@ -71,7 +71,7 @@ DocuGen is a modern landing page for a developer tool that converts documentatio
 
 ### Error Handling
 
-- Use TypeScript for runtime errors (avoid `try/catch` with empty catch)
+- Handle runtime errors properly — avoid empty `catch` blocks; always log the error or re-throw to preserve stack traces
 - Form validation: inline or with simple state, no external libraries
 - Network errors: display user-friendly messages
 

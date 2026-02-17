@@ -9,12 +9,6 @@ import { useEffect } from 'react';
 export function Analytics() {
   useEffect(() => {
     const plausibleDomain = import.meta.env.VITE_PLAUSIBLE_DOMAIN;
-    if (plausibleDomain) {
-      const existingScript = document.querySelector(
-        'script[data-domain="' + plausibleDomain + '"]'
-      );
-  useEffect(() => {
-    const plausibleDomain = (import.meta as any).env?.VITE_PLAUSIBLE_DOMAIN as string | undefined;
     if (!plausibleDomain) return;
 
     // Guard against duplicate injection

@@ -702,7 +702,7 @@ function MyComponent() {
 **Error Handling**:
 Throws error if used outside `ThemeProvider`:
 
-```
+```text
 useTheme must be used within a ThemeProvider
 ```
 

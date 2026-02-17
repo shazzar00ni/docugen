@@ -116,9 +116,9 @@ interface ThemeContextType {
 **Features**:
 
 - Automatic system preference detection
-- localStorage persistence
+- localStorage persistence (reads inside useEffect to avoid hydration mismatches)
 - CSS class-based theming
-- SSR-safe initial state
+- Note: This is a client-only SPA; server-side rendering is not supported
 
 **Implementation Pattern**:
 

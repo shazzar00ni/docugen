@@ -36,13 +36,16 @@ DocuGen uses a comprehensive testing strategy focused on:
 
 ## Testing Stack
 
-| Tool                      | Purpose                     | Version |
-| ------------------------- | --------------------------- | ------- |
-| **Vitest**                | Test runner                 | 4.0.17  |
-| **React Testing Library** | Component testing utilities | 16.3.2  |
-| **Jest DOM**              | DOM assertions              | 6.9.1   |
-| **jsdom**                 | Browser environment         | 27.4.0  |
-| **Playwright**            | End-to-end testing          | latest  |
+| Tool                      | Purpose                     |
+| ------------------------- | --------------------------- |
+| **Vitest**                | Test runner                 |
+| **React Testing Library** | Component testing utilities |
+| **Jest DOM**              | DOM assertions              |
+| **jsdom**                 | Browser environment         |
+| **@vitest/coverage-v8**   | Code coverage               |
+| **Playwright**            | End-to-end testing          |
+
+> **Note**: For current versions, consult `package.json`.
 
 ### End-to-End (E2E) Testing
 
@@ -58,10 +61,10 @@ DocuGen uses Playwright for end-to-end testing to verify full user flows in a re
 
 ```bash
 # Run all E2E tests (headless)
-npm run test:e2e
+npx playwright test
 
 # Run E2E tests in headed mode (see browser)
-npm run test:e2e -- --headed
+npx playwright test --headed
 
 # Run specific E2E test file
 npx playwright test e2e/landing.spec.ts
@@ -531,7 +534,7 @@ DocuGen uses [Playwright](https://playwright.dev/) for end-to-end testing, simul
 
 **Location**: `playwright.config.ts`
 
-```typescript
+````typescript
 import { defineConfig, devices } from '@playwright/test';
 
 const config = defineConfig({
@@ -558,10 +561,10 @@ export default config;
 
 ```bash
 # Run all E2E tests
-npm run e2e
+npx playwright test
 
 # Run in headed mode (see browser)
-npm run e2e:headed
+npx playwright test --headed
 
 # Run specific test file
 npx playwright test e2e/landing.spec.ts
@@ -1038,3 +1041,4 @@ it('renders with theme', () => {
 - [Component Library](./COMPONENTS.md) - Component documentation
 - [Development Guide](./DEVELOPMENT.md) - Development workflow
 - [Architecture Guide](./ARCHITECTURE.md) - System design
+````
