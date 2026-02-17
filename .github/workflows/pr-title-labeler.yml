@@ -1,0 +1,70 @@
+name: PR Title Labeler
+
+on:
+  pull_request:
+    types: [opened, edited, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Label PR based on title
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = context.payload.pull_request.title.toLowerCase();
+            const labels = [];
+
+            // Feature
+            if (title.startsWith('feat:') || title.startsWith('feature:')) {
+              labels.push('feature');
+            }
+
+            // Fix
+            if (title.startsWith('fix:') || title.startsWith('bugfix:') || title.startsWith('hotfix:')) {
+              labels.push('bug');
+            }
+
+            // Documentation
+            if (title.startsWith('docs:') || title.startsWith('doc:')) {
+              labels.push('documentation');
+            }
+
+            // Refactor
+            if (title.startsWith('refactor:')) {
+              labels.push('refactor');
+            }
+
+            // Performance
+            if (title.startsWith('perf:') || title.startsWith('performance:')) {
+              labels.push('performance');
+            }
+
+            // Test
+            if (title.startsWith('test:') || title.startsWith('tests:')) {
+              labels.push('test');
+            }
+
+            // Chore
+            if (title.startsWith('chore:') || title.startsWith('ci:') || title.startsWith('build:')) {
+              labels.push('chore');
+            }
+
+            // Breaking change
+            if (title.includes('breaking change') || title.includes('!')) {
+              labels.push('breaking-change');
+            }
+
+            if (labels.length > 0) {
+              github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                labels: labels
+              });
+            }

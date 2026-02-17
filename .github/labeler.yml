@@ -1,0 +1,55 @@
+# Configuration for GitHub Labeler
+# https://github.com/actions/labeler
+
+# Label PRs based on file paths
+component:
+  - changed-files:
+      - any-glob-to-any-file: 'src/components/**/*.tsx'
+      - any-glob-to-any-file: 'src/components/**/*.ts'
+      - any-glob-to-any-file: 'src/components/**/*.css'
+
+lib:
+  - changed-files:
+      - any-glob-to-any-file: 'src/lib/**/*'
+
+test:
+  - changed-files:
+      - any-glob-to-any-file: '**/*.test.tsx'
+      - any-glob-to-any-file: '**/*.test.ts'
+      - any-glob-to-any-file: 'src/__tests__/**/*'
+      - any-glob-to-any-file: 'e2e/**/*'
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file: '**/*.md'
+      - any-glob-to-any-file: 'docs/**/*'
+      - any-glob-to-any-file: 'README.md'
+      - any-glob-to-any-file: 'CONTRIBUTING.md'
+      - any-glob-to-any-file: 'LICENSE'
+
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file: 'package.json'
+      - any-glob-to-any-file: 'package-lock.json'
+      - any-glob-to-any-file: 'yarn.lock'
+      - any-glob-to-any-file: 'pnpm-lock.yaml'
+
+config:
+  - changed-files:
+      - any-glob-to-any-file: '.github/**/*'
+      - any-glob-to-any-file: '.*'
+      - any-glob-to-any-file: 'tsconfig*.json'
+      - any-glob-to-any-file: 'vite.config.ts'
+      - any-glob-to-any-file: 'tailwind.config.js'
+      - any-glob-to-any-file: 'eslint.config.js'
+      - any-glob-to-any-file: '.eslintrc*'
+      - any-glob-to-any-file: '.prettierrc*'
+
+styles:
+  - changed-files:
+      - any-glob-to-any-file: '**/*.css'
+      - any-glob-to-any-file: 'src/styles/**/*'
+
+types:
+  - changed-files:
+      - any-glob-to-any-file: '**/*.d.ts'
