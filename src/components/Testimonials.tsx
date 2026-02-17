@@ -3,12 +3,20 @@ import { TESTIMONIALS } from '../data/content';
 import { motion } from 'framer-motion';
 
 /**
- * Render the Testimonials section that showcases community feedback about DocuGen.
+ * Testimonials component that displays customer reviews and feedback.
+ * Renders testimonial cards in a responsive grid layout with entrance animations.
+ * Each card includes a quote, author name, role, company, and stylized avatar.
  *
- * Renders a heading and subtitle plus a responsive grid of testimonial cards. Each card
- * displays a quote, an author avatar/metadata, and an entrance animation.
+ * @example
+ * ```tsx
+ * import { Testimonials } from '@/components/Testimonials';
  *
- * @returns A JSX element containing the testimonials section with animated testimonial cards.
+ * function LandingPage() {
+ *   return <Testimonials />;
+ * }
+ * ```
+ *
+ * @returns A JSX element representing the testimonials section with customer feedback
  */
 export function Testimonials() {
   return (

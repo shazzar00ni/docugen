@@ -36,13 +36,20 @@ const icons = {
 };
 
 /**
- * Render the "How It Works" section showing a three-step, animated onboarding flow.
+ * HowItWorks component that displays a step-by-step guide for using the product.
+ * Renders process steps in a responsive grid layout with entrance animations and connecting arrows.
+ * Each step includes an icon, step number, title, and description with hover effects.
  *
- * Displays a centered header and a responsive three-column grid of step cards sourced from `HOW_IT_WORKS`.
- * Each card animates into view when scrolled into the viewport, shows an icon selected by index, and
- * (on medium screens and larger) displays a connector arrow between consecutive steps.
+ * @example
+ * ```tsx
+ * import { HowItWorks } from '@/components/HowItWorks';
  *
- * @returns The rendered How It Works section as a JSX element
+ * function LandingPage() {
+ *   return <HowItWorks />;
+ * }
+ * ```
+ *
+ * @returns A JSX element representing the how-it-works section with animated process steps
  */
 export function HowItWorks() {
   return (

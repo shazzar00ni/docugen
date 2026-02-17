@@ -4,9 +4,20 @@ import { PRICING_COPY } from '../data/content';
 import { motion } from 'framer-motion';
 
 /**
- * Renders the Pricing section of the page using PRICING_COPY content.
+ * Pricing component that displays the product pricing information.
+ * Features a centered pricing card with beta pricing, feature list, and call-to-action.
+ * Uses entrance animations and responsive design for optimal user experience.
  *
- * @returns The JSX element for the pricing section containing a badge, title, description, price and period, feature list, and a call-to-action button.
+ * @example
+ * ```tsx
+ * import { Pricing } from '@/components/Pricing';
+ *
+ * function LandingPage() {
+ *   return <Pricing />;
+ * }
+ * ```
+ *
+ * @returns A JSX element representing the pricing section with beta pricing information
  */
 export function Pricing() {
   return (

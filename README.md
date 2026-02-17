@@ -1,7 +1,5 @@
 # DocuGen
 
-https://docugen-git-copilot-sub-pr-39-shazzar00nis-projects.vercel.app/#
-
 Beautiful documentation made simple. Upload your Markdown, MDX, or README files and deploy a stunning static documentation website in seconds.
 
 ## What is DocuGen?
@@ -59,12 +57,23 @@ npm run preview
 
 ## Tech Stack
 
-- **React 18** - UI framework
+- **React 19** - UI framework with latest features
 - **Vite** - Build tool and dev server
-- **TypeScript** - Type safety
+- **TypeScript** - Type safety with strict mode
 - **Tailwind CSS** - Utility-first styling
 - **Framer Motion** - Subtle animations
 - **Heroicons** - Clean SVG icons
+
+## Documentation
+
+Comprehensive documentation is available in the [`docs/`](./docs/) directory:
+
+- **[Getting Started](./docs/DEVELOPMENT.md)** - Development setup and workflow
+- **[Architecture](./docs/ARCHITECTURE.md)** - System design and technical decisions
+- **[Component Library](./docs/COMPONENTS.md)** - UI components, props, and usage examples
+- **[API Reference](./docs/API.md)** - Data structures, content API, and type definitions
+- **[Testing Guide](./docs/TESTING.md)** - Testing strategy, patterns, and best practices
+- **[Roadmap](./.planning/ROADMAP.md)** - Development phases and milestones
 
 ## Project Structure
 
@@ -104,29 +113,83 @@ The design system is configured in `tailwind.config.js`:
 
 ## Deployment
 
-### Vercel (Recommended)
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions including:
+
+- Security headers configuration
+- Analytics setup
+- Platform-specific deployment guides
+
+### Quick Deploy
+
+#### Vercel (Recommended)
 
 1. Import your repository at [vercel.com](https://vercel.com)
 2. Vercel automatically detects Vite and configures the build
-3. Custom domains can be added in the Vercel dashboard
+3. Security headers are automatically configured via `vercel.json`
+4. Add environment variables for analytics (optional):
+   ```
+   VITE_PLAUSIBLE_DOMAIN=yourdomain.com
+   ```
+5. Custom domains can be added in the Vercel dashboard
 
-### Static Hosting
+#### Netlify
+
+1. Import your repository at [netlify.com](https://netlify.com)
+2. Use `_headers` file for security headers configuration
+3. Add environment variables in site settings
+4. Deploy
+
+#### Static Hosting
 
 Since this is a static site, you can deploy anywhere:
 
-- Netlify: `npm run build` → upload `dist/` folder
 - GitHub Pages: Enable in repository settings
 - AWS S3 + CloudFront
 - Any static hosting service
 
+### Security Headers
+
+DocuGen includes pre-configured security headers:
+
+- Content-Security-Policy (CSP)
+- X-Content-Type-Options
+- X-Frame-Options
+- Referrer-Policy
+- Permissions-Policy
+
+Headers are configured in:
+
+- `vercel.json` for Vercel deployments
+- `_headers` for Netlify deployments
+
+### Analytics (Optional)
+
+DocuGen supports privacy-respecting analytics via Plausible:
+
+1. Sign up at [plausible.io](https://plausible.io)
+2. Add your domain to Plausible
+3. Set environment variable:
+   ```
+   VITE_PLAUSIBLE_DOMAIN=yourdomain.com
+   ```
+4. Analytics script loads automatically on page load
+
+No analytics code is loaded if the environment variable is not set.
+
 ## Contributing
 
-This is a landing page for the DocuGen product. If you'd like to improve the page:
+We welcome contributions! Please see our [Contributing Guidelines](./CONTRIBUTING.md) for details.
+
+For development setup and workflow, check the [Development Guide](./docs/DEVELOPMENT.md).
+
+Quick start:
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+2. Read the [Development Guide](./docs/DEVELOPMENT.md)
+3. Create a feature branch
+4. Make your changes
+5. Run tests: `npm run test:run`
+6. Submit a pull request
 
 ## License
 

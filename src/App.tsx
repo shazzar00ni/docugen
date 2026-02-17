@@ -1,6 +1,7 @@
 import { Suspense, lazy } from 'react';
 import { ThemeProvider } from './lib/ThemeContext';
 import { Navbar } from './components/Navbar';
+import { Analytics } from './components/Analytics';
 import { Hero } from './components/Hero';
 import { HowItWorks } from './components/HowItWorks';
 import { Footer } from './components/Footer';
@@ -48,6 +49,7 @@ function App() {
     <ThemeProvider>
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
         <Navbar />
+        <Analytics />
         <main>
           <Hero />
           <HowItWorks />

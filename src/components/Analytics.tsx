@@ -1,23 +1,28 @@
 import { useEffect } from 'react';
 
 /**
- * Injects the Plausible Analytics script into the document head when `VITE_PLAUSIBLE_DOMAIN` is set.
+ * Analytics component that injects Plausible analytics script.
+ * Prevents duplicate script injection with guards and cleanup.
  *
- * Reads `VITE_PLAUSIBLE_DOMAIN` from `import.meta.env` and, if present, appends a deferred
- * `<script>` with `data-domain` set to that value pointing to `https://plausible.io/js/plausible.js`.
- *
- * @returns `null` — this component renders nothing
+ * @returns Analytics tracking component (renders null)
  */
 export function Analytics() {
   useEffect(() => {
-    const plausibleDomain = (import.meta as any).env?.VITE_PLAUSIBLE_DOMAIN as string | undefined;
-    if (plausibleDomain) {
-      const s = document.createElement('script');
-      s.defer = true;
-      s.setAttribute('data-domain', plausibleDomain);
-      s.src = 'https://plausible.io/js/plausible.js';
-      document.head.appendChild(s);
-    }
+    const plausibleDomain = import.meta.env.VITE_PLAUSIBLE_DOMAIN;
+    if (!plausibleDomain) return;
+
+    // Guard against duplicate injection
+    if (document.querySelector('script[data-domain]')) return;
+
+    const script = document.createElement('script');
+    script.defer = true;
+    script.setAttribute('data-domain', plausibleDomain);
+    script.src = 'https://plausible.io/js/plausible.js';
+    document.head.appendChild(script);
+
+    return () => {
+      script.remove();
+    };
   }, []);
   return null;
 }

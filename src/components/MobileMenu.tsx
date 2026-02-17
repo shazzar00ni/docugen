@@ -4,16 +4,20 @@ import { NAV_LINKS } from '../data/content';
 import { Button } from './ui/Button';
 
 /**
- * Mobile navigation menu with an animated slide-in drawer and backdrop for small screens.
+ * Mobile navigation menu component.
+ * Provides hamburger menu functionality for mobile devices.
  *
- * Displays a toggle button that opens a right-side drawer containing navigation links and action buttons.
- * When open, the component prevents background scrolling by locking document.body overflow; clicking the backdrop or a navigation link closes the menu.
- *
- * @returns The JSX element for the mobile menu component.
+ * @returns Mobile navigation component with slide-in animation
  */
 export function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
+  /**
+   * Manages body scroll overflow when menu is open.
+   * Prevents background scrolling when mobile menu is active.
+   *
+   * @returns Cleanup function to restore body overflow
+   */
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -25,6 +29,11 @@ export function MobileMenu() {
     };
   }, [isOpen]);
 
+  /**
+   * Closes the mobile menu.
+   *
+   * @returns Function to close menu
+   */
   const closeMenu = () => setIsOpen(false);
 
   return (

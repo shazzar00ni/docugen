@@ -2,11 +2,25 @@ import { Container } from './ui/Container';
 import { FOOTER_LINKS, FOOTER_COPY, SITE } from '../data/content';
 
 /**
- * Render the site footer including branding, navigation links, social icons, and copyright.
+ * Footer component that displays the main navigation footer of the application.
+ * Features site branding, navigation links, social media links, and copyright information.
+ * Uses responsive layout for optimal viewing on different screen sizes.
  *
- * Uses SITE.name for the brand label, FOOTER_LINKS to render navigation anchors, and FOOTER_COPY for the copyright text.
+ * @example
+ * ```tsx
+ * import { Footer } from '@/components/Footer';
  *
- * @returns The rendered footer JSX element
+ * function App() {
+ *   return (
+ *     <div>
+ *       <main>...</main>
+ *       <Footer />
+ *     </div>
+ *   );
+ * }
+ * ```
+ *
+ * @returns A JSX element representing the site footer with navigation and branding
  */
 export function Footer() {
   return (

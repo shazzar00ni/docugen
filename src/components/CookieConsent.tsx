@@ -3,13 +3,11 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from './ui/Button';
 
 /**
- * Displays a dismissible cookie consent banner and persists the user's choice to localStorage.
+ * Cookie consent management component.
+ * Manages GDPR compliance for analytics tracking.
+ * Shows consent banner and stores user preference in localStorage.
  *
- * On mount, the component checks localStorage for a saved consent value and shows the banner if none is found
- * (or if access to localStorage fails). Clicking Accept or Decline saves `accepted` or `declined` to localStorage
- * when available and hides the banner.
- *
- * @returns The cookie consent banner JSX when consent has not been recorded, otherwise `null`.
+ * @returns Cookie consent banner component
  */
 export function CookieConsent() {
   const [showConsent, setShowConsent] = useState(false);
@@ -25,15 +23,23 @@ export function CookieConsent() {
     }
   }, []);
 
+  /**
+   * Handles accepting all cookies.
+   * Stores acceptance preference and hides consent banner.
+   */
   const handleAccept = () => {
     try {
       localStorage.setItem('docugen-cookie-consent', 'accepted');
+      setShowConsent(false);
     } catch {
       // localStorage not available
     }
-    setShowConsent(false);
   };
 
+  /**
+   * Handles declining optional cookies.
+   * Stores decline preference and hides consent banner.
+   */
   const handleDecline = () => {
     try {
       localStorage.setItem('docugen-cookie-consent', 'declined');
