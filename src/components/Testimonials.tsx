@@ -2,6 +2,14 @@ import { Container } from './ui/Container';
 import { TESTIMONIALS } from '../data/content';
 import { motion } from 'framer-motion';
 
+/**
+ * Render the Testimonials section that showcases community feedback about DocuGen.
+ *
+ * Renders a heading and subtitle plus a responsive grid of testimonial cards. Each card
+ * displays a quote, an author avatar/metadata, and an entrance animation.
+ *
+ * @returns A JSX element containing the testimonials section with animated testimonial cards.
+ */
 export function Testimonials() {
   return (
     <section id="testimonials" className="py-20 bg-slate-900/30">

@@ -2,6 +2,15 @@ import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from './ui/Button';
 
+/**
+ * Displays a dismissible cookie consent banner and persists the user's choice to localStorage.
+ *
+ * On mount, the component checks localStorage for a saved consent value and shows the banner if none is found
+ * (or if access to localStorage fails). Clicking Accept or Decline saves `accepted` or `declined` to localStorage
+ * when available and hides the banner.
+ *
+ * @returns The cookie consent banner JSX when consent has not been recorded, otherwise `null`.
+ */
 export function CookieConsent() {
   const [showConsent, setShowConsent] = useState(false);
 

@@ -3,6 +3,11 @@ import { Button } from './ui/Button';
 import { PRICING_COPY } from '../data/content';
 import { motion } from 'framer-motion';
 
+/**
+ * Renders the Pricing section of the page using PRICING_COPY content.
+ *
+ * @returns The JSX element for the pricing section containing a badge, title, description, price and period, feature list, and a call-to-action button.
+ */
 export function Pricing() {
   return (
     <section id="pricing" className="py-20">

@@ -14,10 +14,11 @@ export const ThemeContext = createContext<ThemeContextType | undefined>(undefine
 const THEME_STORAGE_KEY = 'docugen-theme';
 
 /**
- * Determines the initial theme based on localStorage and system preferences.
- * Checks for stored theme first, then falls back to system preference.
+ * Determine the initial UI theme using a stored preference or the system preference, with safe fallbacks.
  *
- * @returns Initial theme ('light' | 'dark')
+ * Defaults to `'dark'` when not running in a browser or when an error occurs.
+ *
+ * @returns `'dark'` if a stored preference is `'dark'`, the system preference is dark, or on error/non-browser; `'light'` otherwise.
  */
 function getInitialTheme(): Theme {
   if (typeof window === 'undefined') {
@@ -38,10 +39,11 @@ function getInitialTheme(): Theme {
 }
 
 /**
- * Applies the theme to the document root element.
- * Adds or removes the 'dark' class to enable Tailwind CSS dark mode.
+ * Apply the provided theme to the document root by toggling the "dark" class.
  *
- * @param theme - Theme to apply ('light' | 'dark')
+ * Adds the "dark" class to document.documentElement when the theme is 'dark' and removes it when the theme is 'light'.
+ *
+ * @param theme - Theme to apply ('dark' or 'light')
  */
 function applyTheme(theme: Theme) {
   const root = document.documentElement;

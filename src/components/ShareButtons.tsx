@@ -6,6 +6,13 @@ interface ShareButtonsProps {
   title?: string;
 }
 
+/**
+ * Render a compact share menu with social share links and a copy-to-clipboard action.
+ *
+ * @param url - The destination URL to share; used for social links and copied to the clipboard.
+ * @param title - The share text/title included when sharing to social platforms.
+ * @returns A JSX element that displays a share button which toggles a dropdown with platform links and a "Copy link" action.
+ */
 export function ShareButtons({
   url = 'https://docugen.ai',
   title = 'DocuGen - Convert documentation into static websites',

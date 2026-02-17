@@ -35,6 +35,15 @@ const icons = {
   ),
 };
 
+/**
+ * Render the "How It Works" section showing a three-step, animated onboarding flow.
+ *
+ * Displays a centered header and a responsive three-column grid of step cards sourced from `HOW_IT_WORKS`.
+ * Each card animates into view when scrolled into the viewport, shows an icon selected by index, and
+ * (on medium screens and larger) displays a connector arrow between consecutive steps.
+ *
+ * @returns The rendered How It Works section as a JSX element
+ */
 export function HowItWorks() {
   return (
     <section id="how-it-works" className="py-20 bg-slate-900/30">
