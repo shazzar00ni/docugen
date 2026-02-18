@@ -98,7 +98,7 @@ describe('CustomizationPanel', () => {
     );
     render(<TestComponent />);
 
-    const lightButton = screen.getByRole('button', { name: 'Light theme' });
+    const lightButton = screen.getByRole('button', { name: 'Light' });
     await userEvent.click(lightButton);
 
     expect(localStorageMock.setItem).toHaveBeenCalledWith('docugen-theme', 'light');
