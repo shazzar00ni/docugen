@@ -54,18 +54,16 @@
   }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+@utility text-balance {
+  text-wrap: balance;
+}
 
-  .gradient-text {
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    background-image: linear-gradient(to right, var(--color-teal-400), var(--color-teal-600));
-  }
+@utility gradient-text {
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  background-image: linear-gradient(to right, var(--color-teal-400), var(--color-teal-600));
 }
 
 @keyframes fade-in {

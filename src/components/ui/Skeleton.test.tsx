@@ -11,7 +11,7 @@ describe('Skeleton', () => {
   it('applies base styles', () => {
     render(<Skeleton />);
     const skeleton = screen.getByTestId('skeleton');
-    expect(skeleton).toHaveClass('bg-dark-800');
+    expect(skeleton).toHaveClass('bg-light-800');
     expect(skeleton).toHaveClass('animate-pulse');
   });
 
