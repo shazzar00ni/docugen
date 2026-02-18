@@ -50,7 +50,7 @@ describe('DomainControls', () => {
     });
   });
 
-  it('saves domain configuration to localStorage', () => {
+  it('saves domain configuration to localStorage', async () => {
     render(<DomainControls onDomainUpdate={() => {}} />);
 
     const domainInput = screen.getByDisplayValue('Domain Name');
