@@ -34,7 +34,7 @@ function generateSitemapXml(): string {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://your-domain.com/</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}Z</lastmod>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
   </url>
 </urlset>`;
