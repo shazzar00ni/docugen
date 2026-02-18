@@ -10,15 +10,15 @@ interface ButtonProps {
 }
 
 /**
- * Render a configurable button with selectable variant, size, and additional CSS classes.
+ * Renders a configurable button with selectable visual variant, size, and additional CSS classes.
  *
- * @param children - Button content to be rendered inside the element
+ * @param children - Content displayed inside the button
  * @param variant - Visual style of the button: 'primary', 'secondary', or 'ghost'
  * @param size - Size of the button: 'sm', 'md', or 'lg'
  * @param className - Additional CSS classes to append to the button
  * @param onClick - Optional click event handler
  * @param type - HTML button type attribute ('button' or 'submit')
- * @returns A styled HTML button element
+ * @returns The rendered HTML button element with applied styles and handlers
  */
 export function Button({
   children,

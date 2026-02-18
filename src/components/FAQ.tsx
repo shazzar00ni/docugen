@@ -11,7 +11,10 @@ interface FAQItemProps {
 }
 
 /**
- * Render a single FAQ row with a question button and an animated, accessible answer panel.
+ * Renders an accessible FAQ row with a question button and an animated answer panel.
+ *
+ * The question button exposes `aria-expanded` according to `isOpen`. When `isOpen` is true,
+ * the answer panel animates into view and the chevron icon rotates.
  *
  * @param question - The FAQ question text
  * @param answer - The FAQ answer text shown when expanded
@@ -58,11 +61,11 @@ function FAQItem({ question, answer, isOpen, onClick }: FAQItemProps) {
 }
 
 /**
- * Render a FAQ accordion section that displays questions and answers, allowing only one item to be expanded at a time.
+ * Renders an FAQ accordion section where only one item can be expanded at a time.
  *
- * The component renders a header and a list of expandable FAQ items driven by the FAQ data.
+ * Displays a header (title and description) and a mapped list of expandable FAQ items driven by FAQ_COPY and FAQS.
  *
- * @returns A JSX element containing the FAQ section with expandable items
+ * @returns A JSX element representing the FAQ section with expandable items
  */
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);

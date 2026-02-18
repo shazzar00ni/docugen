@@ -66,9 +66,9 @@ const icons = {
 };
 
 /**
- * Render a responsive grid of feature cards showing an icon, title, and description.
+ * Renders a responsive grid of feature cards with an icon, title, and description.
  *
- * @returns The features section as a JSX element.
+ * @returns The features section as JSX.
  */
 export function Features() {
   return (

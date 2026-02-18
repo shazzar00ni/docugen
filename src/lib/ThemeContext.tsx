@@ -14,11 +14,9 @@ export const ThemeContext = createContext<ThemeContextType | undefined>(undefine
 const THEME_STORAGE_KEY = 'docugen-theme';
 
 /**
- * Determine the initial UI theme using a stored preference or the system preference, with safe fallbacks.
+ * Determine the initial UI theme from a stored preference or the system preference, using safe fallbacks.
  *
- * Defaults to `'dark'` when not running in a browser or when an error occurs.
- *
- * @returns `'dark'` if a stored preference is `'dark'`, the system preference is dark, or on error/non-browser; `'light'` otherwise.
+ * @returns `'dark'` if a stored preference is `'dark'`, the system preference is dark, the environment is not a browser, or an error occurs; `'light'` otherwise.
  */
 function getInitialTheme(): Theme {
   if (typeof window === 'undefined') {
@@ -39,11 +37,11 @@ function getInitialTheme(): Theme {
 }
 
 /**
- * Apply the provided theme to the document root by toggling the "dark" class.
+ * Apply the given theme to the document root by ensuring the `dark` class reflects the theme.
  *
- * Adds the "dark" class to document.documentElement when the theme is 'dark' and removes it when the theme is 'light'.
+ * When `theme` is `'dark'` the `dark` class is added to `document.documentElement`; when `'light'` it is removed.
  *
- * @param theme - Theme to apply ('dark' or 'light')
+ * @param theme - Theme to apply (`'dark'` or `'light'`)
  */
 function applyTheme(theme: Theme) {
   const root = document.documentElement;
