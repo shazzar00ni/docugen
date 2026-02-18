@@ -6,7 +6,15 @@ export type TableOfContentsProps = {
   className?: string;
 };
 
-/** Recursive TOC item rendering */
+/**
+ * Render a table-of-contents node as an <li>, including a link for the item and a nested list for any children.
+ *
+ * Highlights the item's link when its `id` matches `activeId`.
+ *
+ * @param item - The navigation item to render; its `id`, `title`, and optional `children` determine link target, label, and nested nodes.
+ * @param activeId - The id of the currently active heading; if equal to `item.id`, the link is rendered with active styling.
+ * @returns A list item element (`<li>`) for the provided `item`, with a nested `<ul>` when `item.children` is non-empty.
+ */
 function TocNode({ item, activeId }: { item: NavItem; activeId?: string }) {
   const hasChildren = item.children.length > 0;
   const isActive = item.id === activeId;

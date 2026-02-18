@@ -11,10 +11,22 @@ export const ThemeContext = createContext<ThemeContextType>({
   setTheme: () => {},
 });
 
+/**
+ * Provides access to the current theme context value.
+ *
+ * @returns The context value containing `theme` (the active Theme) and `setTheme` (a function to update it)
+ */
 export function useTheme() {
   return useContext(ThemeContext);
 }
 
+/**
+ * Provides theme state to descendants, persists the selected theme to localStorage, and applies the theme's root class to the document.
+ *
+ * Initializes the theme from localStorage key "docugen-theme" when running in a browser (falls back to DEFAULT_THEME), and updates both localStorage and document.documentElement.className whenever the theme changes.
+ *
+ * @returns A React provider element that supplies the current `theme` and `setTheme` updater to descendant components.
+ */
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
     // Load from localStorage or use default

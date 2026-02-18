@@ -15,6 +15,15 @@ export type CustomizationPanelProps = {
   className?: string;
 };
 
+/**
+ * Renders a floating customization panel that lets users pick a light/dark preset or edit and apply a persistent custom color theme.
+ *
+ * The component loads a saved custom theme from localStorage (key "docugen-custom-theme") on mount, saves custom theme changes back to localStorage, applies custom colors to CSS variables (`--color-primary`, `--color-bg`, `--color-text`) when applied, and clears stored custom data and CSS variables when a preset is selected.
+ *
+ * @param onThemeUpdate - Optional callback invoked with the active custom theme whenever the theme is applied or reset.
+ * @param className - Optional additional CSS class names appended to the panel container.
+ * @returns The rendered customization panel JSX element.
+ */
 export function CustomizationPanel({ onThemeUpdate, className }: CustomizationPanelProps) {
   const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);

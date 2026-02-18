@@ -17,6 +17,16 @@ export type ProviderControlsProps = {
   className?: string;
 };
 
+/**
+ * UI for selecting a deployment provider (GitHub, Netlify, Vercel) and editing the selected provider's configuration.
+ *
+ * Persists configuration to localStorage under `docugen-provider-config` and invokes `onProviderConfig` whenever configuration changes.
+ *
+ * @param onProviderSelect - Optional callback invoked with the newly selected provider when the user changes providers.
+ * @param onProviderConfig - Optional callback invoked with the current provider configuration whenever it is saved/updated.
+ * @param className - Optional additional CSS class names applied to the component wrapper.
+ * @returns The component's UI for provider selection and provider-specific configuration inputs.
+ */
 export function ProviderControls({
   onProviderSelect,
   onProviderConfig,

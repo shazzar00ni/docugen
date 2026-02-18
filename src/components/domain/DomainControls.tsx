@@ -14,6 +14,18 @@ export type DomainControlsProps = {
   className?: string;
 };
 
+/**
+ * Render controls for configuring a custom domain and managing its SSL status.
+ *
+ * The component loads and persists a DomainConfig to localStorage, exposes inputs for domain
+ * and subdomain, shows SSL verification status and last verification time, and provides
+ * actions to request or verify an SSL certificate.
+ *
+ * @param onDomainUpdate - Optional callback invoked whenever the domain configuration changes with the current `DomainConfig`.
+ * @param onSSLRequest - Optional callback invoked with the current domain when the user requests an SSL certificate.
+ * @param className - Optional additional CSS class name applied to the root container.
+ * @returns A React element that renders domain and SSL configuration controls.
+ */
 export function DomainControls({ onDomainUpdate, onSSLRequest, className }: DomainControlsProps) {
   const [config, setConfig] = useState<DomainConfig>({
     domain: '',

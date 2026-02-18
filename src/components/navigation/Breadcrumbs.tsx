@@ -6,7 +6,15 @@ export type BreadcrumbsProps = {
   className?: string;
 };
 
-/** Breadcrumb trail showing navigation path */
+/**
+ * Render a breadcrumb navigation trail from an array of navigation items.
+ *
+ * Renders nothing when `items` is an empty array.
+ *
+ * @param items - Ordered list of navigation items to render as breadcrumb links
+ * @param className - Optional CSS class applied to the outer <nav> element
+ * @returns A <nav> element containing an ordered list of links for each item, or `null` if `items` is empty
+ */
 export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
   if (items.length === 0) return null;
 

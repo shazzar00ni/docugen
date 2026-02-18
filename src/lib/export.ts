@@ -1,6 +1,15 @@
 import JSZip from 'jszip';
 
-/** Export current document as a downloadable ZIP containing index.html and assets */
+/**
+ * Create a ZIP archive containing an index.html (with the provided CSS and JS embedded), a README.md, and a sitemap.xml.
+ *
+ * The generated index.html includes a root div and embeds `css` inside a <style> tag and `js` inside a <script> tag.
+ *
+ * @param html - (currently unused) HTML string placeholder for future inclusion in the exported index
+ * @param css - CSS content to embed into the generated index.html
+ * @param js - JavaScript content to embed into the generated index.html
+ * @returns A Blob representing the generated ZIP archive
+ */
 export async function exportStaticZip(html: string, css: string, js: string): Promise<Blob> {
   const zip = new JSZip();
 
@@ -29,6 +38,11 @@ export async function exportStaticZip(html: string, css: string, js: string): Pr
   return blob;
 }
 
+/**
+ * Generates a minimal sitemap XML containing a single URL entry for the site root.
+ *
+ * @returns A sitemap XML string with an XML declaration and a `urlset` containing one `url` whose `loc` is `https://your-domain.com/`, whose `lastmod` is the current date in `YYYY-MM-DD` format, and whose `changefreq` is `weekly`.
+ */
 function generateSitemapXml(): string {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

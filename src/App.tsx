@@ -36,8 +36,9 @@ const Newsletter = lazy(() =>
 );
 
 /**
- * Loading spinner component for lazy-loaded content.
- * Displays a rotating teal spinner during content loading.
+ * Render a centered spinner used as a fallback while lazy-loaded content is loading.
+ *
+ * Intended for use as a Suspense fallback or other short-lived loading states.
  */
 function Loading() {
   return (
@@ -274,8 +275,13 @@ function DocuGenViewer() {
 }
 
 /**
- * Main application component with theme support and lazy loading.
- * Renders the complete application layout with all sections.
+ * Root React component that composes the site's themed layout and primary sections.
+ *
+ * Renders the top-level application structure wrapped in a theme provider, including
+ * navigation, analytics, hero and feature sections, doc viewer, footer, and utilities
+ * such as scroll-to-top. Lazy-loaded sections use a shared loading fallback.
+ *
+ * @returns The application's top-level JSX element containing theme, layout, and content sections.
  */
 function App() {
   return (

@@ -17,6 +17,18 @@ export type DeploymentControlsProps = {
   className?: string;
 };
 
+/**
+ * Render deployment controls for GitHub Pages and other providers.
+ *
+ * Renders provider selection, configuration UI, actions to trigger deployments, and a result panel that shows success or failure and an optional site link.
+ *
+ * @param html - The HTML asset content for the site to be deployed
+ * @param css - The CSS asset content for the site to be deployed
+ * @param js - The JavaScript asset content for the site to be deployed
+ * @param onDeploy - Optional callback invoked after a deployment attempt with `{ success, url?, error? }`
+ * @param className - Optional additional CSS class names applied to the root container
+ * @returns A React element containing provider controls, deployment buttons, and a deployment result display
+ */
 export function DeploymentControls({
   html,
   css,
