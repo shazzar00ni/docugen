@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState, type ReactNode } from 'react';
+import { createContext, useEffect, useState, useCallback, useMemo, type ReactNode } from 'react';
 
 export type Theme = 'dark' | 'light';
 
@@ -71,15 +71,18 @@ interface ThemeProviderProps {
  * ```
  */
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>('dark');
+  const [theme, setTheme] = useState<Theme>(() => {
+    const initialTheme = getInitialTheme();
+    applyTheme(initialTheme);
+    return initialTheme;
+  });
 
   useEffect(() => {
     const initialTheme = getInitialTheme();
     setTheme(initialTheme);
-    applyTheme(initialTheme);
   }, []);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
     applyTheme(newTheme);
@@ -88,9 +91,9 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     } catch {
       // Silently fail - theme preference persistence is non-critical
     }
-  };
+  }, [theme]);
 
-  const setThemeDirect = (newTheme: Theme) => {
+  const setThemeDirect = useCallback((newTheme: Theme) => {
     setTheme(newTheme);
     applyTheme(newTheme);
     try {
@@ -98,11 +101,12 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     } catch {
       // Silently fail - theme preference persistence is non-critical
     }
-  };
+  }, []);
 
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme: setThemeDirect }}>
-      {children}
-    </ThemeContext.Provider>
+  const value = useMemo(
+    () => ({ theme, toggleTheme, setTheme: setThemeDirect }),
+    [theme, toggleTheme, setThemeDirect]
   );
+
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
