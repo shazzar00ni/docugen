@@ -37,14 +37,15 @@ export function Button({
   type = 'button',
 }: ButtonProps) {
   const baseStyles =
-    'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-light-950';
+    'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-light-950';
 
   const variants = {
     primary:
       'bg-teal-600 text-white hover:bg-teal-500 focus:ring-teal-500 shadow-lg shadow-teal-500/25',
     secondary:
-      'bg-light-800 text-light-100 hover:bg-light-700 focus:ring-light-500 border border-light-700',
-    ghost: 'text-light-300 hover:text-teal-400 hover:bg-light-950/50 focus:ring-light-500',
+      'dark:bg-light-800 dark:text-light-100 dark:hover:bg-light-700 dark:focus:ring-light-500 dark:border-light-700',
+    ghost:
+      'dark:text-light-300 dark:hover:text-teal-400 dark:hover:bg-light-950/50 dark:focus:ring-light-500',
   };
 
   const sizes = {
