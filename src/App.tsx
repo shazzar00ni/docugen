@@ -1,7 +1,7 @@
 import { Suspense, lazy } from 'react';
 import { ThemeProvider } from './lib/ThemeContext';
 import { Navbar } from './components/Navbar';
-import { SkipToContent } from './components/SkipToContent';
+import { SkipToContent } from 'src/components/SkipToContent';
 import { Analytics } from './components/Analytics';
 import { Hero } from './components/Hero';
 import { HowItWorks } from './components/HowItWorks';
