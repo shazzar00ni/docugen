@@ -7,9 +7,23 @@ export type NavItem = {
   children: NavItem[];
 };
 
-/** Flatten navigation hierarchy to a list representing current path to a given item */
+/**
+ * Build the sequence of navigation items from the target item up through its ancestors.
+ *
+ * @param items - Top-level navigation items to search
+ * @param targetId - Identifier of the target navigation item
+ * @returns An array of `NavItem` objects beginning with the target item and followed by its ancestors up to the highest matched ancestor; an empty array if `targetId` is not found
+ */
 export function getPathToItem(items: NavItem[], targetId: string): NavItem[] {
   const path: NavItem[] = [];
+  /**
+   * Recursively searches the provided list of navigation items for `targetId` and updates the surrounding `path` with the discovered branch.
+   *
+   * When a match is found, the target and its ancestor items are pushed onto the outer `path`; entries from branches that do not contain the target are removed during backtracking.
+   *
+   * @param current - The list of navigation items to traverse
+   * @returns `true` if an item with `targetId` was found in `current` or any of its descendants, `false` otherwise.
+   */
   function traverse(current: NavItem[]): boolean {
     for (const item of current) {
       if (item.id === targetId) {
@@ -29,7 +43,10 @@ export function getPathToItem(items: NavItem[], targetId: string): NavItem[] {
 }
 
 /**
- * Extract heading hierarchy from parsed HTML to drive navigation and TOC
+ * Build a hierarchical navigation tree from HTML heading elements.
+ *
+ * @param html - HTML string containing <h1>–<h6> heading elements
+ * @returns An array of top-level `NavItem` objects representing the heading hierarchy; each item includes `id`, `title`, `level`, and nested `children`
  */
 export function extractNavFromHtml(html: string): NavItem[] {
   const headingRegex = /<h([1-6])[^>]*>([^<]+)<\/h\1>/g;

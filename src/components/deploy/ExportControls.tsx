@@ -10,6 +10,15 @@ export type ExportControlsProps = {
   className?: string;
 };
 
+/**
+ * Render controls for exporting the provided HTML, CSS, and JS as a downloadable ZIP file.
+ *
+ * @param html - The page HTML to include in the exported ZIP
+ * @param css - The stylesheet content to include in the exported ZIP
+ * @param js - The JavaScript content to include in the exported ZIP
+ * @param className - Optional additional CSS classes for the wrapper element
+ * @returns The React element containing the export button and related UI
+ */
 export function ExportControls({ html, css, js, className }: ExportControlsProps) {
   const [isExporting, setIsExporting] = React.useState(false);
 
@@ -55,6 +64,16 @@ export type DeploymentControlsProps = {
   className?: string;
 };
 
+/**
+ * Render controls that deploy the provided HTML/CSS/JS to GitHub Pages and show deployment status.
+ *
+ * The component manages deploy state, invokes an internal GitHub Pages deployment flow, and displays
+ * a success or error result with an optional link to the deployed site.
+ *
+ * @param onDeploy - Optional callback invoked with the deployment result `{ success: boolean; url?: string; error?: string }` after a deploy attempt.
+ * @param className - Optional container CSS class name to apply to the root element.
+ * @returns The React element containing deployment inputs, a deploy action button, and a result panel.
+ */
 export function DeploymentControls({
   html,
   css,

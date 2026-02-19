@@ -1,3 +1,13 @@
+/**
+ * Convert a Markdown string into HTML.
+ *
+ * Supports headings, paragraphs, fenced and indented code blocks, blockquotes,
+ * ordered and unordered lists, tables with alignment, images, links, inline code,
+ * and automatic URL linking.
+ *
+ * @param md - The Markdown source to convert
+ * @returns The generated HTML string corresponding to `md`
+ */
 export function parseMarkdown(md: string): string {
   const escapeHtml = (s: string) =>
     s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');

@@ -3,6 +3,11 @@ import { SunIcon, MoonIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
 import { useTheme } from './ThemeProvider';
 import { Theme, THEMES } from '../../lib/theme';
 
+/**
+ * Renders a floating theme toggle with buttons for selecting "light", "dark", or "custom" themes.
+ *
+ * @returns The React element containing three icon buttons that set the application theme when clicked.
+ */
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const handleSetTheme = (newTheme: Theme) => () => setTheme(newTheme);

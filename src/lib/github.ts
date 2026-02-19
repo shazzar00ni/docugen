@@ -6,6 +6,15 @@ export interface GitHubDeployConfig {
   commitMessage?: string;
 }
 
+/**
+ * Deploys a repository to GitHub Pages (simulation) and returns the result.
+ *
+ * The function constructs the GitHub Pages URL from `config.owner` and `config.repo`.
+ * Deployment is simulated for demonstration; no network calls are made.
+ *
+ * @param config - Deployment configuration containing the repository owner and name; optional `branch` and `commitMessage` can influence the simulated deployment.
+ * @returns An object with `success: true` and `url` set to the GitHub Pages URL on success, or `success: false` and `error` containing an error message on failure.
+ */
 export async function deployToGitHubPages(
   config: GitHubDeployConfig
 ): Promise<{ success: boolean; url?: string; error?: string }> {

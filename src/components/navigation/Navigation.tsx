@@ -8,7 +8,13 @@ export type NavigationProps = {
   className?: string;
 };
 
-/** Recursive NavItem rendering with expand/collapse */
+/**
+ * Renders a navigation node for a NavItem and its nested children, showing a chevron that indicates expandable state and applying active or ancestor styles.
+ *
+ * @param item - The NavItem to render, which may contain nested children.
+ * @param activeId - Optional id of the currently active item; used to determine active and descendant styling.
+ * @returns A `<li>` element representing the navigation node and its nested child list when present.
+ */
 function NavNode({ item, activeId }: { item: NavItem; activeId?: string }) {
   const hasChildren = item.children.length > 0;
   const isActive = item.id === activeId;
@@ -46,7 +52,14 @@ function NavNode({ item, activeId }: { item: NavItem; activeId?: string }) {
   );
 }
 
-/** Navigation sidebar showing document structure */
+/**
+ * Render a vertical document navigation tree from a list of NavItem entries.
+ *
+ * @param items - Root navigation items to render as a nested tree
+ * @param activeId - ID of the currently active item; used to highlight the active item and its descendants
+ * @param className - Optional CSS class(es) applied to the root <nav> element
+ * @returns A navigation element representing the document structure
+ */
 export function Navigation({ items, activeId, className }: NavigationProps) {
   return (
     <nav className={className} aria-label="Document navigation">

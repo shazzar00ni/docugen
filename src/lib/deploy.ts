@@ -6,7 +6,16 @@ export interface DeployResult {
   error?: string;
 }
 
-/** Deploy to various providers based on configuration */
+/**
+ * Selects the deployment target and deploys the provided HTML, CSS, and JS to that provider.
+ *
+ * @param provider - The target provider identifier ('netlify', 'vercel', or 'github').
+ * @param config - Provider-specific configuration used for the deployment.
+ * @param html - The HTML content to deploy.
+ * @param css - The CSS content to deploy.
+ * @param js - The JavaScript content to deploy.
+ * @returns A DeployResult with `success: true` and `url` when deployment succeeds, or `success: false` and `error` when it fails.
+ */
 export async function deployToProvider(
   provider: Provider,
   config: ProviderConfig,
@@ -25,6 +34,13 @@ export async function deployToProvider(
   }
 }
 
+/**
+ * Deploys provided site assets to Netlify and returns the deployment outcome.
+ *
+ * @param config - Provider configuration; `siteId` is used as the Netlify site name when present
+ * @param html - The HTML content to deploy
+ * @returns `true` with the Netlify site URL in `url` on success; `false` with an `error` message otherwise
+ */
 async function deployToNetlify(
   config: ProviderConfig,
   html: string,
@@ -49,6 +65,15 @@ async function deployToNetlify(
   }
 }
 
+/**
+ * Deploys given site assets to Vercel and returns the deployment outcome.
+ *
+ * @param config - Provider configuration; `projectId` (if present) is used to construct the resulting Vercel URL
+ * @param html - The HTML content to deploy
+ * @param _css - The CSS content to deploy
+ * @param _js - The JavaScript content to deploy
+ * @returns A `DeployResult` containing `success: true` and `url` when deployment succeeds, or `success: false` and `error` when it fails
+ */
 async function deployToVercel(
   config: ProviderConfig,
   html: string,
@@ -73,6 +98,13 @@ async function deployToVercel(
   }
 }
 
+/**
+ * Deploys the given site content to GitHub Pages and returns a standardized deployment result.
+ *
+ * @param config - Provider configuration used to determine the GitHub owner (`siteId`) and repository (`domain`)
+ * @param html - The HTML content of the site to deploy
+ * @returns A `DeployResult` with `success: true` and `url` set to the published GitHub Pages URL on success, or `success: false` and `error` containing an error message on failure
+ */
 async function deployToGitHubPages(
   config: ProviderConfig,
   html: string,

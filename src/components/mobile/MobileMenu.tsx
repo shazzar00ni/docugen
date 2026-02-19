@@ -6,6 +6,16 @@ export type MobileMenuProps = {
   className?: string;
 };
 
+/**
+ * Renders a mobile navigation menu with a toggle button, an overlay, and a slide-in panel.
+ *
+ * The trigger button toggles the panel open and closed, the overlay and a close button inside the panel close it,
+ * and the Escape key will also close the menu.
+ *
+ * @param children - Content rendered inside the slide-in panel
+ * @param className - Optional CSS class names applied to the outermost container
+ * @returns A React element representing the mobile navigation menu
+ */
 export function MobileMenu({ children, className }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
 
