@@ -21,14 +21,14 @@ type ValidationError = {
 };
 
 /**
- * Drag-and-drop area for uploading Markdown files (.md, .mdx).
+ * Render a drag-and-drop and click-to-browse upload area for Markdown files (.md, .mdx).
  *
- * Validates file extension, MIME type, and size (max 10 MB). On successful validation,
- * invokes `onUpload` with the selected `File`; on validation or processing failure,
- * displays an inline error and allows retry.
+ * Validates selected or dropped files for extension, MIME type, and size (max 10MB), shows
+ * contextual error UI when validation fails, and invokes the provided callback with the
+ * validated File when upload is accepted.
  *
- * @param onUpload - Callback invoked with a validated `File` to perform the actual upload.
- * @returns The UploadArea React element.
+ * @param onUpload - Callback invoked with the validated `File` when the user selects or drops a valid Markdown file
+ * @returns A React element that renders the upload area with validation and error states
  */
 export function UploadArea({ onUpload }: UploadAreaProps) {
   const [dragOver, setDragOver] = useState(false);
@@ -130,14 +130,11 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
-        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInputRef.current?.click(); } }}
-        role="button"
-        tabIndex={0}
         className={`relative border-2 border-dashed rounded-xl p-8 text-center cursor-pointer
           ${dragOver ? 'border-teal-500 bg-teal-500/10' : error ? 'border-red-500 bg-red-500/10' : 'border-dark-700 hover:border-teal-500/50 bg-dark-900/50'}`}
       >
         <input
-         ref={fileInputRef}
+          ref={el => (fileInputRef.current = el)}
           type="file"
           accept=".md,.mdx"
          onChange={handleFileSelect}

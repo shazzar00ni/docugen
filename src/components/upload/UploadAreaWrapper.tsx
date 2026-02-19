@@ -3,9 +3,11 @@ import { useCallback } from 'react';
 import { UploadArea } from './UploadArea';
 
 /**
- * Renders an UploadArea configured to log uploaded file names to the console.
+ * Render an UploadArea configured to log uploaded file names to the console.
  *
- * @returns The UploadArea element with an `onUpload` handler that logs the uploaded file's name.
+ * The wrapped onUpload handler logs the `File.name` of any uploaded file.
+ *
+ * @returns A JSX element that renders `UploadArea` with an `onUpload` handler which logs the uploaded file's name to the console.
  */
 export function UploadAreaWrapper() {
   const onUpload = useCallback((f: File) => {
