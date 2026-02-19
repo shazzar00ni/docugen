@@ -1,10 +1,9 @@
 import { Analytics } from './components/Analytics';
 
 /**
- * Analytics bridge component that wraps the Analytics component.
- * Provides a simple way to include analytics tracking in the application.
+ * Wraps and renders the Analytics component to include analytics tracking.
  *
- * @returns The Analytics component
+ * @returns The rendered Analytics element
  *
  * @example
  * ```tsx

@@ -57,18 +57,13 @@ interface ThemeProviderProps {
 }
 
 /**
- * React context provider for theme management.
- * Manages theme state, persistence, and DOM theme application.
+ * Provides theme state, persistence, and DOM class management to descendant components.
  *
- * @param children - Child components to wrap with theme context
- * @returns Theme context provider component
+ * Initializes the theme from storage or system preference on mount, applies it to the document root,
+ * and exposes `theme`, `toggleTheme`, and `setTheme` through context.
  *
- * @example
- * ```typescript
- * <ThemeProvider>
- *   <App />
- * </ThemeProvider>
- * ```
+ * @param children - React nodes to be wrapped by the theme provider
+ * @returns The ThemeContext provider element that supplies theme state and controls to descendants
  */
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>('dark');
