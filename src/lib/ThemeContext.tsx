@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState, type ReactNode } from 'react';
+import { createContext, useEffect, useState, useCallback, useMemo, type ReactNode } from 'react';
 
 export type Theme = 'dark' | 'light';
 
@@ -14,10 +14,9 @@ export const ThemeContext = createContext<ThemeContextType | undefined>(undefine
 const THEME_STORAGE_KEY = 'docugen-theme';
 
 /**
- * Determines the initial theme based on localStorage and system preferences.
- * Checks for stored theme first, then falls back to system preference.
+ * Determine the initial UI theme from a stored preference or the system preference, using safe fallbacks.
  *
- * @returns Initial theme ('light' | 'dark')
+ * @returns `'dark'` if a stored preference is `'dark'`, the system preference is dark, the environment is not a browser, or an error occurs; `'light'` otherwise.
  */
 function getInitialTheme(): Theme {
   if (typeof window === 'undefined') {
@@ -38,10 +37,11 @@ function getInitialTheme(): Theme {
 }
 
 /**
- * Applies the theme to the document root element.
- * Adds or removes the 'dark' class to enable Tailwind CSS dark mode.
+ * Apply the given theme to the document root by ensuring the `dark` class reflects the theme.
  *
- * @param theme - Theme to apply ('light' | 'dark')
+ * When `theme` is `'dark'` the `dark` class is added to `document.documentElement`; when `'light'` it is removed.
+ *
+ * @param theme - Theme to apply (`'dark'` or `'light'`)
  */
 function applyTheme(theme: Theme) {
   const root = document.documentElement;
@@ -71,15 +71,18 @@ interface ThemeProviderProps {
  * ```
  */
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>('dark');
+  const [theme, setTheme] = useState<Theme>(() => {
+    const initialTheme = getInitialTheme();
+    applyTheme(initialTheme);
+    return initialTheme;
+  });
 
   useEffect(() => {
     const initialTheme = getInitialTheme();
     setTheme(initialTheme);
-    applyTheme(initialTheme);
   }, []);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
     applyTheme(newTheme);
@@ -88,9 +91,9 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     } catch {
       // Silently fail - theme preference persistence is non-critical
     }
-  };
+  }, [theme]);
 
-  const setThemeDirect = (newTheme: Theme) => {
+  const setThemeDirect = useCallback((newTheme: Theme) => {
     setTheme(newTheme);
     applyTheme(newTheme);
     try {
@@ -98,11 +101,12 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     } catch {
       // Silently fail - theme preference persistence is non-critical
     }
-  };
+  }, []);
 
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme: setThemeDirect }}>
-      {children}
-    </ThemeContext.Provider>
+  const value = useMemo(
+    () => ({ theme, toggleTheme, setTheme: setThemeDirect }),
+    [theme, toggleTheme, setThemeDirect]
   );
+
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
