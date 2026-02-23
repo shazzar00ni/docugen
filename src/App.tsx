@@ -7,6 +7,7 @@ import { HowItWorks } from './components/HowItWorks';
 import { Footer } from './components/Footer';
 import { ScrollToTop } from './components/ScrollToTop';
 import { FAQ } from './components/FAQ';
+import { CookieConsent } from './components/CookieConsent';
 
 const Features = lazy(() =>
   import('./components/Features').then(module => ({ default: module.Features }))
@@ -72,6 +73,7 @@ function App() {
         </main>
         <Footer />
         <ScrollToTop />
+        <CookieConsent />
       </div>
     </ThemeProvider>
   );
