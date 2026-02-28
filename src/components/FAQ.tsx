@@ -11,16 +11,16 @@ interface FAQItemProps {
 }
 
 /**
- * FAQItem component that represents a single FAQ item with expandable answer.
- * Features smooth animations for expanding/collapsing and a rotating chevron indicator.
- * Handles accessibility attributes and keyboard navigation.
+ * Renders an accessible FAQ row with a question button and an animated answer panel.
+ *
+ * The question button exposes `aria-expanded` according to `isOpen`. When `isOpen` is true,
+ * the answer panel animates into view and the chevron icon rotates.
  *
  * @param question - The FAQ question text
- * @param answer - The FAQ answer text that appears when expanded
- * @param isOpen - Whether the item is currently expanded
- * @param onClick - Click handler to toggle the expanded state
- *
- * @returns A JSX element representing a single FAQ item
+ * @param answer - The FAQ answer text shown when expanded
+ * @param isOpen - Whether the item is expanded
+ * @param onClick - Handler invoked when the question button is activated
+ * @returns The rendered FAQ item as a JSX element
  */
 function FAQItem({ question, answer, isOpen, onClick }: FAQItemProps) {
   return (
@@ -61,18 +61,9 @@ function FAQItem({ question, answer, isOpen, onClick }: FAQItemProps) {
 }
 
 /**
- * FAQ component that displays a list of frequently asked questions in an accordion format.
- * Only one FAQ item can be expanded at a time for better user experience.
- * Features smooth animations and proper accessibility support.
+ * Renders an FAQ accordion section where only one item can be expanded at a time.
  *
- * @example
- * ```tsx
- * import { FAQ } from '@/components/FAQ';
- *
- * function HelpSection() {
- *   return <FAQ />;
- * }
- * ```
+ * Displays a header (title and description) and a mapped list of expandable FAQ items driven by FAQ_COPY and FAQS.
  *
  * @returns A JSX element representing the FAQ section with expandable items
  */

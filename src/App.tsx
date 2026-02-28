@@ -25,10 +25,9 @@ const Newsletter = lazy(() =>
 );
 
 /**
- * Loading spinner component for lazy-loaded content.
- * Displays a rotating teal spinner during content loading.
+ * Render a centered teal spinner used as a fallback for lazy-loaded content.
  *
- * @returns Loading spinner component
+ * @returns A React element containing a centered, spinning teal indicator.
  */
 function Loading() {
   return (
@@ -39,10 +38,11 @@ function Loading() {
 }
 
 /**
- * Main application component with theme support and lazy loading.
- * Renders the complete application layout with all sections.
+ * Composes the root application element with theme support, navigation, main sections, footer, and scroll control.
  *
- * @returns Main app component wrapped in theme provider
+ * Some main sections are lazy-loaded and rendered inside Suspense boundaries with a loading fallback.
+ *
+ * @returns The root React element for the application
  */
 function App() {
   return (
