@@ -28,7 +28,7 @@ function FAQItem({ question, answer, isOpen, onClick }: FAQItemProps) {
       <button
         type="button"
         onClick={onClick}
-        className="w-full py-5 flex items-center justify-between text-left focus:outline-none"
+        className="w-full py-5 flex items-center justify-between text-left focus:outline-hidden"
         aria-expanded={isOpen}
       >
         <span className="text-lg font-medium text-slate-100 pr-4">{question}</span>

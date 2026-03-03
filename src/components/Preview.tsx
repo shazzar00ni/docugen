@@ -36,7 +36,10 @@ export function Preview() {
           transition={{ duration: 0.6 }}
           className="max-w-5xl mx-auto"
         >
-          <div className="bg-slate-900 rounded-xl border border-slate-700 overflow-hidden shadow-2xl shadow-black/50">
+          <div
+            className="bg-slate-900 rounded-xl border border-slate-700 overflow-hidden shadow-2xl shadow-black/50"
+            aria-hidden="true"
+          >
             <div className="flex items-center px-4 py-3 bg-slate-800 border-b border-slate-700">
               <div className="flex space-x-2">
                 <div className="w-3 h-3 rounded-full bg-red-500"></div>
