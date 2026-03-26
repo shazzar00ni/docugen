@@ -154,7 +154,7 @@ export function parseMarkdown(md: string): string {
     }
 
     // Table detection: collect all consecutive table lines
-    if (trimmed.includes('|')) {
+    if (trimmed.startsWith('|') && i + 1 < lines.length && /^\|?\s*:?-+/.test(lines[i + 1].trim())) {
       flushPara();
       const tableLines: string[] = [];
       let j = i;
