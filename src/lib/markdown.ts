@@ -5,8 +5,42 @@
  * and unordered lists, tables, images, links, inline code, and autolinks.
  *
  * @param md - The Markdown source text to parse
- * @returns The HTML string generated from the provided Markdown
+ * @returns The sanitized HTML string generated from the provided Markdown
  */
+import DOMPurify from 'dompurify';
+
+const SANITIZE_CONFIG = {
+  ALLOWED_TAGS: [
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'p',
+    'br',
+    'strong',
+    'em',
+    'a',
+    'ul',
+    'ol',
+    'li',
+    'blockquote',
+    'pre',
+    'code',
+    'img',
+    'table',
+    'thead',
+    'tbody',
+    'tr',
+    'th',
+    'td',
+  ],
+  ALLOWED_ATTR: ['href', 'target', 'rel', 'src', 'alt', 'title', 'align'],
+  FORBID_TAGS: ['script', 'iframe', 'object', 'embed'],
+  FORBID_ATTR: ['on*', 'style'],
+};
+
 export function parseMarkdown(md: string): string {
   const escapeHtml = (s: string) =>
     s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -218,5 +252,5 @@ export function parseMarkdown(md: string): string {
 
   flushPara();
   flushCodeBlock();
-  return html;
+  return DOMPurify.sanitize(html, SANITIZE_CONFIG);
 }

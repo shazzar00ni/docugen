@@ -11,16 +11,25 @@ import { MarkdownViewer } from './components/markdown/MarkdownViewer';
 export function App() {
   const [html, setHtml] = useState<string | null>(null);
   const [uploaded, setUploaded] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleUpload = (content: string, fileName?: string) => {
-    const rendered = parseMarkdown(content);
-    setHtml(rendered);
-    if (fileName) setUploaded(fileName);
+    try {
+      const rendered = parseMarkdown(content);
+      setHtml(rendered);
+      if (fileName) setUploaded(fileName);
+      setError(null);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to parse Markdown';
+      setError(message);
+      console.error('Failed to parse Markdown:', err);
+    }
   };
 
   return (
     <div className="min-h-screen bg-dark-950">
       <UploadArea onUpload={handleUpload} />
+      {error && <div className="p-2 text-sm text-red-400">Error: {error}</div>}
       {uploaded && <div className="p-2 text-sm text-teal-300">Uploaded: {uploaded}</div>}
       {html && (
         <div className="p-4">

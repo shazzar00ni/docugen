@@ -3,20 +3,28 @@ import { useState, useRef, useCallback } from 'react';
 export type UploadAreaProps = {
   onUpload: (content: string, fileName?: string) => void;
   onUploadError?: (error: string) => void;
+  maxFileSize?: number;
 };
+
+const DEFAULT_MAX_FILE_SIZE = 1024 * 1024; // 1MB default
 
 /**
  * Render an interactive dropzone and file picker for uploading Markdown (.md/.mdx) files.
  *
- * Validates file extension and MIME type, reads the selected file as text, and forwards the file content
+ * Validates file extension, MIME type, and file size, reads the selected file as text, and forwards the file content
  * and name to `onUpload`. When validation or read failures occur, the component displays an error banner
  * and invokes `onUploadError` if provided; errors are cleared automatically after 5 seconds.
  *
  * @param onUpload - Callback invoked with the file text and optional file name after a successful upload
  * @param onUploadError - Optional callback invoked with an error message when upload validation or reading fails
+ * @param maxFileSize - Optional maximum file size in bytes (default: 1MB)
  * @returns The UploadArea React element
  */
-export function UploadArea({ onUpload, onUploadError }: UploadAreaProps) {
+export function UploadArea({
+  onUpload,
+  onUploadError,
+  maxFileSize = DEFAULT_MAX_FILE_SIZE,
+}: UploadAreaProps) {
   const [dragOver, setDragOver] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -28,6 +36,10 @@ export function UploadArea({ onUpload, onUploadError }: UploadAreaProps) {
     // MIME type check for text files
     const validMimeTypes = ['text/markdown', 'text/plain', 'text/x-markdown'];
     return validMimeTypes.includes(file.type);
+  };
+
+  const isValidFileSize = (file: File): boolean => {
+    return file.size <= maxFileSize;
   };
 
   const readFileAsText = (f: File): Promise<string> => {
@@ -67,23 +79,8 @@ export function UploadArea({ onUpload, onUploadError }: UploadAreaProps) {
         handleError('Only .md and .mdx files are supported');
         return;
       }
-      try {
-        const content = await readFileAsText(f);
-        onUpload(content, f.name);
-      } catch (err) {
-        handleError(`Failed to read file: ${err instanceof Error ? err.message : 'Unknown error'}`);
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [onUpload, onUploadError, handleError]
-  );
-  const handleFileSelect = useCallback(
-    async (e: React.ChangeEvent<HTMLInputElement>) => {
-      setError(null);
-      const f = e.target.files?.[0];
-      if (!f) return;
-      if (!isValidMarkdownFile(f)) {
-        handleError('Only .md and .mdx files are supported');
+      if (!isValidFileSize(f)) {
+        handleError(`File too large. Maximum size is ${Math.round(maxFileSize / 1024 / 1024)}MB`);
         return;
       }
       try {
@@ -94,7 +91,30 @@ export function UploadArea({ onUpload, onUploadError }: UploadAreaProps) {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [onUpload, onUploadError, handleError]
+    [onUpload, onUploadError, handleError, maxFileSize]
+  );
+  const handleFileSelect = useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      setError(null);
+      const f = e.target.files?.[0];
+      if (!f) return;
+      if (!isValidMarkdownFile(f)) {
+        handleError('Only .md and .mdx files are supported');
+        return;
+      }
+      if (!isValidFileSize(f)) {
+        handleError(`File too large. Maximum size is ${Math.round(maxFileSize / 1024 / 1024)}MB`);
+        return;
+      }
+      try {
+        const content = await readFileAsText(f);
+        onUpload(content, f.name);
+      } catch (err) {
+        handleError(`Failed to read file: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [onUpload, onUploadError, handleError, maxFileSize]
   );
 
   return (
