@@ -13,7 +13,7 @@ describe('UploadArea', () => {
   });
 
   it('accepts valid .md file', async () => {
-    render(<UploadArea onUpload={onUpload} />);
+    render(<UploadArea onUpload={onUpload} onUploadError={onUploadError} />);
     const file = new File(['# Test'], 'test.md', { type: 'text/markdown' });
     const input = screen.getByTestId('doc-upload-input');
     await userEvent.upload(input, file);
@@ -22,7 +22,7 @@ describe('UploadArea', () => {
   });
 
   it('accepts valid .mdx file', async () => {
-    render(<UploadArea onUpload={onUpload} />);
+    render(<UploadArea onUpload={onUpload} onUploadError={onUploadError} />);
     const file = new File(['export const x = 1;'], 'test.mdx', { type: 'text/markdown' });
     const input = screen.getByTestId('doc-upload-input');
     await userEvent.upload(input, file);

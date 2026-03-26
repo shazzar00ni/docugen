@@ -18,6 +18,8 @@ describe('parseMarkdown', () => {
     expect(html).toContain('Paragraph with &lt;strong&gt;bold&lt;/strong&gt; text');
   });
 
+  // TODO: parseMarkdown currently wraps each list item in its own <ul>/<ol>.
+  // Future work should unify consecutive list items into a single list element.
   it('renders unordered lists', () => {
     const md = '- First\n- Second\n- Third';
     const html = parseMarkdown(md);
@@ -26,6 +28,8 @@ describe('parseMarkdown', () => {
     expect(html).toContain('<ul><li>Third</li></ul>');
   });
 
+  // TODO: parseMarkdown currently wraps each list item in its own <ol>.
+  // Future work should unify consecutive list items into a single list element.
   it('renders ordered lists', () => {
     const md = '1. One\n2. Two\n3. Three';
     const html = parseMarkdown(md);
@@ -134,13 +138,15 @@ describe('parseMarkdown', () => {
 
 describe('MarkdownViewer with new constructs', () => {
   beforeEach(() => {
-    vi.stubGlobal('DOMPurify', {
-      sanitize: vi.fn((html: string) => html),
-    });
+    vi.mock('dompurify', () => ({
+      default: {
+        sanitize: vi.fn((html: string) => html),
+      },
+    }));
   });
 
   afterEach(() => {
-    vi.unstubAllGlobals();
+    vi.resetAllMocks();
   });
 
   it('renders sanitized lists via MarkdownViewer', () => {

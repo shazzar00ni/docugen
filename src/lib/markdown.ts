@@ -110,13 +110,15 @@ export function parseMarkdown(md: string): string {
       .split('|')
       .map(cell => cell.trim())
       .filter(Boolean);
-    const delimRow = tableLines[1].split('|').filter(Boolean);
+    const delimRow = tableLines[1]
+      .split('|')
+      .map(cell => cell.trim())
+      .filter(Boolean);
     // Detect alignment from delimiter row
     const alignments = delimRow.map(cell => {
-      const c = cell.trim();
-      if (c.startsWith(':') && c.endsWith(':')) return 'center';
-      if (c.endsWith(':')) return 'right';
-      if (c.startsWith(':')) return 'left';
+      if (cell.startsWith(':') && cell.endsWith(':')) return 'center';
+      if (cell.endsWith(':')) return 'right';
+      if (cell.startsWith(':')) return 'left';
       return 'left';
     });
     const bodyRows = tableLines.slice(2).map(row =>

@@ -26,9 +26,13 @@ export function App() {
     }
   };
 
+  const handleUploadError = (message: string) => {
+    setError(message);
+  };
+
   return (
     <div className="min-h-screen bg-dark-950">
-      <UploadArea onUpload={handleUpload} />
+      <UploadArea onUpload={handleUpload} onUploadError={handleUploadError} />
       {error && <div className="p-2 text-sm text-red-400">Error: {error}</div>}
       {uploaded && <div className="p-2 text-sm text-teal-300">Uploaded: {uploaded}</div>}
       {html && (
