@@ -19,7 +19,8 @@ export function parseMarkdown(md: string): string {
 
   const flushPara = () => {
     if (para.length) {
-      html += `<p>${escapeHtml(para.join(' '))}</p>`;
+      const escaped = para.map(line => escapeHtml(line));
+      html += `<p>${escaped.join(' ')}</p>`;
       para = [];
     }
   };
@@ -55,28 +56,16 @@ export function parseMarkdown(md: string): string {
         return `<a href="${hrefEsc}" target="_blank" rel="noopener noreferrer"${titleAttr}>${textEsc}</a>`;
       }
     );
-    // Inline code
-    const inlineCodeSegments = result.split(/(`.+?`)/);
-    result = inlineCodeSegments
-      .map(seg => {
-        if (seg.startsWith('`') && seg.endsWith('`')) {
-          return `<code>${escapeHtml(seg.slice(1, -1))}</code>`;
-        }
-        // Autolink detection (fallback)
-        const urlMatch = seg.match(/(https?:\/\/[^\s]+)/g);
-        if (urlMatch) {
-          let replaced = seg;
-          for (const url of urlMatch) {
-            replaced = replaced.replace(
-              url,
-              `<a href="${url}" target="_blank" rel="noopener noreferrer">${escapeHtml(url)}</a>`
-            );
-          }
-          return replaced;
-        }
-        return escapeHtml(seg);
-      })
-      .join('');
+    // Inline code - match backtick delimited strings
+    result = result.replace(/`([^`]*?)`/g, (_match, code) => {
+      return `<code>${escapeHtml(code)}</code>`;
+    });
+    // Autolink detection (fallback) - only if not already inside HTML tags
+    if (!result.includes('<img') && !result.includes('<a')) {
+      result = result.replace(/(https?:\/\/[^\s]+)/g, url => {
+        return `<a href="${url}" target="_blank" rel="noopener noreferrer">${escapeHtml(url)}</a>`;
+      });
+    }
     return result;
   };
 
@@ -87,14 +76,14 @@ export function parseMarkdown(md: string): string {
       .split('|')
       .map(cell => cell.trim())
       .filter(Boolean);
-    const delimRow = tableLines[1];
+    const delimRow = tableLines[1].split('|').filter(Boolean);
     // Detect alignment from delimiter row
-    const alignments = delimRow.split('|').map(cell => {
+    const alignments = delimRow.map(cell => {
       const c = cell.trim();
-      if (c.startsWith(':') && c.endsWith(':')) return ' center';
-      if (c.endsWith(':')) return ' right';
-      if (c.startsWith(':')) return ' left';
-      return ' left';
+      if (c.startsWith(':') && c.endsWith(':')) return 'center';
+      if (c.endsWith(':')) return 'right';
+      if (c.startsWith(':')) return 'left';
+      return 'left';
     });
     const bodyRows = tableLines.slice(2).map(row =>
       row
@@ -106,15 +95,15 @@ export function parseMarkdown(md: string): string {
     // Build table HTML
     let tableHtml = '<table>\n<thead>\n<tr>\n';
     headerRow.forEach((cell, i) => {
-      const align = alignments[i] || ' left';
-      tableHtml += `<th align="${align.replace(' ', '-')}">${processInline(cell)}</th>\n`;
+      const align = alignments[i] || 'left';
+      tableHtml += `<th align="${align}">${processInline(cell)}</th>\n`;
     });
     tableHtml += '</tr>\n</thead>\n<tbody>\n';
     bodyRows.forEach(row => {
       tableHtml += '<tr>\n';
       row.forEach((cell, i) => {
-        const align = alignments[i] || ' left';
-        tableHtml += `<td align="${align.replace(' ', '-')}">${processInline(cell)}</td>\n`;
+        const align = alignments[i] || 'left';
+        tableHtml += `<td align="${align}">${processInline(cell)}</td>\n`;
       });
       tableHtml += '</tr>\n';
     });
@@ -127,7 +116,7 @@ export function parseMarkdown(md: string): string {
     const trimmed = line.trim();
 
     // Detect fenced code block start/end
-    if (trimmed === '```') {
+    if (trimmed.startsWith('```')) {
       if (!inCodeBlock) {
         flushPara();
         inCodeBlock = true;
@@ -154,11 +143,15 @@ export function parseMarkdown(md: string): string {
     }
 
     // Table detection: collect all consecutive table lines
-    if (trimmed.includes('|')) {
+    // Only enter table parsing when:
+    // - current line starts with '|' OR
+    // - there's a following delimiter row (validates lines[j+1] against delimiter regex)
+    const isDelimiterRow = (line: string): boolean => /^\|?[\s:]*-+[\s:|]*$/.test(line.trim());
+    if (trimmed.startsWith('|') || (i + 1 < lines.length && isDelimiterRow(lines[i + 1]))) {
       flushPara();
       const tableLines: string[] = [];
       let j = i;
-      while (j < lines.length && lines[j].trim().includes('|')) {
+      while (j < lines.length && (lines[j].trim().startsWith('|') || isDelimiterRow(lines[j]))) {
         tableLines.push(lines[j]);
         j++;
       }

@@ -41,18 +41,31 @@ describe('UploadArea', () => {
   });
 
   it('handles file read errors gracefully', async () => {
-    // Mock FileReader to simulate an error
-    const fileReaderError = new Error('Read failed');
-    vi.stubGlobal('FileReader', {
-      prototype: {
-        readAsText: vi.fn(function (this: { onerror?: (error: Error) => void }) {
-          // Simulate async error after read
-          setTimeout(() => {
-            if (this.onerror) this.onerror(fileReaderError);
-          }, 0);
-        }),
-      },
-    });
+    class MockFileReader {
+      onload: (() => void) | null = null;
+      onerror: (() => void) | null = null;
+      onabort: (() => void) | null = null;
+      onloadend: (() => void) | null = null;
+      onloadstart: (() => void) | null = null;
+      onprogress: (() => void) | null = null;
+      result: string | ArrayBuffer | null = null;
+      error: Error | null = new Error('Read failed');
+      readyState = 0;
+      static EMPTY = 0;
+      static LOADING = 1;
+      static DONE = 2;
+      abort(): void {}
+      readAsText(_file: File): void {
+        setTimeout(() => {
+          this.error = new Error('Read failed');
+          if (this.onerror) this.onerror();
+        }, 0);
+      }
+      readAsArrayBuffer(_file: File): void {}
+      readAsBinaryString(_file: File): void {}
+      readAsDataURL(_file: File): void {}
+    }
+    vi.stubGlobal('FileReader', MockFileReader);
     render(<UploadArea onUpload={onUpload} onUploadError={onUploadError} />);
     const file = new File(['# Test'], 'test.md', { type: 'text/markdown' });
     const input = screen.getByTestId('doc-upload-input');
