@@ -16,7 +16,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "dompurify": "^3.2.4",
+    "dompurify": "^3.3.2",
     "framer-motion": "^11.0.0",
     "heroicons": "^2.1.0",
     "react": "^18.2.0",

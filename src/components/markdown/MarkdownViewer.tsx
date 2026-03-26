@@ -47,6 +47,11 @@ function sanitizeHtml(html: string): string {
  *
  * @param content - Raw HTML string to be sanitized and rendered
  * @returns A React element containing the sanitized HTML
+ *
+ * @security This component uses DOMPurify to sanitize HTML before rendering.
+ * The dangerouslySetInnerHTML is intentionally used for rendering user-provided
+ * markdown content that has been pre-sanitized. This is the standard pattern
+ * for rendering HTML content in React when the source is trusted.
  */
 export function MarkdownViewer({ content }: { content: string }) {
   const safe = sanitizeHtml(content);
