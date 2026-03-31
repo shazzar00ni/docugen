@@ -11,8 +11,7 @@ inputs:
     default: 'false'
   max_files:
     required: false
-    description:
-      'Max files to summarize and review. Less than or equal to 0 means no
+    description: 'Max files to summarize and review. Less than or equal to 0 means no
       limit.'
     default: '150'
   review_simple_changes:
@@ -133,7 +132,7 @@ inputs:
       !**/vendor/**
       !**/*.min.js
       !**/*.min.js.map
-      !**/*.min.js.css
+      !**/*.min.css
       !**/*.tfstate
       !**/*.tfstate.backup
   disable_review:
@@ -150,8 +149,7 @@ inputs:
     default: 'https://api.openai.com/v1'
   openai_light_model:
     required: false
-    description:
-      'Model to use for simple tasks like summarizing diff on a file.'
+    description: 'Model to use for simple tasks like summarizing diff on a file.'
     default: 'gpt-3.5-turbo'
   openai_heavy_model:
     required: false
@@ -163,8 +161,7 @@ inputs:
     default: '0.05'
   openai_retries:
     required: false
-    description:
-      'How many times to retry OpenAI API in case of timeouts or errors?'
+    description: 'How many times to retry OpenAI API in case of timeouts or errors?'
     default: '5'
   openai_timeout_ms:
     required: false
@@ -221,8 +218,7 @@ inputs:
 
   summarize_release_notes:
     required: false
-    description:
-      'The prompt for generating release notes in the same chat as summarize
+    description: 'The prompt for generating release notes in the same chat as summarize
       stage'
     default: |
       Craft concise release notes for the pull request. 
@@ -239,5 +235,5 @@ inputs:
     description: 'The icon for the bot'
     default: '<img src="https://avatars.githubusercontent.com/in/347564?s=41" alt="Image description" width="20" height="20">'
 runs:
-  using: 'node16'
+  using: 'node24'
   main: 'dist/index.js'
