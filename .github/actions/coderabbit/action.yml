@@ -133,7 +133,7 @@ inputs:
       !**/vendor/**
       !**/*.min.js
       !**/*.min.js.map
-      !**/*.min.js.css
+      !**/*.min.css
       !**/*.tfstate
       !**/*.tfstate.backup
   disable_review:
