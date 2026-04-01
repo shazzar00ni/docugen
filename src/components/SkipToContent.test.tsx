@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { SkipToContent } from './SkipToContent';
-import { SKIP_TO_CONTENT_TEXT } from '../data/content';
+import { SkipToContent } from 'src/components/SkipToContent';
+import { SKIP_TO_CONTENT_TEXT } from 'src/data/content';
 
 describe('SkipToContent', () => {
   it('renders with correct link text', () => {
