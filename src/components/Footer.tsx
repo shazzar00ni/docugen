@@ -1,5 +1,6 @@
 import { Container } from './ui/Container';
 import { FOOTER_LINKS, FOOTER_COPY, SITE } from '../data/content';
+import { ShareButtons } from './ShareButtons';
 
 /**
  * Footer component that displays the main navigation footer of the application.
@@ -59,6 +60,7 @@ export function Footer() {
           </div>
 
           <div className="flex items-center space-x-4">
+            <ShareButtons />
             <a
               href="#"
               aria-label="GitHub"
