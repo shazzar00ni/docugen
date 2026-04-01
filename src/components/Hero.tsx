@@ -94,7 +94,7 @@ export function Hero() {
         </div>
       </Container>
 
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-teal-900/20 via-slate-950/0 to-slate-950/0 pointer-events-none" />
+      <div className="absolute inset-0 animated-gradient bg-gradient-to-br from-slate-900 via-slate-950 to-teal-950/30 pointer-events-none" />
     </section>
   );
 }

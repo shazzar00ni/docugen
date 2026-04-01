@@ -24,4 +24,28 @@
   .gradient-text {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-teal-600;
   }
+
+  .animated-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animated-gradient {
+      animation: none;
+      background-position: 0% 50%;
+    }
+  }
+
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 }
