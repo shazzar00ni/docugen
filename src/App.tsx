@@ -51,7 +51,7 @@ function App() {
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
         <Navbar />
         <Analytics />
-        <main>
+        <main id="main-content" aria-label="Main content">
           <Hero />
           <HowItWorks />
           <Suspense fallback={<Loading />}>
