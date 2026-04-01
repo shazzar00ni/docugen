@@ -1,4 +1,4 @@
-import { SKIP_TO_CONTENT_TEXT } from 'src/data/content';
+import { SKIP_TO_CONTENT_TEXT } from '../data/content';
 
 /**
  * SkipToContent component provides a hidden link for keyboard and screen reader users
