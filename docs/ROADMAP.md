@@ -30,7 +30,7 @@ DocuGen is a developer tool that automatically transforms Markdown, MDX, and REA
 Plans:
 
 - [ ] 01-01: File upload component with drag-and-drop
-- [ ] 01-02: MDX/Markdown parser integration (unified/remark/rehiki)
+- [ ] 01-02: MDX/Markdown parser integration (unified/remark/rehype)
 - [ ] 01-03: File tree sidebar with navigation
 - [ ] 01-04: Basic layout with header, sidebar, content area
 
