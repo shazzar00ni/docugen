@@ -98,7 +98,7 @@ export function FAQ() {
             <p className="text-lg text-slate-400">{FAQ_COPY.description}</p>
           </div>
 
-          <div className="bg-slate-900/50 border border-slate-800 rounded-xl overflow-hidden">
+          <div className="bg-slate-900/50 border border-slate-800 rounded-xl overflow-hidden px-6">
             {FAQS.map((faq, index) => (
               <FAQItem
                 key={faq.question}
