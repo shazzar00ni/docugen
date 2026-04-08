@@ -14,6 +14,10 @@
   .dark body {
     @apply bg-dark-950 text-dark-100;
   }
+
+  #main-content:focus {
+    outline: none;
+  }
 }
 
 @layer utilities {

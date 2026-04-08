@@ -139,6 +139,8 @@ export const FOOTER_COPY = {
   copyright: `© ${new Date().getFullYear()} DocuGen. All rights reserved.`,
 };
 
+export const SKIP_TO_CONTENT_TEXT = 'Skip to main content';
+
 export const FAQ_COPY = {
   title: 'Frequently Asked Questions',
   description: 'Everything you need to know about DocuGen.',

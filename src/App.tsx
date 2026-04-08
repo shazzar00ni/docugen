@@ -1,6 +1,7 @@
 import { Suspense, lazy } from 'react';
 import { ThemeProvider } from './lib/ThemeContext';
 import { Navbar } from './components/Navbar';
+import { SkipToContent } from './components/SkipToContent';
 import { Analytics } from './components/Analytics';
 import { Hero } from './components/Hero';
 import { HowItWorks } from './components/HowItWorks';
@@ -48,9 +49,10 @@ function App() {
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+        <SkipToContent />
         <Navbar />
         <Analytics />
-        <main>
+        <main id="main-content" tabIndex={-1}>
           <Hero />
           <HowItWorks />
           <Suspense fallback={<Loading />}>
