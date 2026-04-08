@@ -21,7 +21,7 @@ This document tracks the remaining tasks for the DocuGen project. Tasks are orga
 **Status**: Not started
 **Remaining Tasks**: 4
 
-### Plans
+### Phase 1 Plans
 
 - [ ] 01-01: File upload component with drag-and-drop
 - [ ] 01-02: MDX/Markdown parser integration (unified/remark/rehiki)
@@ -34,7 +34,7 @@ This document tracks the remaining tasks for the DocuGen project. Tasks are orga
 **Status**: Not started
 **Remaining Tasks**: 3
 
-### Plans
+### Phase 2 Plans
 
 - [ ] 02-01: Auto-generate navigation from file structure and headings
 - [ ] 02-02: Table of contents with anchor links and scroll spy
@@ -46,7 +46,7 @@ This document tracks the remaining tasks for the DocuGen project. Tasks are orga
 **Status**: Not started
 **Remaining Tasks**: 4
 
-### Plans
+### Phase 3 Plans
 
 - [ ] 03-01: Hot reload for file changes in preview
 - [ ] 03-02: Theme system with design tokens
@@ -59,7 +59,7 @@ This document tracks the remaining tasks for the DocuGen project. Tasks are orga
 **Status**: Not started
 **Remaining Tasks**: 4
 
-### Plans
+### Phase 4 Plans
 
 - [ ] 04-01: Static site generator (build to dist folder)
 - [ ] 04-02: Download as ZIP functionality
@@ -72,7 +72,7 @@ This document tracks the remaining tasks for the DocuGen project. Tasks are orga
 **Status**: Not started
 **Remaining Tasks**: 3
 
-### Plans
+### Phase 5 Plans
 
 - [ ] 05-01: FlexSearch client-side search integration
 - [ ] 05-02: Performance optimization (bundle splitting, lazy loading)
