@@ -25,6 +25,7 @@ describe('Button', () => {
   it('applies ghost variant', () => {
     render(<Button variant="ghost">Test</Button>);
     const button = screen.getByRole('button');
+    expect(button).toHaveClass('text-light-600');
     expect(button).toHaveClass('dark:text-light-300');
   });
 
