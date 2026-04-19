@@ -131,6 +131,7 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
         onKeyDown={e => {
+          if (e.target !== e.currentTarget) return;
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             fileInputRef.current?.click();
