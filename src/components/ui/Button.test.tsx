@@ -18,13 +18,15 @@ describe('Button', () => {
   it('applies secondary variant', () => {
     render(<Button variant="secondary">Test</Button>);
     const button = screen.getByRole('button');
-    expect(button).toHaveClass('bg-dark-800');
+    expect(button).toHaveClass('bg-light-200');
+    expect(button).toHaveClass('dark:bg-light-800');
   });
 
   it('applies ghost variant', () => {
     render(<Button variant="ghost">Test</Button>);
     const button = screen.getByRole('button');
-    expect(button).toHaveClass('text-dark-300');
+    expect(button).toHaveClass('text-light-600');
+    expect(button).toHaveClass('dark:text-light-300');
   });
 
   it('applies small size', () => {
