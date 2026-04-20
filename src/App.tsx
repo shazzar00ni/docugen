@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react';
 import { ThemeProvider } from './lib/ThemeContext';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { Navbar } from './components/Navbar';
 import { Analytics } from './components/Analytics';
 import { Hero } from './components/Hero';
@@ -47,32 +48,34 @@ function Loading() {
 function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
-        <Navbar />
-        <Analytics />
-        <main>
-          <Hero />
-          <HowItWorks />
-          <Suspense fallback={<Loading />}>
-            <Features />
-          </Suspense>
-          <Suspense fallback={<Loading />}>
-            <Testimonials />
-          </Suspense>
-          <FAQ />
-          <Suspense fallback={<Loading />}>
-            <Preview />
-          </Suspense>
-          <Suspense fallback={<Loading />}>
-            <Pricing />
-          </Suspense>
-          <Suspense fallback={<Loading />}>
-            <Newsletter />
-          </Suspense>
-        </main>
-        <Footer />
-        <ScrollToTop />
-      </div>
+      <ErrorBoundary>
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+          <Navbar />
+          <Analytics />
+          <main>
+            <Hero />
+            <HowItWorks />
+            <Suspense fallback={<Loading />}>
+              <Features />
+            </Suspense>
+            <Suspense fallback={<Loading />}>
+              <Testimonials />
+            </Suspense>
+            <FAQ />
+            <Suspense fallback={<Loading />}>
+              <Preview />
+            </Suspense>
+            <Suspense fallback={<Loading />}>
+              <Pricing />
+            </Suspense>
+            <Suspense fallback={<Loading />}>
+              <Newsletter />
+            </Suspense>
+          </main>
+          <Footer />
+          <ScrollToTop />
+        </div>
+      </ErrorBoundary>
     </ThemeProvider>
   );
 }
