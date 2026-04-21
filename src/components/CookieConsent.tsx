@@ -1,6 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from './ui/Button';
+
+function getInitialConsentState(): boolean {
+  try {
+    const hasConsented = localStorage.getItem('docugen-cookie-consent');
+    return !hasConsented;
+  } catch {
+    return true;
+  }
+}
 
 /**
  * Cookie consent management component.
@@ -10,18 +19,7 @@ import { Button } from './ui/Button';
  * @returns Cookie consent banner component
  */
 export function CookieConsent() {
-  const [showConsent, setShowConsent] = useState(false);
-
-  useEffect(() => {
-    try {
-      const hasConsented = localStorage.getItem('docugen-cookie-consent');
-      if (!hasConsented) {
-        setShowConsent(true);
-      }
-    } catch {
-      setShowConsent(true);
-    }
-  }, []);
+  const [showConsent, setShowConsent] = useState(getInitialConsentState);
 
   /**
    * Handles accepting all cookies.

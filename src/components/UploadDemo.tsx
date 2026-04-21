@@ -26,37 +26,24 @@ export function UploadDemo() {
   const [isComplete, setIsComplete] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  /**
-   * Handles the drag over event for the dropzone.
-   * Prevents default browser behavior and sets the dragging state to true
-   * to provide visual feedback to the user.
-   *
-   * @param e - The drag event object
-   */
+  const simulateUpload = () => {
+    setIsUploading(true);
+    setTimeout(() => {
+      setIsUploading(false);
+      setIsComplete(true);
+    }, 2000);
+  };
+
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(true);
   }, []);
 
-  /**
-   * Handles the drag leave event for the dropzone.
-   * Prevents default browser behavior and sets the dragging state to false
-   * to remove the visual feedback when dragging stops.
-   *
-   * @param e - The drag event object
-   */
   const handleDragLeave = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
   }, []);
 
-  /**
-   * Handles the drop event for the dropzone.
-   * Prevents default browser behavior, processes the dropped file, and validates file type.
-   * Only accepts Markdown files (.md, .mdx) and initiates the upload simulation if valid.
-   *
-   * @param e - The drag event object containing file data
-   */
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
@@ -67,12 +54,6 @@ export function UploadDemo() {
     }
   }, []);
 
-  /**
-   * Handles file selection via the file input dialog.
-   * Validates the selected file type and initiates upload simulation for valid Markdown files.
-   *
-   * @param e - The change event object from the file input
-   */
   const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile && (selectedFile.name.endsWith('.md') || selectedFile.name.endsWith('.mdx'))) {
@@ -80,19 +61,6 @@ export function UploadDemo() {
       simulateUpload();
     }
   }, []);
-
-  /**
-   * Simulates the file upload process with a 2-second delay.
-   * Sets uploading state to true immediately, then transitions to complete state after timeout.
-   * Provides visual feedback during the upload process with progress indication.
-   */
-  const simulateUpload = () => {
-    setIsUploading(true);
-    setTimeout(() => {
-      setIsUploading(false);
-      setIsComplete(true);
-    }, 2000);
-  };
 
   /**
    * Resets the upload demo to its initial state.
