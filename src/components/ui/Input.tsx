@@ -11,29 +11,17 @@ interface InputProps {
 }
 
 /**
- * Styled input field component with focus states and accessibility support.
- * Designed for dark theme with teal accent colors.
+ * Render a styled input element optimized for dark themes with teal focus accents, accessibility attributes, and disabled styling.
  *
- * @param placeholder - Input placeholder text
- * @param type - Input type ('text' | 'email')
- * @param className - Additional CSS classes
- * @param disabled - Whether the input is disabled
- * @param value - Current input value
- * @param onChange - Change event handler
- * @param onBlur - Blur event handler
- * @param props - Additional HTML input attributes
- * @returns Styled input element
- *
- * @example
- * ```typescript
- * <Input
- *   type="email"
- *   placeholder="Enter your email"
- *   value={email}
- *   onChange={handleChange}
- *   disabled={isSubmitting}
- * />
- * ```
+ * @param placeholder - Placeholder text shown when the input is empty
+ * @param type - Input type; commonly `'text'` or `'email'`
+ * @param className - Additional CSS classes appended to the component's default classes
+ * @param disabled - When `true`, disables the input and applies disabled styling
+ * @param value - Controlled input value
+ * @param onChange - Change event handler for the input
+ * @param onBlur - Blur event handler for the input
+ * @param props - Additional HTML input attributes forwarded to the element
+ * @returns The rendered input element
  */
 export function Input({
   placeholder,

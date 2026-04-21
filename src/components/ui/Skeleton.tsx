@@ -45,10 +45,11 @@ export function Skeleton({ className = '', variant = 'text', width, height }: Sk
 }
 
 /**
- * Skeleton card component with avatar and text lines.
- * Simulates a user card with profile image and content.
+ * Skeleton placeholder that simulates a user card with an avatar and multiple text lines.
  *
- * @returns Skeleton card placeholder component
+ * Renders an outer card containing a circular avatar skeleton and three horizontal line skeletons of varying widths.
+ *
+ * @returns The JSX element representing the skeleton user card.
  */
 export function SkeletonCard() {
   return (
@@ -76,20 +77,18 @@ export function SkeletonButton() {
 }
 
 /**
- * Skeleton input field component with standard input height.
- * Simulates a text input during loading state.
+ * Renders a skeleton placeholder that mimics a standard text input.
  *
- * @returns Skeleton input placeholder component
+ * @returns A Skeleton element representing a full-width input placeholder with standard input height.
  */
 export function SkeletonInput() {
   return <Skeleton variant="rectangular" width="100%" height={48} className="rounded-lg" />;
 }
 
 /**
- * Skeleton feature card component with icon and text.
- * Simulates a feature card with icon and description.
+ * Renders a skeleton placeholder for a feature card containing an icon and several text lines.
  *
- * @returns Skeleton feature card placeholder component
+ * @returns A JSX element representing the feature card skeleton
  */
 export function SkeletonFeature() {
   return (
@@ -103,10 +102,9 @@ export function SkeletonFeature() {
 }
 
 /**
- * Skeleton testimonial card component with quote and author.
- * Simulates a testimonial card with quote text and author info.
+ * Renders a skeleton placeholder for a testimonial card containing quote lines and author information.
  *
- * @returns Skeleton testimonial card placeholder component
+ * @returns A JSX element representing the testimonial skeleton placeholder
  */
 export function SkeletonTestimonial() {
   return (

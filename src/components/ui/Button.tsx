@@ -10,23 +10,15 @@ interface ButtonProps {
 }
 
 /**
- * Reusable button component with multiple variants and sizes.
- * Supports primary, secondary, and ghost styles with focus states.
+ * Renders a configurable button with selectable visual variant, size, and additional CSS classes.
  *
- * @param children - Button content or components
- * @param variant - Button style variant ('primary' | 'secondary' | 'ghost')
- * @param size - Button size ('sm' | 'md' | 'lg')
- * @param className - Additional CSS classes
- * @param onClick - Click event handler
- * @param type - HTML button type ('button' | 'submit')
- * @returns Styled button component
- *
- * @example
- * ```typescript
- * <Button variant="primary" size="md" onClick={handleClick}>
- *   Click me
- * </Button>
- * ```
+ * @param children - Content displayed inside the button
+ * @param variant - Visual style of the button: 'primary', 'secondary', or 'ghost'
+ * @param size - Size of the button: 'sm', 'md', or 'lg'
+ * @param className - Additional CSS classes to append to the button
+ * @param onClick - Optional click event handler
+ * @param type - HTML button type attribute ('button' or 'submit')
+ * @returns The rendered HTML button element with applied styles and handlers
  */
 export function Button({
   children,
