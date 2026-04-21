@@ -193,16 +193,28 @@ export function parseMarkdown(md: string): string {
     // Unordered list
     if (/^[\s]*[-*+]\s/.test(line)) {
       flushPara();
-      const content = processInline(line.replace(/^[\s]*[-*+]\s/, ''));
-      html += `<ul><li>${content}</li></ul>`;
+      const listItems: string[] = [];
+      let j = i;
+      while (j < lines.length && /^[\s]*[-*+]\s/.test(lines[j])) {
+        listItems.push(processInline(lines[j].replace(/^[\s]*[-*+]\s/, '')));
+        j++;
+      }
+      i = j - 1;
+      html += '<ul>' + listItems.map(item => `<li>${item}</li>`).join('') + '</ul>';
       continue;
     }
 
     // Ordered list
     if (/^[\s]*\d+\.\s/.test(line)) {
       flushPara();
-      const content = processInline(line.replace(/^[\s]*\d+\.\s/, ''));
-      html += `<ol><li>${content}</li></ol>`;
+      const listItems: string[] = [];
+      let j = i;
+      while (j < lines.length && /^[\s]*\d+\.\s/.test(lines[j])) {
+        listItems.push(processInline(lines[j].replace(/^[\s]*\d+\.\s/, '')));
+        j++;
+      }
+      i = j - 1;
+      html += '<ol>' + listItems.map(item => `<li>${item}</li>`).join('') + '</ol>';
       continue;
     }
 
