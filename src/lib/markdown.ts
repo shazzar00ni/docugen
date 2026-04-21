@@ -146,11 +146,15 @@ export function parseMarkdown(md: string): string {
     // Indented code block (4+ spaces)
     if (/^ {4,}/.test(line)) {
       flushPara();
-      if (!inCodeBlock) {
-        inCodeBlock = true;
-        codeBlockLines = [line.slice(4)];
-        continue;
+      const indentedLines: string[] = [];
+      let j = i;
+      while (j < lines.length && /^ {4,}/.test(lines[j])) {
+        indentedLines.push(lines[j].slice(4));
+        j++;
       }
+      i = j - 1;
+      html += `<pre><code>${escapeHtml(indentedLines.join('\n'))}</code></pre>`;
+      continue;
     }
 
     // Table detection: collect all consecutive table lines
