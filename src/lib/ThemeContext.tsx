@@ -67,8 +67,8 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     applyTheme(newTheme);
     try {
       localStorage.setItem(THEME_STORAGE_KEY, newTheme);
-    } catch {
-      // Silently fail - theme preference persistence is non-critical
+    } catch (error) {
+      console.warn('Failed to persist theme preference:', error);
     }
   };
 
