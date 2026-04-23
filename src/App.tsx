@@ -34,7 +34,7 @@ function Loading() {
 export function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-light-50 dark:bg-dark-950 transition-colors duration-300">
+      <div className="min-h-screen bg-dark-950 light:bg-light-50 transition-colors duration-300">
         <Navbar />
         <main>
           <Hero />
@@ -62,5 +62,3 @@ export function App() {
     </ThemeProvider>
   );
 }
-
-export default App;
