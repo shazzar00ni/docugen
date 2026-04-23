@@ -24,6 +24,7 @@
     "react-dom": "^19.2.4"
   },
   "devDependencies": {
+    "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@playwright/test": "^1.40.0",
     "@tailwindcss/vite": "^4.2.1",
     "@testing-library/jest-dom": "^6.9.1",
