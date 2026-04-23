@@ -31,7 +31,7 @@ function Loading() {
   );
 }
 
-function App() {
+export function App() {
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-light-50 dark:bg-dark-950 transition-colors duration-300">
