@@ -6,8 +6,10 @@ function getInitialConsentState(): boolean {
   try {
     const hasConsented = localStorage.getItem('docugen-cookie-consent');
     return !hasConsented;
-  } catch {
+  } catch (error) {
+    console.error('Failed to read cookie consent from localStorage:', error);
     return true;
+
   }
 }
 
