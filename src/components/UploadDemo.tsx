@@ -30,13 +30,13 @@ export function UploadDemo() {
    * Simulates the file upload process with a 2-second delay.
    * Sets uploading state to true immediately, then transitions to complete state after timeout.
    */
-  const simulateUpload = () => {
+  const simulateUpload = useCallback(() => {
     setIsUploading(true);
     setTimeout(() => {
       setIsUploading(false);
       setIsComplete(true);
     }, 2000);
-  };
+  }, []);
 
   /**
    * Handles the drag over event for the dropzone.
@@ -60,27 +60,36 @@ export function UploadDemo() {
    * Handles the drop event for the dropzone.
    * Validates file type and initiates upload simulation for valid Markdown files.
    */
-  const handleDrop = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-    const droppedFile = e.dataTransfer.files[0];
-    if (droppedFile && (droppedFile.name.endsWith('.md') || droppedFile.name.endsWith('.mdx'))) {
-      setFile(droppedFile);
-      simulateUpload();
-    }
-  }, []);
+  const handleDrop = useCallback(
+    (e: React.DragEvent) => {
+      e.preventDefault();
+      setIsDragging(false);
+      const droppedFile = e.dataTransfer.files[0];
+      if (droppedFile && (droppedFile.name.endsWith('.md') || droppedFile.name.endsWith('.mdx'))) {
+        setFile(droppedFile);
+        simulateUpload();
+      }
+    },
+    [simulateUpload]
+  );
 
   /**
    * Handles file selection via the file input dialog.
    * Validates file type and initiates upload simulation for valid Markdown files.
    */
-  const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    if (selectedFile && (selectedFile.name.endsWith('.md') || selectedFile.name.endsWith('.mdx'))) {
-      setFile(selectedFile);
-      simulateUpload();
-    }
-  }, []);
+  const handleFileSelect = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const selectedFile = e.target.files?.[0];
+      if (
+        selectedFile &&
+        (selectedFile.name.endsWith('.md') || selectedFile.name.endsWith('.mdx'))
+      ) {
+        setFile(selectedFile);
+        simulateUpload();
+      }
+    },
+    [simulateUpload]
+  );
 
   /**
    * Resets the upload demo to its initial state.

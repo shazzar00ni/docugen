@@ -9,7 +9,6 @@ function getInitialConsentState(): boolean {
   } catch (error) {
     console.error('Failed to read cookie consent from localStorage:', error);
     return true;
-
   }
 }
 
@@ -28,11 +27,11 @@ export function CookieConsent() {
    * Stores acceptance preference and hides consent banner.
    */
   const handleAccept = () => {
+    setShowConsent(false);
     try {
       localStorage.setItem('docugen-cookie-consent', 'accepted');
-      setShowConsent(false);
-    } catch {
-      // localStorage not available
+    } catch (e) {
+      console.error('Failed to save cookie consent to storage:', e);
     }
   };
 
@@ -41,12 +40,12 @@ export function CookieConsent() {
    * Stores decline preference and hides consent banner.
    */
   const handleDecline = () => {
+    setShowConsent(false);
     try {
       localStorage.setItem('docugen-cookie-consent', 'declined');
-    } catch {
-      // localStorage not available
+    } catch (e) {
+      console.error('Failed to save cookie consent to storage:', e);
     }
-    setShowConsent(false);
   };
 
   return (
