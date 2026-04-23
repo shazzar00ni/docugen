@@ -3,6 +3,10 @@ import { ThemeProvider } from './ThemeContext';
 import { useTheme } from './useTheme';
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 
+/**
+ * Mock localStorage for testing environment.
+ * Provides vi.fn() implementations for all localStorage methods.
+ */
 const localStorageMock = {
   getItem: vi.fn(),
   setItem: vi.fn(),
@@ -10,6 +14,10 @@ const localStorageMock = {
   removeItem: vi.fn(),
 };
 
+/**
+ * Test component that exposes theme context values.
+ * Used for testing ThemeProvider functionality.
+ */
 function TestComponent() {
   const { theme, toggleTheme, setTheme } = useTheme();
   return (
