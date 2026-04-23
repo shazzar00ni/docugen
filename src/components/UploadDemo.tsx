@@ -26,6 +26,10 @@ export function UploadDemo() {
   const [isComplete, setIsComplete] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  /**
+   * Simulates the file upload process with a 2-second delay.
+   * Sets uploading state to true immediately, then transitions to complete state after timeout.
+   */
   const simulateUpload = () => {
     setIsUploading(true);
     setTimeout(() => {
@@ -34,16 +38,28 @@ export function UploadDemo() {
     }, 2000);
   };
 
+  /**
+   * Handles the drag over event for the dropzone.
+   * Prevents default browser behavior and sets the dragging state to true.
+   */
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(true);
   }, []);
 
+  /**
+   * Handles the drag leave event for the dropzone.
+   * Prevents default browser behavior and sets the dragging state to false.
+   */
   const handleDragLeave = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
   }, []);
 
+  /**
+   * Handles the drop event for the dropzone.
+   * Validates file type and initiates upload simulation for valid Markdown files.
+   */
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
@@ -54,6 +70,10 @@ export function UploadDemo() {
     }
   }, []);
 
+  /**
+   * Handles file selection via the file input dialog.
+   * Validates file type and initiates upload simulation for valid Markdown files.
+   */
   const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile && (selectedFile.name.endsWith('.md') || selectedFile.name.endsWith('.mdx'))) {
@@ -64,8 +84,7 @@ export function UploadDemo() {
 
   /**
    * Resets the upload demo to its initial state.
-   * Clears the selected file and resets all state variables to allow for new uploads.
-   * Called when the user clicks "Try another" after a successful upload.
+   * Clears the selected file and resets all state variables.
    */
   const resetDemo = () => {
     setFile(null);
