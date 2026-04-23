@@ -80,21 +80,19 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
-    applyTheme(newTheme);
     try {
       localStorage.setItem(THEME_STORAGE_KEY, newTheme);
-    } catch {
-      // Silently fail - theme preference persistence is non-critical
+    } catch (error) {
+      console.warn('Failed to persist theme preference:', error);
     }
   };
 
   const setThemeDirect = (newTheme: Theme) => {
     setTheme(newTheme);
-    applyTheme(newTheme);
     try {
       localStorage.setItem(THEME_STORAGE_KEY, newTheme);
-    } catch {
-      // Silently fail - theme preference persistence is non-critical
+    } catch (error) {
+      console.warn('Failed to persist theme preference:', error);
     }
   };
 
