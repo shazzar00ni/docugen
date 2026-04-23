@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@custom-variant light (&:where(:not(.dark) *));
+
 @theme {
   --color-light-50: #f8fafc;
   --color-light-100: #f1f5f9;
@@ -41,11 +43,11 @@
   }
 
   body {
-    @apply bg-light-50 text-light-900 transition-colors duration-300;
+    @apply bg-dark-950 text-dark-100 transition-colors duration-300;
   }
 
-  .dark body {
-    @apply bg-dark-950 text-dark-100;
+  :where(:not(.dark)) body {
+    @apply bg-light-50 text-light-900;
   }
 }
 
