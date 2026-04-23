@@ -51,10 +51,8 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     applyTheme(theme);
   }, [theme]);
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
+  const setThemeDirect = (newTheme: Theme) => {
     setTheme(newTheme);
-    applyTheme(newTheme);
     try {
       localStorage.setItem(THEME_STORAGE_KEY, newTheme);
     } catch (error) {
@@ -62,14 +60,8 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     }
   };
 
-  const setThemeDirect = (newTheme: Theme) => {
-    setTheme(newTheme);
-    applyTheme(newTheme);
-    try {
-      localStorage.setItem(THEME_STORAGE_KEY, newTheme);
-    } catch (error) {
-      console.warn('Failed to persist theme preference:', error);
-    }
+  const toggleTheme = () => {
+    setThemeDirect(theme === 'dark' ? 'light' : 'dark');
   };
 
   return (
