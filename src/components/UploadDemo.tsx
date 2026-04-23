@@ -27,6 +27,19 @@ export function UploadDemo() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   /**
+   * Simulates the file upload process with a 2-second delay.
+   * Sets uploading state to true immediately, then transitions to complete state after timeout.
+   * Provides visual feedback during the upload process with progress indication.
+   */
+  const simulateUpload = () => {
+    setIsUploading(true);
+    setTimeout(() => {
+      setIsUploading(false);
+      setIsComplete(true);
+    }, 2000);
+  };
+
+  /**
    * Handles the drag over event for the dropzone.
    * Prevents default browser behavior and sets the dragging state to true
    * to provide visual feedback to the user.
@@ -80,19 +93,6 @@ export function UploadDemo() {
       simulateUpload();
     }
   }, []);
-
-  /**
-   * Simulates the file upload process with a 2-second delay.
-   * Sets uploading state to true immediately, then transitions to complete state after timeout.
-   * Provides visual feedback during the upload process with progress indication.
-   */
-  const simulateUpload = () => {
-    setIsUploading(true);
-    setTimeout(() => {
-      setIsUploading(false);
-      setIsComplete(true);
-    }, 2000);
-  };
 
   /**
    * Resets the upload demo to its initial state.
