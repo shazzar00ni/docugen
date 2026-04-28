@@ -137,11 +137,6 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
           ref={el => (fileInputRef.current = el)}
           type="file"
           accept=".md,.mdx"
-         onChange={handleFileSelect}
-          className="hidden"
-         aria-label="Upload documentation file"
-        />
-          accept=".md,.mdx"
           onChange={handleFileSelect}
           className="hidden"
           aria-label="Upload documentation file"
