@@ -134,6 +134,23 @@ export const TESTIMONIALS = [
   },
 ];
 
+export const UPLOAD_AREA_COPY = {
+  ariaLabel: 'Upload documentation file. Drop a Markdown file here or press Enter to browse.',
+  inputAriaLabel: 'Upload documentation file',
+  prompt: 'Drop your Markdown files here',
+  browseHint: 'or click to browse (.md, .mdx)',
+  examples: ['README.md', 'guide.mdx', '+ more'],
+  errorTitle: 'Upload Failed',
+  tryAgain: 'Try again',
+  maxSizeHint: (mb: number) => `Max file size: ${mb}MB • Supported formats: .md, .mdx`,
+  errors: {
+    extension: 'Only .md and .mdx files are allowed',
+    size: (mb: number) => `File size must be less than ${mb}MB`,
+    mime: 'Invalid file type. Please upload a valid Markdown file',
+    processing: 'Failed to process file. Please try again',
+  },
+};
+
 export const FOOTER_COPY = {
   tagline: 'Documentation made beautiful, fast, and simple.',
   copyright: `© ${new Date().getFullYear()} DocuGen. All rights reserved.`,

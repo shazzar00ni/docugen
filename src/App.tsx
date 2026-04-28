@@ -2,11 +2,9 @@ import { useState } from 'react';
 import { UploadArea } from './components/upload/UploadArea';
 
 /**
- * Root application component that displays an upload area and, when a file is selected, the uploaded file's name.
+ * Root component that renders an upload area and, if a file is selected, the uploaded file's name.
  *
- * Maintains local state for the uploaded file name and passes a handler to the UploadArea to update that state.
- *
- * @returns The root JSX element containing the upload area and an optional uploaded filename display.
+ * @returns The root JSX element containing the upload area and, when present, the uploaded filename.
  */
 export function App() {
   const [uploaded, setUploaded] = useState<string | null>(null);
