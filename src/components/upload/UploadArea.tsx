@@ -85,7 +85,8 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
           valid.push(file);
         }
         onUpload(valid);
-      } catch {
+      } catch (err) {
+        console.error('Failed to process uploaded file:', err);
         setError({
           type: 'processing',
           message: 'Failed to process file. Please try again',

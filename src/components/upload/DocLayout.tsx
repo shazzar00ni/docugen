@@ -149,8 +149,8 @@ export function DocLayout() {
               </div>
               <nav aria-label="Table of contents" className="p-2">
                 <ul className="space-y-0.5">
-                  {headings.map((h, i) => (
-                    <li key={i}>
+                  {headings.map(h => (
+                    <li key={h.id}>
                       <a
                         href={`#${h.id}`}
                         className="block text-xs text-dark-500 hover:text-teal-400 transition-colors py-0.5 truncate"

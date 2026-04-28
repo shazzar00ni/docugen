@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
@@ -26,10 +27,11 @@ export type MarkdownViewerProps = {
  * @returns A React element rendering the formatted document
  */
 export function MarkdownViewer({ content, fileName, onHeadingsExtracted }: MarkdownViewerProps) {
-  const headings = extractHeadings(content);
-  if (onHeadingsExtracted) {
-    onHeadingsExtracted(headings);
-  }
+  useEffect(() => {
+    if (onHeadingsExtracted) {
+      onHeadingsExtracted(extractHeadings(content));
+    }
+  }, [content, onHeadingsExtracted]);
 
   return (
     <article className="max-w-none">
