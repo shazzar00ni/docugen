@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 
 export type UploadAreaProps = {
-  onUpload: (file: File) => void;
+  onUpload: (files: File[]) => void;
 };
 
 // Maximum file size: 10MB
@@ -25,9 +25,9 @@ type ValidationError = {
  *
  * Validates selected or dropped files for extension, MIME type, and size (max 10MB), shows
  * contextual error UI when validation fails, and invokes the provided callback with the
- * validated File when upload is accepted.
+ * validated File array when upload is accepted.
  *
- * @param onUpload - Callback invoked with the validated `File` when the user selects or drops a valid Markdown file
+ * @param onUpload - Callback invoked with the validated `File[]` when the user selects or drops valid Markdown files
  * @returns A React element that renders the upload area with validation and error states
  */
 export function UploadArea({ onUpload }: UploadAreaProps) {
@@ -68,21 +68,24 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
     return null;
   }, []);
 
-  const processFile = useCallback(
-    (file: File | undefined) => {
-      if (!file) return;
+  const processFiles = useCallback(
+    (fileList: FileList | null) => {
+      if (!fileList || fileList.length === 0) return;
 
       setError(null);
 
       try {
-        const validationError = validateFile(file);
-        if (validationError) {
-          setError(validationError);
-          return;
+        const valid: File[] = [];
+        for (const file of Array.from(fileList)) {
+          const validationError = validateFile(file);
+          if (validationError) {
+            setError(validationError);
+            return;
+          }
+          valid.push(file);
         }
-
-        onUpload(file);
-      } catch (err) {
+        onUpload(valid);
+      } catch {
         setError({
           type: 'processing',
           message: 'Failed to process file. Please try again',
@@ -106,21 +109,18 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
     (e: React.DragEvent) => {
       e.preventDefault();
       setDragOver(false);
-      const file = e.dataTransfer?.files?.[0];
-      processFile(file);
+      processFiles(e.dataTransfer?.files ?? null);
     },
-    [processFile]
+    [processFiles]
   );
 
   const handleFileSelect = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.target.files?.[0];
-      processFile(file);
+      processFiles(e.target.files);
       // Reset input value to allow re-selecting the same file, even after errors
-      // This allows users to re-upload a file that failed validation after fixing it
       e.target.value = '';
     },
-    [processFile]
+    [processFiles]
   );
 
   return (
@@ -137,11 +137,7 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
           ref={el => (fileInputRef.current = el)}
           type="file"
           accept=".md,.mdx"
-         onChange={handleFileSelect}
-          className="hidden"
-         aria-label="Upload documentation file"
-        />
-          accept=".md,.mdx"
+          multiple
           onChange={handleFileSelect}
           className="hidden"
           aria-label="Upload documentation file"

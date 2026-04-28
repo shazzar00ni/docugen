@@ -1,23 +1,15 @@
-import { useState } from 'react';
-import { UploadArea } from './components/upload/UploadArea';
+import { DocLayout } from './components/upload/DocLayout';
 
 /**
- * Root application component that displays an upload area and, when a file is selected, the uploaded file's name.
+ * Root application component.
  *
- * Maintains local state for the uploaded file name and passes a handler to the UploadArea to update that state.
+ * Renders the DocuGen documentation viewer, which manages file uploads,
+ * file tree navigation, and Markdown rendering in a full-page layout.
  *
- * @returns The root JSX element containing the upload area and an optional uploaded filename display.
+ * @returns The root JSX element
  */
 export function App() {
-  const [uploaded, setUploaded] = useState<string | null>(null);
-  const handleUpload = (f: File) => setUploaded(f.name);
-
-  return (
-    <div>
-      <UploadArea onUpload={handleUpload} />
-      {uploaded && <div>Uploaded: {uploaded}</div>}
-    </div>
-  );
+  return <DocLayout />;
 }
 
 export default App;
