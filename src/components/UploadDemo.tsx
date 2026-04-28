@@ -9,6 +9,14 @@ export function UploadDemo() {
   const [isComplete, setIsComplete] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const simulateUpload = useCallback(() => {
+    setIsUploading(true);
+    setTimeout(() => {
+      setIsUploading(false);
+      setIsComplete(true);
+    }, 2000);
+  }, []);
+
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(true);
@@ -19,31 +27,32 @@ export function UploadDemo() {
     setIsDragging(false);
   }, []);
 
-  const handleDrop = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-    const droppedFile = e.dataTransfer.files[0];
-    if (droppedFile && (droppedFile.name.endsWith('.md') || droppedFile.name.endsWith('.mdx'))) {
-      setFile(droppedFile);
-      simulateUpload();
-    }
-  }, []);
+  const handleDrop = useCallback(
+    (e: React.DragEvent) => {
+      e.preventDefault();
+      setIsDragging(false);
+      const droppedFile = e.dataTransfer.files[0];
+      if (droppedFile && (droppedFile.name.endsWith('.md') || droppedFile.name.endsWith('.mdx'))) {
+        setFile(droppedFile);
+        simulateUpload();
+      }
+    },
+    [simulateUpload]
+  );
 
-  const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    if (selectedFile && (selectedFile.name.endsWith('.md') || selectedFile.name.endsWith('.mdx'))) {
-      setFile(selectedFile);
-      simulateUpload();
-    }
-  }, []);
-
-  const simulateUpload = () => {
-    setIsUploading(true);
-    setTimeout(() => {
-      setIsUploading(false);
-      setIsComplete(true);
-    }, 2000);
-  };
+  const handleFileSelect = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const selectedFile = e.target.files?.[0];
+      if (
+        selectedFile &&
+        (selectedFile.name.endsWith('.md') || selectedFile.name.endsWith('.mdx'))
+      ) {
+        setFile(selectedFile);
+        simulateUpload();
+      }
+    },
+    [simulateUpload]
+  );
 
   const resetDemo = () => {
     setFile(null);
