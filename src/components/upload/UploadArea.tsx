@@ -1,5 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 
+// TODO(AGENTS.md): Convert to `interface` — AGENTS.md requires `interface` for object
+// types and `type` only for unions/primitives. Out of scope for this PR.
 export type UploadAreaProps = {
   onUpload: (file: File) => void;
 };
@@ -15,6 +17,8 @@ const ALLOWED_MIME_TYPES = [
   'application/octet-stream', // Fallback for unknown types
 ];
 
+// TODO(AGENTS.md): Convert to `interface` — AGENTS.md requires `interface` for object
+// types and `type` only for unions/primitives. Out of scope for this PR.
 type ValidationError = {
   type: 'extension' | 'size' | 'mime' | 'processing';
   message: string;
@@ -35,6 +39,11 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
   const [error, setError] = useState<ValidationError | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+  // TODO(AGENTS.md): Move hardcoded user-facing strings in this component
+  // ("Only .md and .mdx files are allowed", "File size must be less than …",
+  // "Invalid file type…", "Failed to process file…", "Upload Failed",
+  // "Try again", "Drop your Markdown files here", "or click to browse (.md, .mdx)",
+  // "Max file size: …", etc.) into `src/data/content.ts`. Out of scope for this PR.
   const validateFile = useCallback((file: File): ValidationError | null => {
     // Check file extension - use last extension to prevent bypass via multiple extensions
     const fileName = file.name.toLowerCase();
