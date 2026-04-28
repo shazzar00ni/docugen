@@ -125,21 +125,13 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
 
   return (
     <div className="mt-6">
-      <div
+      <button
+        type="button"
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
-        onKeyDown={e => {
-          if (e.target !== e.currentTarget) return;
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            fileInputRef.current?.click();
-          }
-        }}
-        role="button"
-        tabIndex={0}
-        className={`relative border-2 border-dashed rounded-xl p-8 text-center cursor-pointer
+        className={`relative w-full border-2 border-dashed rounded-xl p-8 text-center cursor-pointer
           ${dragOver ? 'border-teal-500 bg-teal-500/10' : error ? 'border-red-500 bg-red-500/10' : 'border-dark-700 hover:border-teal-500/50 bg-dark-900/50'}`}
       >
         <input
@@ -207,7 +199,7 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
             </div>
           </>
         )}
-      </div>
+      </button>
       {error && (
         <p className="mt-2 text-xs text-dark-500">
           Max file size: {MAX_FILE_SIZE / (1024 * 1024)}MB • Supported formats: .md, .mdx
