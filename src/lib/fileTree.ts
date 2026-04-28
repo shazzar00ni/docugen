@@ -31,7 +31,7 @@ export function buildFileTree(files: File[]): FileNode[] {
           folderMap.set(currentPath, folder);
           currentChildren.push(folder);
         }
-        currentChildren = folder.children!;
+        currentChildren = folder.children ?? [];
       }
 
       currentChildren.push({ name: parts[parts.length - 1], path: relativePath, type: 'file' });

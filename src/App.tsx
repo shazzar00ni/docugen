@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { AppLayout } from './components/layout/AppLayout';
 import { UploadArea } from './components/upload/UploadArea';
 import { FileTree } from './components/nav/FileTree';
@@ -23,20 +23,22 @@ export function App() {
   const [treeNodes, setTreeNodes] = useState<FileNode[]>([]);
   const [selectedPath, setSelectedPath] = useState<string | null>(null);
 
+  // Derive file tree from fileMap changes
+  useEffect(() => {
+    const allFiles = Array.from(fileMap.values()).map(v => v.file);
+    setTreeNodes(buildFileTree(allFiles));
+  }, [fileMap]);
+
   const handleUpload = useCallback((file: File) => {
     const reader = new FileReader();
     reader.onload = e => {
       const content = e.target?.result as string;
       const path = file.webkitRelativePath || file.name;
-
       setFileMap(prev => {
         const next = new Map(prev);
         next.set(path, { file, content });
-        const allFiles = Array.from(next.values()).map(v => v.file);
-        setTreeNodes(buildFileTree(allFiles));
         return next;
       });
-
       setSelectedPath(path);
     };
     reader.readAsText(file);

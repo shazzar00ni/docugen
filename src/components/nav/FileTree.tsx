@@ -25,7 +25,7 @@ function FileTreeNode({ node, depth, selectedPath, onSelect }: FileTreeNodeProps
     } else {
       onSelect(node.path);
     }
-  }, [node, onSelect]);
+  }, [node.path, node.type, onSelect]);
 
   return (
     <li>
