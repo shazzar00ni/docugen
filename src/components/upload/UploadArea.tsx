@@ -1,8 +1,9 @@
 import React, { useState, useRef, useCallback } from 'react';
+import { UPLOAD_AREA_COPY } from '../../data/content';
 
-export type UploadAreaProps = {
+export interface UploadAreaProps {
   onUpload: (file: File) => void;
-};
+}
 
 // Maximum file size: 10MB
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
@@ -15,10 +16,10 @@ const ALLOWED_MIME_TYPES = [
   'application/octet-stream', // Fallback for unknown types
 ];
 
-type ValidationError = {
+interface ValidationError {
   type: 'extension' | 'size' | 'mime' | 'processing';
   message: string;
-};
+}
 
 /**
  * Drag-and-drop area for uploading Markdown files (.md, .mdx).
@@ -44,7 +45,7 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
     if (extension !== '.md' && extension !== '.mdx') {
       return {
         type: 'extension',
-        message: 'Only .md and .mdx files are allowed',
+        message: UPLOAD_AREA_COPY.errors.extension,
       };
     }
 
@@ -52,7 +53,7 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
     if (file.size > MAX_FILE_SIZE) {
       return {
         type: 'size',
-        message: `File size must be less than ${MAX_FILE_SIZE / (1024 * 1024)}MB`,
+        message: UPLOAD_AREA_COPY.errors.size(MAX_FILE_SIZE / (1024 * 1024)),
       };
     }
 
@@ -61,7 +62,7 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
     if (file.type && !ALLOWED_MIME_TYPES.includes(file.type)) {
       return {
         type: 'mime',
-        message: 'Invalid file type. Please upload a valid Markdown file',
+        message: UPLOAD_AREA_COPY.errors.mime,
       };
     }
 
@@ -85,7 +86,7 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
       } catch (err) {
         setError({
           type: 'processing',
-          message: 'Failed to process file. Please try again',
+          message: UPLOAD_AREA_COPY.errors.processing,
         });
       }
     },
@@ -125,29 +126,23 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
 
   return (
     <div className="mt-6">
-      <div
+      <button
+        type="button"
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
-        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInputRef.current?.click(); } }}
-        role="button"
-        tabIndex={0}
-        className={`relative border-2 border-dashed rounded-xl p-8 text-center cursor-pointer
+        aria-label={UPLOAD_AREA_COPY.ariaLabel}
+        className={`relative w-full border-2 border-dashed rounded-xl p-8 text-center cursor-pointer
           ${dragOver ? 'border-teal-500 bg-teal-500/10' : error ? 'border-red-500 bg-red-500/10' : 'border-dark-700 hover:border-teal-500/50 bg-dark-900/50'}`}
       >
         <input
-         ref={fileInputRef}
+          ref={fileInputRef}
           type="file"
-          accept=".md,.mdx"
-         onChange={handleFileSelect}
-          className="hidden"
-         aria-label="Upload documentation file"
-        />
           accept=".md,.mdx"
           onChange={handleFileSelect}
           className="hidden"
-          aria-label="Upload documentation file"
+          aria-label={UPLOAD_AREA_COPY.inputAriaLabel}
         />
         <div className="w-16 h-16 mx-auto mb-4 bg-dark-800 rounded-full flex items-center justify-center">
           {error ? (
@@ -182,34 +177,34 @@ export function UploadArea({ onUpload }: UploadAreaProps) {
         </div>
         {error ? (
           <>
-            <p className="text-red-400 font-medium mb-2">Upload Failed</p>
+            <p className="text-red-400 font-medium mb-2">{UPLOAD_AREA_COPY.errorTitle}</p>
             <p className="text-red-300 text-sm mb-4">{error.message}</p>
-            <button
-              type="button"
-              onClick={e => {
-                e.stopPropagation();
-                setError(null);
-              }}
-              className="text-teal-400 text-sm hover:text-teal-300 underline"
-            >
-              Try again
-            </button>
+            {/*
+             * Rendered as a <span> (not <button>) to avoid invalid nested interactive
+             * content inside the outer <button> dropzone. Clicking anywhere on the
+             * dropzone reopens the file picker, which is the natural retry action.
+             */}
+            <span className="text-teal-400 text-sm hover:text-teal-300 underline">
+              {UPLOAD_AREA_COPY.tryAgain}
+            </span>
           </>
         ) : (
           <>
-            <p className="text-dark-200 font-medium mb-2">Drop your Markdown files here</p>
-            <p className="text-dark-500 text-sm mb-4">or click to browse (.md, .mdx)</p>
+            <p className="text-dark-200 font-medium mb-2">{UPLOAD_AREA_COPY.prompt}</p>
+            <p className="text-dark-500 text-sm mb-4">{UPLOAD_AREA_COPY.browseHint}</p>
             <div className="flex items-center justify-center space-x-2 text-xs text-dark-500">
-              <span className="px-2 py-1 bg-dark-800 rounded">README.md</span>
-              <span className="px-2 py-1 bg-dark-800 rounded">guide.mdx</span>
-              <span className="px-2 py-1 bg-dark-800 rounded">+ more</span>
+              {UPLOAD_AREA_COPY.examples.map(example => (
+                <span key={example} className="px-2 py-1 bg-dark-800 rounded">
+                  {example}
+                </span>
+              ))}
             </div>
           </>
         )}
-      </div>
+      </button>
       {error && (
         <p className="mt-2 text-xs text-dark-500">
-          Max file size: {MAX_FILE_SIZE / (1024 * 1024)}MB • Supported formats: .md, .mdx
+          {UPLOAD_AREA_COPY.maxSizeHint(MAX_FILE_SIZE / (1024 * 1024))}
         </p>
       )}
     </div>
