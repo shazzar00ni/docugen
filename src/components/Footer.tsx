@@ -1,4 +1,5 @@
 import { Container } from './ui/Container';
+import { ShareButtons } from './ShareButtons';
 import { FOOTER_LINKS, FOOTER_COPY, SITE } from '../data/content';
 
 /**
@@ -59,6 +60,7 @@ export function Footer() {
           </div>
 
           <div className="flex items-center space-x-4">
+            <ShareButtons />
             <a
               href="#"
               aria-label="GitHub"

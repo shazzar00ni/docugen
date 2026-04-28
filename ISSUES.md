@@ -258,19 +258,21 @@ For legal compliance (GDPR, CCPA), the landing page should include a cookie cons
 
 **Acceptance Criteria:**
 
-- [ ] Create a cookie consent banner that appears on first visit
-- [ ] Include options to accept all cookies or manage preferences
-- [ ] Store consent preference in localStorage
-- [ ] Banner should appear at bottom of screen and be dismissible
-- [ ] Include link to Privacy Policy
+- [x] Create a cookie consent banner that appears on first visit
+- [x] Include options to accept all cookies or manage preferences
+- [x] Store consent preference in localStorage
+- [x] Banner should appear at bottom of screen and be dismissible
+- [x] Include link to Privacy Policy
 
 **Files to Create:**
 
-- `src/components/CookieConsent.tsx`
+- `src/components/CookieConsent.tsx` ✅ CREATED
 
 **Files to Modify:**
 
-- `src/App.tsx`
+- `src/App.tsx` ✅ MODIFIED
+
+**Status:** ✅ COMPLETED
 
 ---
 
@@ -470,7 +472,7 @@ Add an Error Boundary component to catch JavaScript errors anywhere in the compo
 - [x] Create ErrorBoundary class component
 - [x] Design a friendly fallback UI with retry option
 - [x] Log errors for debugging (console in dev, could integrate with service in prod)
-- [ ] Wrap main App content with ErrorBoundary
+- [x] Wrap main App content with ErrorBoundary
 
 **Files to Create:**
 
@@ -478,7 +480,7 @@ Add an Error Boundary component to catch JavaScript errors anywhere in the compo
 
 **Files to Modify:**
 
-- `src/App.tsx`
+- `src/App.tsx` ✅ MODIFIED
 
 **Status:** ✅ COMPLETED
 
@@ -788,18 +790,20 @@ Add social media sharing buttons to allow users to easily share DocuGen with the
 
 **Acceptance Criteria:**
 
-- [ ] Create ShareButtons component with Twitter, LinkedIn, and copy link options
-- [ ] Position in footer or as floating sidebar
-- [ ] Include appropriate sharing URLs and pre-filled text
-- [ ] Add hover effects consistent with design system
+- [x] Create ShareButtons component with Twitter, LinkedIn, and copy link options
+- [x] Position in footer or as floating sidebar
+- [x] Include appropriate sharing URLs and pre-filled text
+- [x] Add hover effects consistent with design system
 
 **Files to Create:**
 
-- `src/components/ShareButtons.tsx`
+- `src/components/ShareButtons.tsx` ✅ CREATED
 
 **Files to Modify:**
 
-- `src/components/Footer.tsx` or `src/App.tsx`
+- `src/components/Footer.tsx` ✅ MODIFIED
+
+**Status:** ✅ COMPLETED
 
 ---
 

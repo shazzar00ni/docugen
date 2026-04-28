@@ -8,6 +8,8 @@ import { HowItWorks } from './components/HowItWorks';
 import { Footer } from './components/Footer';
 import { ScrollToTop } from './components/ScrollToTop';
 import { FAQ } from './components/FAQ';
+import { CookieConsent } from './components/CookieConsent';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 const Features = lazy(() =>
   import('./components/Features').then(module => ({ default: module.Features }))
@@ -52,28 +54,31 @@ function App() {
         <SkipToContent />
         <Navbar />
         <Analytics />
-        <main id="main-content" tabIndex={-1}>
-          <Hero />
-          <HowItWorks />
-          <Suspense fallback={<Loading />}>
-            <Features />
-          </Suspense>
-          <Suspense fallback={<Loading />}>
-            <Testimonials />
-          </Suspense>
-          <FAQ />
-          <Suspense fallback={<Loading />}>
-            <Preview />
-          </Suspense>
-          <Suspense fallback={<Loading />}>
-            <Pricing />
-          </Suspense>
-          <Suspense fallback={<Loading />}>
-            <Newsletter />
-          </Suspense>
-        </main>
+        <ErrorBoundary>
+          <main id="main-content" tabIndex={-1}>
+            <Hero />
+            <HowItWorks />
+            <Suspense fallback={<Loading />}>
+              <Features />
+            </Suspense>
+            <Suspense fallback={<Loading />}>
+              <Testimonials />
+            </Suspense>
+            <FAQ />
+            <Suspense fallback={<Loading />}>
+              <Preview />
+            </Suspense>
+            <Suspense fallback={<Loading />}>
+              <Pricing />
+            </Suspense>
+            <Suspense fallback={<Loading />}>
+              <Newsletter />
+            </Suspense>
+          </main>
+        </ErrorBoundary>
         <Footer />
         <ScrollToTop />
+        <CookieConsent />
       </div>
     </ThemeProvider>
   );
