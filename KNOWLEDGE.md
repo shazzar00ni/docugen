@@ -6,11 +6,12 @@ This document captures architectural decisions, patterns, and conventions that a
 
 ## 1. Centralized Content Management
 
-All site copy lives in a single file: **`src/data/content.ts`**
+Most marketing copy lives in a single file: **`src/data/content.ts`**
 
-- Components import content from this central source rather than containing inline text
+- Components generally import content from this central source rather than containing inline text
+- Known exceptions currently include inline copy in `src/components/Preview.tsx` and default props/docs in `src/components/ShareButtons.tsx`
 - Export naming convention: uppercase constants (`SITE`, `NAV_LINKS`, `HERO_COPY`, `FEATURES`, `FAQS`, etc.)
-- Content is organized by feature/section
+- Content in `src/data/content.ts` is organized by feature/section
 
 ```typescript
 // Example structure
