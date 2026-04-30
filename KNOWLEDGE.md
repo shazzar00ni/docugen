@@ -100,7 +100,7 @@ const Features = lazy(() =>
 
 ## 5. Theme System Architecture
 
-**Location:** `src/lib/ThemeContext.tsx`
+**Locations:** `src/lib/ThemeContext.tsx` (provider), `src/lib/useTheme.ts` (hook)
 
 ### Components
 
@@ -134,7 +134,7 @@ const { theme, toggleTheme } = useTheme();
   - `IntersectionObserver` - stub implementation
   - `localStorage` - mocked with `vi.fn()` for `getItem`, `setItem`, `clear`, `removeItem`
 - Reset between tests: `localStorageMock.clear.mockClear()` and `mockReturnValue(null)`
-- Uses `afterEach(cleanup())` from RTL
+- Uses `afterEach(() => { cleanup(); })` from RTL (wrapped in callback, not passed directly)
 
 ### Mock Pattern
 
@@ -159,8 +159,8 @@ beforeEach(() => {
 - Cleanup: removes script on unmount
 
 ```typescript
-// Environment variable
-VITE_PLAUSIBLE_DOMAIN = your - domain.com;
+// Environment variable (.env file)
+VITE_PLAUSIBLE_DOMAIN=your-domain.com
 ```
 
 ---
@@ -223,11 +223,14 @@ VITE_PLAUSIBLE_DOMAIN = your - domain.com;
 
 ---
 
-## 12. Dev Server
+## 12. Dev Server & E2E Port Conflict
 
 - Vite dev server runs on **port 3000** (configured in `vite.config.ts`)
-- Preview command serves production build on same port
-- E2E tests target `http://localhost:5173` (Playwright default)
+- Preview command serves production build on same port (3000)
+- **Pre-existing conflict:** Playwright config (`playwright.config.ts`) expects port 5173, but Vite starts on port 3000
+- E2E tests would fail waiting for port 5173 unless resolved by either:
+  - Changing Vite port to 5173 in `vite.config.ts`, OR
+  - Updating Playwright config to use port 3000
 
 ---
 
