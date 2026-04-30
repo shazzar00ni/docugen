@@ -71,32 +71,28 @@ interface ThemeProviderProps {
  * ```
  */
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>('dark');
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
   useEffect(() => {
-    const initialTheme = getInitialTheme();
-    setTheme(initialTheme);
-    applyTheme(initialTheme);
-  }, []);
+    applyTheme(theme);
+  }, [theme]);
 
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
-    applyTheme(newTheme);
     try {
       localStorage.setItem(THEME_STORAGE_KEY, newTheme);
-    } catch {
-      // Silently fail - theme preference persistence is non-critical
+    } catch (error) {
+      console.warn('Failed to persist theme preference:', error);
     }
   };
 
   const setThemeDirect = (newTheme: Theme) => {
     setTheme(newTheme);
-    applyTheme(newTheme);
     try {
       localStorage.setItem(THEME_STORAGE_KEY, newTheme);
-    } catch {
-      // Silently fail - theme preference persistence is non-critical
+    } catch (error) {
+      console.warn('Failed to persist theme preference:', error);
     }
   };
 

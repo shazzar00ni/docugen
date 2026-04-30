@@ -27,11 +27,20 @@ export function UploadDemo() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   /**
+   * Simulates the file upload process with a 2-second delay.
+   * Sets uploading state to true immediately, then transitions to complete state after timeout.
+   */
+  const simulateUpload = useCallback(() => {
+    setIsUploading(true);
+    setTimeout(() => {
+      setIsUploading(false);
+      setIsComplete(true);
+    }, 2000);
+  }, []);
+
+  /**
    * Handles the drag over event for the dropzone.
-   * Prevents default browser behavior and sets the dragging state to true
-   * to provide visual feedback to the user.
-   *
-   * @param e - The drag event object
+   * Prevents default browser behavior and sets the dragging state to true.
    */
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -40,10 +49,7 @@ export function UploadDemo() {
 
   /**
    * Handles the drag leave event for the dropzone.
-   * Prevents default browser behavior and sets the dragging state to false
-   * to remove the visual feedback when dragging stops.
-   *
-   * @param e - The drag event object
+   * Prevents default browser behavior and sets the dragging state to false.
    */
   const handleDragLeave = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -52,52 +58,42 @@ export function UploadDemo() {
 
   /**
    * Handles the drop event for the dropzone.
-   * Prevents default browser behavior, processes the dropped file, and validates file type.
-   * Only accepts Markdown files (.md, .mdx) and initiates the upload simulation if valid.
-   *
-   * @param e - The drag event object containing file data
+   * Validates file type and initiates upload simulation for valid Markdown files.
    */
-  const handleDrop = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-    const droppedFile = e.dataTransfer.files[0];
-    if (droppedFile && (droppedFile.name.endsWith('.md') || droppedFile.name.endsWith('.mdx'))) {
-      setFile(droppedFile);
-      simulateUpload();
-    }
-  }, []);
+  const handleDrop = useCallback(
+    (e: React.DragEvent) => {
+      e.preventDefault();
+      setIsDragging(false);
+      const droppedFile = e.dataTransfer.files[0];
+      if (droppedFile && (droppedFile.name.endsWith('.md') || droppedFile.name.endsWith('.mdx'))) {
+        setFile(droppedFile);
+        simulateUpload();
+      }
+    },
+    [simulateUpload]
+  );
 
   /**
    * Handles file selection via the file input dialog.
-   * Validates the selected file type and initiates upload simulation for valid Markdown files.
-   *
-   * @param e - The change event object from the file input
+   * Validates file type and initiates upload simulation for valid Markdown files.
    */
-  const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    if (selectedFile && (selectedFile.name.endsWith('.md') || selectedFile.name.endsWith('.mdx'))) {
-      setFile(selectedFile);
-      simulateUpload();
-    }
-  }, []);
-
-  /**
-   * Simulates the file upload process with a 2-second delay.
-   * Sets uploading state to true immediately, then transitions to complete state after timeout.
-   * Provides visual feedback during the upload process with progress indication.
-   */
-  const simulateUpload = () => {
-    setIsUploading(true);
-    setTimeout(() => {
-      setIsUploading(false);
-      setIsComplete(true);
-    }, 2000);
-  };
+  const handleFileSelect = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const selectedFile = e.target.files?.[0];
+      if (
+        selectedFile &&
+        (selectedFile.name.endsWith('.md') || selectedFile.name.endsWith('.mdx'))
+      ) {
+        setFile(selectedFile);
+        simulateUpload();
+      }
+    },
+    [simulateUpload]
+  );
 
   /**
    * Resets the upload demo to its initial state.
-   * Clears the selected file and resets all state variables to allow for new uploads.
-   * Called when the user clicks "Try another" after a successful upload.
+   * Clears the selected file and resets all state variables.
    */
   const resetDemo = () => {
     setFile(null);
