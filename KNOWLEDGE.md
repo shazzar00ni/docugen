@@ -208,7 +208,7 @@ VITE_PLAUSIBLE_DOMAIN=your-domain.com
 ### Accordion (FAQ pattern)
 
 - Single-item-open pattern (`openIndex: number | null`)
-- Toggle handler: `setOpenIndex(prev === index ? null : index)`
+- Toggle handler: `setOpenIndex(prev => (prev === index ? null : index))`
 - Animations via Framer Motion `AnimatePresence` + `height: auto`
 
 ---
