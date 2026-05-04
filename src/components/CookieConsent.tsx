@@ -2,47 +2,34 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from './ui/Button';
 
-/**
- * Cookie consent management component.
- * Manages GDPR compliance for analytics tracking.
- * Shows consent banner and stores user preference in localStorage.
- *
- * @returns Cookie consent banner component
- */
-export function CookieConsent() {
-  const [showConsent, setShowConsent] = useState(() => {
-    try {
-      const hasConsented = localStorage.getItem('docugen-cookie-consent');
-      return !hasConsented;
-    } catch {
-      return true;
-    }
-  });
+function getInitialConsentState(): boolean {
+  try {
+    const hasConsented = localStorage.getItem('docugen-cookie-consent');
+    return !hasConsented;
+  } catch {
+    return true;
+  }
+}
 
-  /**
-   * Handles accepting all cookies.
-   * Stores acceptance preference and hides consent banner.
-   */
+export function CookieConsent() {
+  const [showConsent, setShowConsent] = useState(getInitialConsentState);
+
   const handleAccept = () => {
+    setShowConsent(false);
     try {
       localStorage.setItem('docugen-cookie-consent', 'accepted');
-      setShowConsent(false);
     } catch {
-      // localStorage not available
+      // Silently fail
     }
   };
 
-  /**
-   * Handles declining optional cookies.
-   * Stores decline preference and hides consent banner.
-   */
   const handleDecline = () => {
+    setShowConsent(false);
     try {
       localStorage.setItem('docugen-cookie-consent', 'declined');
     } catch {
-      // localStorage not available
+      // Silently fail
     }
-    setShowConsent(false);
   };
 
   return (

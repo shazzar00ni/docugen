@@ -21,12 +21,42 @@
       content="Turn your documentation into beautiful static websites instantly."
     />
     <title>DocuGen - Documentation Made Beautiful</title>
+    <link rel="canonical" href="https://docugen.ai" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "DocuGen",
+        "description": "Turn your documentation into beautiful static websites instantly",
+        "url": "https://docugen.ai",
+        "applicationCategory": "DeveloperTool",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "DocuGen",
+          "url": "https://docugen.ai"
+        }
+      }
+    </script>
   </head>
   <body class="bg-dark-950 text-dark-100 antialiased" style="scroll-padding-top: 80px">
     <div id="root"></div>

@@ -9,17 +9,20 @@ import { useEffect } from 'react';
 export function Analytics() {
   useEffect(() => {
     const plausibleDomain = import.meta.env.VITE_PLAUSIBLE_DOMAIN;
-    if (plausibleDomain) {
-      const s = document.createElement('script');
-      s.defer = true;
-      s.setAttribute('data-domain', plausibleDomain);
-      s.src = 'https://plausible.io/js/plausible.js';
-      document.head.appendChild(s);
+    if (!plausibleDomain) return;
 
-      return () => {
-        document.head.removeChild(s);
-      };
-    }
+    // Guard against duplicate injection
+    if (document.querySelector('script[data-domain]')) return;
+
+    const script = document.createElement('script');
+    script.defer = true;
+    script.setAttribute('data-domain', plausibleDomain);
+    script.src = 'https://plausible.io/js/plausible.js';
+    document.head.appendChild(script);
+
+    return () => {
+      script.remove();
+    };
   }, []);
   return null;
 }
