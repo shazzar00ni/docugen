@@ -227,10 +227,8 @@ VITE_PLAUSIBLE_DOMAIN=your-domain.com
 
 - Vite dev server runs on **port 3000** (configured in `vite.config.ts`)
 - Preview command serves production build on same port (3000)
-- **Pre-existing conflict:** Playwright config (`playwright.config.ts`) expects port 5173, but Vite starts on port 3000
-- E2E tests would fail waiting for port 5173 unless resolved by either:
-  - Changing Vite port to 5173 in `vite.config.ts`, OR
-  - Updating Playwright config to use port 3000
+- **Resolved:** Playwright config (`playwright.config.ts`) was updated to use port 3000, matching the Vite dev server
+- Both `baseURL` and `webServer.port` in Playwright config are set to 3000
 
 ---
 
