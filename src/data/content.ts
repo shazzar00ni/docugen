@@ -1,3 +1,11 @@
+/**
+ * Centralized content and copy for the DocuGen landing page.
+ * @module content
+ */
+
+/**
+ * Global site configuration including name, tagline, and base URL.
+ */
 export const SITE = {
   name: 'DocuGen',
   tagline: 'Documentation Made Beautiful',
@@ -6,12 +14,18 @@ export const SITE = {
   url: 'https://docugen.com',
 };
 
+/**
+ * Navigation links for the primary header menu.
+ */
 export const NAV_LINKS = [
   { label: 'Features', href: '#features' },
   { label: 'How it Works', href: '#how-it-works' },
   { label: 'Pricing', href: '#pricing' },
 ];
 
+/**
+ * Links displayed in the site footer.
+ */
 export const FOOTER_LINKS = [
   { label: 'Documentation', href: '#' },
   { label: 'Privacy Policy', href: '#' },
@@ -19,6 +33,9 @@ export const FOOTER_LINKS = [
   { label: 'GitHub', href: '#' },
 ];
 
+/**
+ * Text content for the hero section at the top of the landing page.
+ */
 export const HERO_COPY = {
   headline: 'Your docs, deployed in seconds.',
   subheadline:
@@ -27,6 +44,9 @@ export const HERO_COPY = {
   secondaryCTA: 'View Example Docs',
 };
 
+/**
+ * Step-by-step descriptions for the "How it Works" section.
+ */
 export const HOW_IT_WORKS = [
   {
     step: '01',
@@ -48,6 +68,9 @@ export const HOW_IT_WORKS = [
   },
 ];
 
+/**
+ * Feature cards displayed in the "Features" section.
+ */
 export const FEATURES = [
   {
     icon: 'document',
@@ -87,6 +110,9 @@ export const FEATURES = [
   },
 ];
 
+/**
+ * Text and pricing details for the pricing section.
+ */
 export const PRICING_COPY = {
   title: 'Simple, transparent pricing',
   description:
@@ -103,6 +129,9 @@ export const PRICING_COPY = {
   ],
 };
 
+/**
+ * Call-to-action text for the newsletter subscription section.
+ */
 export const NEWSLETTER_COPY = {
   title: 'Stay in the loop',
   description: 'Get updates on new features, documentation tips, and early access invites.',
@@ -110,6 +139,9 @@ export const NEWSLETTER_COPY = {
   button: 'Subscribe',
 };
 
+/**
+ * Customer quotes displayed in the testimonials section.
+ */
 export const TESTIMONIALS = [
   {
     quote:
@@ -134,16 +166,25 @@ export const TESTIMONIALS = [
   },
 ];
 
+/**
+ * Footer attribution and copyright text.
+ */
 export const FOOTER_COPY = {
   tagline: 'Documentation made beautiful, fast, and simple.',
   copyright: `© ${new Date().getFullYear()} DocuGen. All rights reserved.`,
 };
 
+/**
+ * Section titles and descriptions for the FAQ area.
+ */
 export const FAQ_COPY = {
   title: 'Frequently Asked Questions',
   description: 'Everything you need to know about DocuGen.',
 };
 
+/**
+ * Detailed questions and answers for the FAQ section.
+ */
 export const FAQS = [
   {
     question: 'What file formats does DocuGen support?',
