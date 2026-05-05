@@ -2,6 +2,8 @@
 
 Beautiful documentation made simple. Upload your Markdown, MDX, or README files and deploy a stunning static documentation website in seconds.
 
+![1000010991](https://github.com/user-attachments/assets/a1e0dc7a-9d26-4ca8-8fdd-4c14265c4f16)
+
 ## What is DocuGen?
 
 DocuGen is a developer tool that automatically transforms your documentation into fast, static websites. No configuration, no git dependencies, no hassle—just upload your files and get a production-ready docs site.

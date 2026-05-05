@@ -1,6 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from './ui/Button';
+
+function getInitialConsentState(): boolean {
+  try {
+    const hasConsented = localStorage.getItem('docugen-cookie-consent');
+    return !hasConsented;
+  } catch (error) {
+    console.error('Failed to read cookie consent from localStorage:', error);
+    return true;
+  }
+}
 
 /**
  * Cookie consent management component.
@@ -10,29 +20,18 @@ import { Button } from './ui/Button';
  * @returns Cookie consent banner component
  */
 export function CookieConsent() {
-  const [showConsent, setShowConsent] = useState(false);
-
-  useEffect(() => {
-    try {
-      const hasConsented = localStorage.getItem('docugen-cookie-consent');
-      if (!hasConsented) {
-        setShowConsent(true);
-      }
-    } catch {
-      setShowConsent(true);
-    }
-  }, []);
+  const [showConsent, setShowConsent] = useState(getInitialConsentState);
 
   /**
    * Handles accepting all cookies.
    * Stores acceptance preference and hides consent banner.
    */
   const handleAccept = () => {
+    setShowConsent(false);
     try {
       localStorage.setItem('docugen-cookie-consent', 'accepted');
-      setShowConsent(false);
-    } catch {
-      // localStorage not available
+    } catch (e) {
+      console.error('Failed to save cookie consent to storage:', e);
     }
   };
 
@@ -41,12 +40,12 @@ export function CookieConsent() {
    * Stores decline preference and hides consent banner.
    */
   const handleDecline = () => {
+    setShowConsent(false);
     try {
       localStorage.setItem('docugen-cookie-consent', 'declined');
-    } catch {
-      // localStorage not available
+    } catch (e) {
+      console.error('Failed to save cookie consent to storage:', e);
     }
-    setShowConsent(false);
   };
 
   return (
