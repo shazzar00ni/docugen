@@ -2,6 +2,7 @@ import js from '@eslint/js';
 import typescript from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import reactHooks from 'eslint-plugin-react-hooks';
 import globals from 'globals';
 
 export default [
@@ -76,10 +77,13 @@ export default [
     plugins: {
       '@typescript-eslint': typescript,
       'react-refresh': reactRefresh,
+      'react-hooks': reactHooks,
     },
     rules: {
       ...typescript.configs.recommended.rules,
-      '@typescript-eslint/no-unused-vars': 'warn',
+      ...reactHooks.configs.recommended.rules,
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-explicit-any': 'error',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
   },
