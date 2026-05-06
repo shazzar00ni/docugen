@@ -105,6 +105,7 @@ export function Newsletter() {
                 <Input
                   type="email"
                   placeholder={NEWSLETTER_COPY.placeholder}
+                  aria-label="Email"
                   value={email}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setEmail(e.target.value);
