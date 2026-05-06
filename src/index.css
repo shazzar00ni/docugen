@@ -1,27 +1,35 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    @apply bg-light-50 text-light-900 transition-colors duration-300;
-  }
-
-  .dark body {
-    @apply bg-dark-950 text-dark-100;
-  }
+@theme {
+  --color-light-50: oklch(97.95% 0.014 250.75);
+  --color-light-900: oklch(20.49% 0.038 264.38);
+  --color-dark-950: oklch(7.37% 0.019 285.85);
+  --color-dark-100: oklch(90.45% 0.02 285.85);
+  --color-teal-400: oklch(78.86% 0.162 174.21);
+  --color-teal-600: oklch(49.62% 0.104 181.28);
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+html {
+  scroll-behavior: smooth;
+}
 
-  .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-teal-600;
-  }
+body {
+  background-color: var(--color-light-50);
+  color: var(--color-light-900);
+  transition: color 300ms, background-color 300ms;
+}
+
+:is(.dark) body {
+  background-color: var(--color-dark-950);
+  color: var(--color-dark-100);
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility gradient-text {
+  background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, var(--color-teal-400), var(--color-teal-600));
 }
