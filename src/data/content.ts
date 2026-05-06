@@ -109,6 +109,7 @@ export const NEWSLETTER_COPY = {
   title: 'Stay in the loop',
   description: 'Get updates on new features, documentation tips, and early access invites.',
   placeholder: 'Enter your email',
+  ariaLabel: 'Email',
   button: 'Subscribe',
 };
 
