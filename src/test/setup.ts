@@ -37,9 +37,10 @@ beforeAll(() => {
  * Reset localStorage mocks before each individual test to ensure isolation.
  */
 beforeEach(() => {
-  localStorageMock.clear.mockClear();
-  localStorageMock.getItem.mockClear();
-  localStorageMock.setItem.mockClear();
+  localStorageMock.clear.mockReset();
+  localStorageMock.getItem.mockReset();
+  localStorageMock.setItem.mockReset();
+  localStorageMock.removeItem.mockReset();
   localStorageMock.getItem.mockReturnValue(null);
 });
 
