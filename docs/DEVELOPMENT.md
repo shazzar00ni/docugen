@@ -163,6 +163,17 @@ All tests should pass.
    git push origin feature/your-feature-name
    ```
 
+### CI Jobs (GitHub Actions)
+
+The `.github/workflows/ci.yml` workflow runs four focused jobs on pushes and pull requests to `main`:
+
+- **Lint & Style Check**: Runs `npm run lint` to enforce ESLint and style rules.
+- **TypeScript Type Check**: Runs `npx tsc --noEmit` to catch type errors without building.
+- **Unit Tests**: Runs `npm run test:run` to execute the Vitest suite in CI mode.
+- **Production Build**: Runs `npm run build` after lint, typecheck, and tests pass to verify production build integrity.
+
+This split makes failures easier to diagnose and keeps merge checks explicit.
+
 ## Project Structure
 
 Understanding the project layout is crucial for effective development.
