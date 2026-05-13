@@ -168,7 +168,7 @@ All tests should pass.
 The `.github/workflows/ci.yml` workflow runs four focused jobs on pushes and pull requests to `main`:
 
 - **Lint & Style Check**: Runs `npm run lint` to enforce ESLint and style rules.
-- **TypeScript Type Check**: Runs `npx tsc --noEmit` to catch type errors without building.
+- **TypeScript Type Check**: Runs `npm run typecheck` to catch type errors without building.
 - **Unit Tests**: Runs `npm run test:run` to execute the Vitest suite in CI mode.
 - **Production Build**: Runs `npm run build` after lint, typecheck, and tests pass to verify production build integrity.
 
@@ -659,7 +659,7 @@ npm install
 
 ```bash
 # Check TypeScript compilation
-npx tsc --noEmit
+npm run typecheck
 
 # Restart TypeScript server in VS Code
 Cmd/Ctrl + Shift + P → "TypeScript: Restart TS Server"
@@ -692,7 +692,7 @@ npm run test -- --reporter=verbose
 
 ```bash
 # Check for TypeScript errors first
-npx tsc --noEmit
+npm run typecheck
 
 # Check for linting errors
 npm run lint
