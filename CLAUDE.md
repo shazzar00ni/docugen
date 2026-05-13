@@ -17,7 +17,7 @@ npm run test:run     # Vitest single run (use before committing)
 npm run e2e          # Playwright end-to-end tests (requires a running dev server)
 ```
 
-To run a single unit test file: `npx vitest run src/components/Navbar.test.tsx`
+To run a single unit test file: `npx vitest run src/components/FAQ.test.tsx`
 
 Pre-commit hook runs `lint-staged`: ESLint --fix + Prettier --write on staged `.ts`/`.tsx`/`.js`/`.jsx` files.
 
@@ -33,7 +33,7 @@ Above-fold sections (`Hero`, `HowItWorks`, `FAQ`) are eagerly imported. Below-fo
 
 ### Content layer
 
-**All copy lives in `src/data/content.ts`.** Never hardcode strings inside components. The file exports named constants (`HERO_COPY`, `FEATURES`, `FAQS`, `PRICING_COPY`, etc.) consumed directly in components.
+Copy should live in `src/data/content.ts`, which exports named constants (`HERO_COPY`, `FEATURES`, `FAQS`, `PRICING_COPY`, etc.) consumed directly in components. Some components (e.g. `Navbar`) still contain inline strings not yet migrated to `content.ts`; new copy should go in `content.ts`.
 
 ### Theme system
 
@@ -57,7 +57,7 @@ Use Framer Motion only for entrance animations (`motion.div` with `initial`/`ani
 ## Code Conventions
 
 - **Named exports only** — no default exports for components.
-- **Absolute imports** from `src/` (TypeScript `moduleResolution: "bundler"` is configured; use `./` or `../` only when needed by tooling).
+- **Relative imports** — `tsconfig.json` uses `moduleResolution: "bundler"` but has no `baseUrl`/`paths` and `vite.config.ts` has no aliases, so use `./` or `../` paths throughout.
 - **Import order**: React → external packages → internal components/utils.
 - **No `any` types** — ESLint enforces `@typescript-eslint/no-explicit-any: error`. Use `unknown` with type guards.
 - **Unused variables/params** cause build errors (`noUnusedLocals`, `noUnusedParameters` in `tsconfig.json`). Prefix with `_` to suppress if intentional.
