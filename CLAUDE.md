@@ -27,7 +27,7 @@ DocuGen is a **single-page marketing/landing site** (no client-side router). Nav
 
 ### Application entry
 
-`main.tsx` → wraps `<App>` in `<ThemeProvider>` → `App.tsx` renders the full page as a vertical stack of sections.
+`main.tsx` mounts `<App>` inside `<React.StrictMode>`. `App.tsx` owns the `<ThemeProvider>` wrapper and renders the full page as a vertical stack of sections.
 
 Above-fold sections (`Hero`, `HowItWorks`, `FAQ`) are eagerly imported. Below-fold sections (`Features`, `Testimonials`, `Preview`, `Pricing`, `Newsletter`) use `React.lazy` + `<Suspense>` for code splitting.
 
