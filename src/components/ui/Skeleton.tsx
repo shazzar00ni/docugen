@@ -6,20 +6,15 @@ interface SkeletonProps {
 }
 
 /**
- * Skeleton loading component with multiple variants.
- * Displays animated placeholder content while actual content loads.
+ * Render an animated skeleton placeholder with configurable shape and size.
  *
- * @param className - Additional CSS classes
- * @param variant - Skeleton shape ('text' | 'circular' | 'rectangular')
- * @param width - Custom width (number or string)
- * @param height - Custom height (number or string)
- * @returns Animated skeleton placeholder
+ * Supports 'text', 'circular', and 'rectangular' variants to approximate different UI elements.
  *
- * @example
- * ```typescript
- * <Skeleton variant="text" width="100%" height={20} />
- * <Skeleton variant="circular" width={40} height={40} />
- * ```
+ * @param className - Additional CSS classes applied to the root element
+ * @param variant - Shape of the skeleton: 'text' | 'circular' | 'rectangular'
+ * @param width - Width for the skeleton (number interpreted as pixels or any valid CSS width string)
+ * @param height - Height for the skeleton (number interpreted as pixels or any valid CSS height string)
+ * @returns A React element that visually represents the skeleton placeholder
  */
 export function Skeleton({ className = '', variant = 'text', width, height }: SkeletonProps) {
   const baseStyles = 'bg-dark-800 animate-pulse rounded';
