@@ -10,6 +10,8 @@ export const NAV_LINKS = [
   { label: 'Features', href: '#features' },
   { label: 'How it Works', href: '#how-it-works' },
   { label: 'Pricing', href: '#pricing' },
+  { label: 'FAQ', href: '#faq' },
+  { label: 'Testimonials', href: '#testimonials' },
 ];
 
 export const FOOTER_LINKS = [
@@ -107,6 +109,7 @@ export const NEWSLETTER_COPY = {
   title: 'Stay in the loop',
   description: 'Get updates on new features, documentation tips, and early access invites.',
   placeholder: 'Enter your email',
+  ariaLabel: 'Email',
   button: 'Subscribe',
 };
 
