@@ -49,7 +49,17 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 npm run build
 ```
 
-The built files will be in the `dist/` directory.
+`npm run build` is the canonical build contract: it first runs TypeScript type-checking and then emits the Vite production bundle in `dist/`.
+
+### Verification Contract
+
+Run this before every commit and in CI:
+
+```bash
+npm run ci:verify
+```
+
+This command enforces the project contract in order: lint (`npm run lint`), unit tests (`npm run test:run`), and canonical build (`npm run build`).
 
 ### Preview Production Build
 
