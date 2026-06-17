@@ -9,6 +9,7 @@ Thank you for your interest in contributing to DocuGen! This document provides g
 - Node.js 18+
 - npm 9+
 - Git
+- ESLint 9+ (for local development, ESLint uses flat config)
 
 ### Development Setup
 

@@ -2,23 +2,6 @@ import { useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from './ui/Button';
 
-/**
- * UploadDemo component that provides an interactive file upload demonstration.
- * Supports drag-and-drop and click-to-select functionality for Markdown files (.md, .mdx).
- * Features multiple states: initial dropzone, uploading, and completion with animated transitions.
- * Includes file validation, progress simulation, and the ability to reset and try again.
- *
- * @example
- * ```tsx
- * import { UploadDemo } from '@/components/UploadDemo';
- *
- * function UploadSection() {
- *   return <UploadDemo />;
- * }
- * ```
- *
- * @returns A JSX element representing the upload demonstration interface
- */
 export function UploadDemo() {
   const [isDragging, setIsDragging] = useState(false);
   const [file, setFile] = useState<File | null>(null);
@@ -26,10 +9,6 @@ export function UploadDemo() {
   const [isComplete, setIsComplete] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  /**
-   * Simulates the file upload process with a 2-second delay.
-   * Sets uploading state to true immediately, then transitions to complete state after timeout.
-   */
   const simulateUpload = useCallback(() => {
     setIsUploading(true);
     setTimeout(() => {
@@ -38,28 +17,16 @@ export function UploadDemo() {
     }, 2000);
   }, []);
 
-  /**
-   * Handles the drag over event for the dropzone.
-   * Prevents default browser behavior and sets the dragging state to true.
-   */
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(true);
   }, []);
 
-  /**
-   * Handles the drag leave event for the dropzone.
-   * Prevents default browser behavior and sets the dragging state to false.
-   */
   const handleDragLeave = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
   }, []);
 
-  /**
-   * Handles the drop event for the dropzone.
-   * Validates file type and initiates upload simulation for valid Markdown files.
-   */
   const handleDrop = useCallback(
     (e: React.DragEvent) => {
       e.preventDefault();
@@ -73,10 +40,6 @@ export function UploadDemo() {
     [simulateUpload]
   );
 
-  /**
-   * Handles file selection via the file input dialog.
-   * Validates file type and initiates upload simulation for valid Markdown files.
-   */
   const handleFileSelect = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const selectedFile = e.target.files?.[0];
@@ -91,10 +54,6 @@ export function UploadDemo() {
     [simulateUpload]
   );
 
-  /**
-   * Resets the upload demo to its initial state.
-   * Clears the selected file and resets all state variables.
-   */
   const resetDemo = () => {
     setFile(null);
     setIsUploading(false);
