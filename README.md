@@ -3,6 +3,7 @@
 Beautiful documentation made simple. Upload your Markdown, MDX, or README files and deploy a stunning static documentation website in seconds.
 
 ![1000010991](https://github.com/user-attachments/assets/a1e0dc7a-9d26-4ca8-8fdd-4c14265c4f16)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fshazzar00ni%2Fdocugen.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fshazzar00ni%2Fdocugen?ref=badge_shield)
 
 ## What is DocuGen?
 
@@ -200,3 +201,6 @@ MIT License - feel free to use this template for your own projects.
 ---
 
 Built with ❤️ for developers who love great documentation.
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fshazzar00ni%2Fdocugen.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fshazzar00ni%2Fdocugen?ref=badge_large)
