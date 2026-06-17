@@ -2,6 +2,12 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from './ui/Button';
 
+/**
+ * Reads the stored cookie consent preference from localStorage.
+ * Returns true (show consent) when no preference has been saved yet.
+ *
+ * @returns True if the consent banner should be displayed, false otherwise
+ */
 function getInitialConsentState(): boolean {
   try {
     const hasConsented = localStorage.getItem('docugen-cookie-consent');

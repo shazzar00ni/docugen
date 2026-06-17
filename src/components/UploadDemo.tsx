@@ -64,7 +64,7 @@ export function UploadDemo() {
     (e: React.DragEvent) => {
       e.preventDefault();
       setIsDragging(false);
-      const droppedFile = e.dataTransfer.files[0];
+      const droppedFile = e.dataTransfer.files.item(0);
       if (droppedFile && (droppedFile.name.endsWith('.md') || droppedFile.name.endsWith('.mdx'))) {
         setFile(droppedFile);
         simulateUpload();
