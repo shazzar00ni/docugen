@@ -6,7 +6,7 @@ This document provides guidelines for AI agents working in the DocuGen codebase.
 
 ```bash
 npm run dev          # Start development server on port 3000
-npm run build        # TypeScript check + Vite build (run before committing)
+npm run build        # Canonical build contract: typecheck + Vite production bundle
 npm run preview      # Preview production build locally
 npm run lint         # Run ESLint with strict rules (fails on warnings)
 npm run test         # Run Vitest in watch mode
@@ -190,4 +190,4 @@ Comprehensive documentation is available in the `docs/` directory:
 - Default font: Inter (sans-serif), JetBrains Mono for code
 - Dark mode default: `class="dark"` on `<html>` element
 - Animations: Subtle and professional, no bouncing or spring effects
-- Commit hook: `npm run lint` and `npm run build` run pre-commit
+- Canonical verification command: `npm run ci:verify` (lint + tests + build contract)

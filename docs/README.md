@@ -97,3 +97,7 @@ _Status: ✅ Complete | 🚧 In Progress | ⏳ Planned_
 **Note**: DocuGen is currently in active development. See the [roadmap](../.planning/ROADMAP.md) for feature availability and upcoming phases.
 
 For the high-level project overview, see the [root README](../README.md).
+
+## Build Contract
+
+Use `npm run ci:verify` as the single verification command. It runs `npm run lint`, `npm run test:run`, and `npm run build` (which itself runs typecheck + Vite build).

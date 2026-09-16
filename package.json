@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run typecheck && vite build",
     "preview": "vite preview",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --max-warnings 0 --fix",
@@ -15,7 +15,9 @@
     "test": "vitest",
     "test:run": "vitest run",
     "prepare": "husky",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "build:bundle": "vite build",
+    "ci:verify": "npm run lint && npm run test:run && npm run build"
   },
   "dependencies": {
     "framer-motion": "^12.38.0",

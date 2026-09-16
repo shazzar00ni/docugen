@@ -9,6 +9,7 @@ Complete guide for setting up the DocuGen development environment, understanding
 - [Development Workflow](#development-workflow)
 - [Project Structure](#project-structure)
 - [Available Scripts](#available-scripts)
+- [Build Contract](#build-contract)
 - [Code Style & Standards](#code-style--standards)
 - [Git Workflow](#git-workflow)
 - [Troubleshooting](#troubleshooting)
@@ -144,9 +145,7 @@ All tests should pass.
 3. **Verify Changes**
 
    ```bash
-   npm run lint
-   npm run test:run
-   npm run build
+   npm run ci:verify
    ```
 
 4. **Commit Changes**
@@ -287,14 +286,32 @@ Utility functions and hooks:
 Before committing, always run:
 
 ```bash
-npm run lint && npm run test:run && npm run build
+npm run ci:verify
 ```
 
 This ensures:
 
 1. No linting errors
 2. All tests pass
-3. Production build succeeds
+3. TypeScript type-checking passes
+4. Production bundle succeeds
+
+## Build Contract
+
+DocuGen has one canonical build policy:
+
+- `npm run build` must always perform **TypeScript type-checking first**, then run the **Vite production build**.
+- `npm run ci:verify` is the canonical pre-commit and CI verification command.
+
+Contract commands:
+
+```bash
+npm run typecheck    # TypeScript only (no emitted files)
+npm run build        # Canonical build contract (typecheck + bundle)
+npm run ci:verify    # lint + tests + canonical build
+```
+
+Use `npm run build:bundle` only when you intentionally need to bypass type-checking for local diagnostics. Never use it in CI.
 
 ## Code Style & Standards
 
