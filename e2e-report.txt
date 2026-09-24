@@ -1,0 +1,20 @@
+
+Running 31 tests using 1 worker
+
+  ✓   1 [Chromium] › e2e/landing.spec.ts:3:1 › loads landing page and core sections (1.3s)
+  ✓   2 [Chromium] › e2e/landing.spec.ts:19:1 › navigate via anchor links (766ms)
+  ✘   3 [Chromium] › e2e/landing.spec.ts:27:1 › newsletter form shows success on valid email (30.3s)
+  ✘   4 [Chromium] › e2e/landing.spec.ts:34:1 › newsletter form shows error on invalid email (30.1s)
+  ✘   5 [Chromium] › e2e/landing.spec.ts:41:1 › newsletter form shows error on empty submit (865ms)
+  ✓   6 [Chromium] › e2e/landing.spec.ts:47:1 › pricing section renders (952ms)
+  ✘   7 [Chromium] › e2e/landing.spec.ts:54:1 › testimonials section renders (30.1s)
+  ✘   8 [Chromium] › e2e/landing.spec.ts:61:1 › skip-to-content focus navigation (5.9s)
+  ✘   9 [Chromium] › e2e/landing.spec.ts:69:1 › faq accordion expands and collapses (30.2s)
+  ✘  10 [Chromium] › e2e/landing.spec.ts:80:1 › mobile menu opens and closes (1.5s)
+  ✘  11 [Chromium] › e2e/landing.spec.ts:89:1 › mobile menu closes on link click (766ms)
+  ✘  12 [Chromium] › e2e/landing.spec.ts:97:1 › mobile menu closes on backdrop click (691ms)
+  ✘  13 [Chromium] › e2e/landing.spec.ts:106:1 › keyboard escape closes mobile menu (647ms)
+  ✘  14 [Chromium] › e2e/landing.spec.ts:115:1 › scroll-to-top button appears on scroll (5.6s)
+  ✓  15 [Chromium] › e2e/landing.spec.ts:123:1 › dark/light mode toggle works (731ms)
+  ✓  16 [Chromium] › e2e/landing.spec.ts:132:1 › theme persists after reload (622ms)
+  ✓  17 [Chromium] › e2e/landing.spec.ts:142:1 › upload demo is visible (535ms)

@@ -50,4 +50,14 @@ describe('Input', () => {
     expect(screen.getByRole('textbox')).toHaveClass('opacity-50');
     expect(screen.getByRole('textbox')).toHaveClass('cursor-not-allowed');
   });
+
+  it('forwards aria-label to input element', () => {
+    render(<Input aria-label="Email" />);
+    expect(screen.getByLabelText('Email')).toBeInTheDocument();
+  });
+
+  it('applies aria-label attribute', () => {
+    render(<Input aria-label="Search" />);
+    expect(screen.getByRole('textbox')).toHaveAttribute('aria-label', 'Search');
+  });
 });
