@@ -6,45 +6,29 @@ function getInitialConsentState(): boolean {
   try {
     const hasConsented = localStorage.getItem('docugen-cookie-consent');
     return !hasConsented;
-  } catch (error) {
-    console.error('Failed to read cookie consent from localStorage:', error);
+  } catch {
     return true;
   }
 }
 
-/**
- * Cookie consent management component.
- * Manages GDPR compliance for analytics tracking.
- * Shows consent banner and stores user preference in localStorage.
- *
- * @returns Cookie consent banner component
- */
 export function CookieConsent() {
   const [showConsent, setShowConsent] = useState(getInitialConsentState);
 
-  /**
-   * Handles accepting all cookies.
-   * Stores acceptance preference and hides consent banner.
-   */
   const handleAccept = () => {
     setShowConsent(false);
     try {
       localStorage.setItem('docugen-cookie-consent', 'accepted');
-    } catch (e) {
-      console.error('Failed to save cookie consent to storage:', e);
+    } catch {
+      // Silently fail
     }
   };
 
-  /**
-   * Handles declining optional cookies.
-   * Stores decline preference and hides consent banner.
-   */
   const handleDecline = () => {
     setShowConsent(false);
     try {
       localStorage.setItem('docugen-cookie-consent', 'declined');
-    } catch (e) {
-      console.error('Failed to save cookie consent to storage:', e);
+    } catch {
+      // Silently fail
     }
   };
 
