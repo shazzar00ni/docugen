@@ -2,6 +2,14 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { UploadDemo } from './UploadDemo';
 
+function createFileList(file: File) {
+  return {
+    0: file,
+    length: 1,
+    item: (index: number) => (index === 0 ? file : null),
+  };
+}
+
 describe('UploadDemo', () => {
   it('renders drag and drop zone initially', () => {
     render(<UploadDemo />);
@@ -23,7 +31,7 @@ describe('UploadDemo', () => {
 
     fireEvent.drop(dropzone as Element, {
       dataTransfer: {
-        files: [file],
+        files: createFileList(file),
       },
     });
   });
@@ -35,7 +43,7 @@ describe('UploadDemo', () => {
 
     fireEvent.drop(dropzone as Element, {
       dataTransfer: {
-        files: [file],
+        files: createFileList(file),
       },
     });
 

@@ -66,6 +66,10 @@ export function ShareButtons({
     },
   ];
 
+  /**
+   * Copies the share URL to the clipboard.
+   * Silently logs an error if the Clipboard API is unavailable.
+   */
   const handleCopyLink = async () => {
     try {
       await navigator.clipboard.writeText(url);
