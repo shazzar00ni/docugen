@@ -14,6 +14,12 @@
   .dark body {
     @apply bg-dark-950 text-dark-100;
   }
+
+  /* Prevent SVGs from becoming excessively large if utility classes are lost */
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
 }
 
 @layer utilities {
