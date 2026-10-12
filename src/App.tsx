@@ -4,7 +4,8 @@ import { MarkdownViewer } from './components/markdown/MarkdownViewer';
 import { Navigation } from './components/navigation/Navigation';
 import { TableOfContents } from './components/navigation/TableOfContents';
 import { Breadcrumbs } from './components/navigation/Breadcrumbs';
-import { parseMarkdown, extractNavFromHtml, getPathToItem } from './lib/nav';
+import { parseMarkdown } from './lib/markdown';
+import { extractNavFromHtml, getPathToItem } from './lib/nav';
 
 export type DocViewerState = {
   rawMarkdown: string;
