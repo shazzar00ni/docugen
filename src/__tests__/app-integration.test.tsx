@@ -40,12 +40,9 @@ describe('Breadcrumbs', () => {
 });
 
 describe('App integration', () => {
-  beforeEach(() => {
-    // Mock DOMPurify for MarkdownViewer
-    vi.stubGlobal('DOMPurify', {
-      sanitize: vi.fn((html: string) => html),
-    });
-  });
+  vi.mock('dompurify', () => ({
+    default: { sanitize: (html: string) => html },
+  }));
 
   it('renders initial upload view', () => {
     render(<App />);
